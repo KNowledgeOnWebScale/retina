@@ -1,21 +1,20 @@
-# Reasoning on Web scale
+# Imagining the power of prolog on Web scale
 
 Imagining is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
 TERM            | Examples
 ----------------|---------
 IRI             | `'http://example.org/etc#Socrates'`
-LITERAL         | `"abc"` `"chat"-fr` `"2022-01-15"-'http://www.w3.org/2001/XMLSchema#date'` `1.52` `1e-19` `pi`
+LITERAL         | `"abc"` `"chat"-fr` `1.52` `1e-19` `pi`
 VARIABLE        | `X` `_abc` `_`
 LIST            | `[TERM,...]` `[TERM,...`\|`LIST]` `[]`
-TRIPLE          | `IRI(TERM,TERM)`
+RELATION        | `IRI(TERM,...)`
 GRAPH           | `TRIPLE,...` `true`
 
 CLAUSE          | Examples
 ----------------|---------
-FACT            | `TRIPLE.`
-FORWARD_RULE    | `GRAPH => GRAPH.`
-BACKWARD_RULE   | `TRIPLE :- GRAPH,`[`PROLOG`](https://github.com/mthom/scryer-prolog)`.`
+FACT            | `RELATION.`
+RULE            | `RELATION :- GRAPH,`[`PROLOG`](https://github.com/mthom/scryer-prolog)`.`
 
 
 ## Installation and test
