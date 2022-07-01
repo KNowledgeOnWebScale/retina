@@ -1,4 +1,4 @@
-# Imagining the power of prolog on Web scale
+# Imagining the power of Prolog on Web scale
 
 Imagining is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
