@@ -1,4 +1,4 @@
-# Imagining the power of Prolog on Web scale
+# Imagining Prolog on Web scale
 
 Imagining is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
@@ -9,7 +9,7 @@ LITERAL         | `"abc"` `"chat"-fr` `1.52` `1e-19` `pi`
 VARIABLE        | `X` `_abc` `_`
 LIST            | `[TERM,...]` `[TERM,...`\|`LIST]` `[]`
 RELATION        | `IRI(TERM,...)`
-GRAPH           | `TRIPLE,...` `true`
+GRAPH           | `RELATION,...` `true`
 
 CLAUSE          | Examples
 ----------------|---------
