@@ -1,0 +1,2 @@
+#!/bin/bash
+scryer-prolog -g run,halt polygon.pl | tee result.pl

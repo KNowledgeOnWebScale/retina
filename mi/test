@@ -1,0 +1,2 @@
+#!/bin/bash
+scryer-prolog -g run,halt mi.pl | tee result.pl
