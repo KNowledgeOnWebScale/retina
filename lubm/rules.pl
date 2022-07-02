@@ -7,7 +7,7 @@
 :- multifile('http://www.example.org/name'/2).
 :- multifile('http://www.example.org/publicationAuthor'/2).
 :- multifile('http://www.example.org/researchInterest'/2).
-:- multifile('http://www.example.org/subOrganizationOf'/2).
+:- multifile('http://www.example.org/directSubOrganizationOf'/2).
 :- multifile('http://www.example.org/takesCourse'/2).
 :- multifile('http://www.example.org/teacherOf'/2).
 :- multifile('http://www.example.org/teachingAssistantOf'/2).
@@ -16,7 +16,6 @@
 :- multifile('http://www.example.org/worksFor'/2).
 :- multifile('http://www.example.org/hasAlumnus'/2).
 :- multifile('http://www.example.org/degreeFrom'/2).
-:- multifile('http://www.example.org/member'/2).
 :- multifile('http://www.example.org/affiliatedOrganizationOf'/2).
 :- multifile('http://www.example.org/affiliateOf'/2).
 :- multifile('http://www.example.org/age'/2).
@@ -88,11 +87,6 @@
 
 'http://www.example.org/Dean'(A) :- 'http://www.example.org/headOf'(A, B), 'http://www.example.org/College'(B).
 
-'http://www.example.org/degreeFrom'(A, B) :- 'http://www.example.org/doctoralDegreeFrom'(A, B).
-'http://www.example.org/degreeFrom'(A, B) :- 'http://www.example.org/hasAlumnus'(B, A).
-'http://www.example.org/degreeFrom'(A, B) :- 'http://www.example.org/mastersDegreeFrom'(A, B).
-'http://www.example.org/degreeFrom'(A, B) :- 'http://www.example.org/undergraduateDegreeFrom'(A, B).
-
 'http://www.example.org/Director'(A) :- 'http://www.example.org/headOf'(A, B), 'http://www.example.org/Program'(B).
 
 'http://www.example.org/Employee'(A) :- 'http://www.example.org/AdministrativeStaff'(A).
@@ -104,25 +98,18 @@
 'http://www.example.org/Faculty'(A) :- 'http://www.example.org/Professor'(A).
 'http://www.example.org/Faculty'(A) :- 'http://www.example.org/teacherOf'(A, _).
 
-'http://www.example.org/hasAlumnus'(A, B) :- 'http://www.example.org/degreeFrom'(B, A).
-
-'http://www.example.org/member'(A, B) :- 'http://www.example.org/memberOf'(B, A).
-
-'http://www.example.org/memberOf'(A, B) :- 'http://www.example.org/member'(B, A).
-'http://www.example.org/memberOf'(A, B) :- 'http://www.example.org/worksFor'(A, B).
-
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/affiliatedOrganizationOf'(_, A).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/affiliatedOrganizationOf'(A, _).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/affiliateOf'(A, _).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/College'(A).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/Department'(A).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/Institute'(A).
-'http://www.example.org/Organization'(A) :- 'http://www.example.org/member'(A, _).
+'http://www.example.org/Organization'(A) :- 'http://www.example.org/memberOf'(_, A).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/orgPublication'(A, _).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/Program'(A).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/ResearchGroup'(A).
-'http://www.example.org/Organization'(A) :- 'http://www.example.org/subOrganizationOf'(_, A).
-'http://www.example.org/Organization'(A) :- 'http://www.example.org/subOrganizationOf'(A, _).
+'http://www.example.org/Organization'(A) :- 'http://www.example.org/directSubOrganizationOf'(_, A).
+'http://www.example.org/Organization'(A) :- 'http://www.example.org/directSubOrganizationOf'(A, _).
 'http://www.example.org/Organization'(A) :- 'http://www.example.org/University'(A).
 
 'http://www.example.org/Professor'(A) :- 'http://www.example.org/advisor'(_, A).
@@ -159,8 +146,6 @@
 'http://www.example.org/Student'(A) :- 'http://www.example.org/takesCourse'(A, B), 'http://www.example.org/Course'(B).
 'http://www.example.org/Student'(A) :- 'http://www.example.org/UndergraduateStudent'(A).
 
-'http://www.example.org/subOrganizationOf'(A, C) :- 'http://www.example.org/subOrganizationOf'(A, B), 'http://www.example.org/subOrganizationOf'(B, C).
-
 'http://www.example.org/TeachingAssistant'(A) :- 'http://www.example.org/teachingAssistantOf'(A, B), 'http://www.example.org/Course'(B).
 'http://www.example.org/TeachingAssistant'(A) :- 'http://www.example.org/teachingAssistantOf'(A, _).
 
@@ -173,10 +158,44 @@
 'http://www.example.org/Work'(A) :- 'http://www.example.org/Course'(A).
 'http://www.example.org/Work'(A) :- 'http://www.example.org/Research'(A).
 
+'http://www.example.org/degreeFrom'(A, B) :- 'http://www.example.org/doctoralDegreeFrom'(A, B).
+'http://www.example.org/degreeFrom'(A, B) :- 'http://www.example.org/mastersDegreeFrom'(A, B).
+'http://www.example.org/degreeFrom'(A, B) :- 'http://www.example.org/undergraduateDegreeFrom'(A, B).
+
+'http://www.example.org/hasAlumnus'(A, B) :- 'http://www.example.org/degreeFrom'(B, A).
+
+'http://www.example.org/memberOf'(A, B) :- 'http://www.example.org/worksFor'(A, B).
+
 'http://www.example.org/worksFor'(A, B) :- 'http://www.example.org/headOf'(A, B).
 
+'http://www.example.org/subOrganizationOf'(A, B) :- 'http://www.example.org/directSubOrganizationOf'(A, B).
+'http://www.example.org/subOrganizationOf'(A, C) :- 'http://www.example.org/directSubOrganizationOf'(A, B), 'http://www.example.org/subOrganizationOf'(B, C).
+
 % query
+query('http://www.example.org/AdministrativeStaff'(_A)).
+query('http://www.example.org/Article'(_A)).
+query('http://www.example.org/Chair'(_A)).
+query('http://www.example.org/Course'(_A)).
+query('http://www.example.org/Dean'(_A)).
+query('http://www.example.org/Director'(_A)).
+query('http://www.example.org/Employee'(_A)).
+query('http://www.example.org/Faculty'(_A)).
+query('http://www.example.org/Organization'(_A)).
 query('http://www.example.org/Professor'(_A)).
+query('http://www.example.org/Publication'(_A)).
+query('http://www.example.org/Research'(_A)).
+query('http://www.example.org/ResearchGroup'(_A)).
+query('http://www.example.org/Schedule'(_A)).
+query('http://www.example.org/Software'(_A)).
+query('http://www.example.org/Student'(_A)).
+query('http://www.example.org/TeachingAssistant'(_A)).
+query('http://www.example.org/University'(_A)).
+query('http://www.example.org/Work'(_A)).
+query('http://www.example.org/degreeFrom'(_A, _B)).
+query('http://www.example.org/hasAlumnus'(_A, _B)).
+query('http://www.example.org/memberOf'(_A, _B)).
+query('http://www.example.org/worksFor'(_A, _B)).
+query('http://www.example.org/subOrganizationOf'(_A, _B)).
 
 run :-
     query(Q),
