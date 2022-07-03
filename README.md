@@ -1,4 +1,4 @@
-# Imagining: Prolog on Web scale
+# Imagining Prolog on Web scale
 
 [Imagining](https://github.com/josd/imagining) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
