@@ -8,13 +8,13 @@ IRI             | `'http://example.org/etc#Socrates'`
 LITERAL         | `"abc"` `"chat"-fr` `1.52` `1e-19` `pi`
 VARIABLE        | `X` `_abc` `_`
 LIST            | `[TERM,...]` `[TERM,...`\|`LIST]` `[]`
-RELATION        | `IRI(TERM,...)`
-GRAPH           | `RELATION,...` `true`
+RELATION        | `IRI(TERM, ...)` `abc(TERM, ...)`
+GRAPH           | `RELATION, ...` `true`
 
 CLAUSE          | Examples
 ----------------|---------
 FACT            | `RELATION.`
-RULE            | `RELATION :- GRAPH,`[`PROLOG`](https://github.com/mthom/scryer-prolog)`.`
+RULE            | `RELATION :- GRAPH.`
 
 
 ## Installation and test
