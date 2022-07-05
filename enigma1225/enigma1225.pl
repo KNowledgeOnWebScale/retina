@@ -3,7 +3,7 @@
 :- use_module(library(lists)).
 :- use_module(library(si)).
 
-'https://josd.github.io/imagining#enigma1225'(Size, [Permutation, Board, Max]) :-
+'https://josd.github.io/imagining#enigma1225'(Size, [Permutation,Board,Max]) :-
     setof(Total, M^Freq^Perm^square(Size, M, Total, Freq, Perm), Totals),
     last(Totals, Max),
     square(Size, Board, Max, _, Permutation).
@@ -231,7 +231,7 @@ last_([X|Xs], _, Last) :-
     last_(Xs, X, Last).
 
 % query
-query('https://josd.github.io/imagining#enigma1225'(10,_ANSWER)).
+query('https://josd.github.io/imagining#enigma1225'(10, _ANSWER)).
 
 run :-
     query(Q),
