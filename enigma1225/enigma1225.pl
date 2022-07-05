@@ -231,7 +231,7 @@ last_([X|Xs], _, Last) :-
     last_(Xs, X, Last).
 
 % query
-query('https://josd.github.io/imagining#enigma1225'(10, _ANSWER)).
+query('https://josd.github.io/imagining#enigma1225'(8, _ANSWER)).
 
 run :-
     query(Q),
