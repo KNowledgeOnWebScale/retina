@@ -19,7 +19,7 @@ RULE            | `RELATION :- GRAPH.`
 
 ## Installation and test
 
-Install [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and then run
+Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and then run
 
 ```
 ./test
