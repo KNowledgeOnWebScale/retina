@@ -8,7 +8,7 @@ URI             | `'http://example.org/etc#Socrates'`
 LITERAL         | `"abc"` `"chat"-fr` `1.52` `1e-19` `pi`
 VARIABLE        | `X` `_abc` `_`
 LIST            | `[TERM,...]` `[TERM,...`\|`LIST]` `[]`
-RELATION        | `IRI(TERM, ...)` `abc(TERM, ...)`
+RELATION        | `URI(TERM, ...)` `abc(TERM, ...)`
 GRAPH           | `RELATION, ...` `true`
 
 CLAUSE          | Examples
