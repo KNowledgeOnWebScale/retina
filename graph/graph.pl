@@ -20,9 +20,11 @@
 
 run :-
     forward,
-    'https://josd.github.io/imagining#relate'(R, _),
-    R,
-    writeq(R),
+    'https://josd.github.io/imagining#relate'(Conc, _),
+    step((Prem => Conc)),
+    writeq(step((Prem => Conc))),
     write('.\n'),
+    writeq(Conc),
+    write('.\n\n'),
     fail;
     true.

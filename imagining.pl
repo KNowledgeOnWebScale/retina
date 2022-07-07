@@ -12,6 +12,7 @@
 
 :- dynamic(brake/0).
 :- dynamic(label/1).
+:- dynamic(step/1).
 :- dynamic(pred/1).
 
 % forward chaining
@@ -20,7 +21,7 @@ forward :-
     Prem,
     \+Conc,
     labelvars(Conc),
-    astep(Conc),
+    astep((Prem => Conc)),
     retract(brake),
     fail.
 forward :-
@@ -39,12 +40,17 @@ labelvars(Term) :-
     numbervars(Term,Current,Next),
     assertz(label(Next)).
 
-% assert new step
-astep((A, B)) :-
+% assert step
+astep((Prem => Conc)) :-
+    assertz(step((Prem => Conc))),
+    aconc(Conc).
+
+% assert new conclusions
+aconc((A, B)) :-
     !,
-    astep(A),
-    astep(B).
-astep(A) :-
+    aconc(A),
+    aconc(B).
+aconc(A) :-
     (   \+A
     ->  assertz(A),
         (   functor(A, B, C),
