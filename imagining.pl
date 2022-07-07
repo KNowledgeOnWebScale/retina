@@ -47,9 +47,9 @@ astep((A, B)) :-
 astep(A) :-
     (   \+A
     ->  assertz(A),
-        (   functor(A, B, _),
-            \+pred(B)
-        ->  assertz(pred(B))
+        (   functor(A, B, C),
+            \+pred(B/C)
+        ->  assertz(pred(B/C))
         ;   true
         )
     ;   true
@@ -60,7 +60,8 @@ astep(A) :-
 %
 'https://josd.github.io/imagining#relate'(Relation, [P|Args]) :-
     (   var(P)
-    ->  pred(P)
+    ->  pred(P/C),
+        length(Args, C)
     ;   true
     ),
     Relation =.. [P|Args].
