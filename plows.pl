@@ -1,6 +1,6 @@
-% -----------------------
-% Imagining -- Jos De Roo
-% -----------------------
+% -------------------
+% Plows -- Jos De Roo
+% -------------------
 %
 % See https://josd.github.io/plows/
 %
