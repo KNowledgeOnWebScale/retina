@@ -3,7 +3,7 @@
 
 :- use_module(library(lists)).
 
-'https://josd.github.io/imagining#route'([Source,Destination,Obstacles],Path) :-
+'https://josd.github.io/plows#route'([Source,Destination,Obstacles],Path) :-
     waves(Destination,[[Source],[]],Obstacles,Waves),
     path(Source,Destination,Waves,Path).
 
@@ -67,7 +67,7 @@ path(A,B,[Wave|Waves],[B|Path]) :-
     path(A,B1,Waves,Path).
 
 % query
-query('https://josd.github.io/imagining#route'([[1,1],[9,8],[[[2,3],[4,5]],[[6,6],[8,8]]]],_ANSWER)).
+query('https://josd.github.io/plows#route'([[1,1],[9,8],[[[2,3],[4,5]],[[6,6],[8,8]]]],_ANSWER)).
 
 run :-
     query(Q),

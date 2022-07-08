@@ -15,8 +15,8 @@
 
 :- use_module(library(lists)).
 
-% 'https://josd.github.io/imagining#solve_zebra'/2 - The main predicate for solving the puzzle
-'https://josd.github.io/imagining#zebra'(WaterDrinker, ZebraOwner) :-
+% 'https://josd.github.io/plows#solve_zebra'/2 - The main predicate for solving the puzzle
+'https://josd.github.io/plows#zebra'(WaterDrinker, ZebraOwner) :-
     length(Houses, 5),                                                          % 1. There are five houses.
     member(house(red, english, _, _, _), Houses),                               % 2. The Englishman lives in the red house.
     member(house(_, spanish, dog, _, _), Houses),                               % 3. The Spaniard owns the dog.
@@ -64,7 +64,7 @@ nth1_(N,[_|T],Item) :-
     N is M + 1.
 
 % query
-query('https://josd.github.io/imagining#zebra'(_WaterDrinker, _ZebraOwner)).
+query('https://josd.github.io/plows#zebra'(_WaterDrinker, _ZebraOwner)).
 
 run :-
     query(Q),

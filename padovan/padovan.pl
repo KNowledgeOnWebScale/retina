@@ -1,6 +1,6 @@
 % See https://en.wikipedia.org/wiki/Padovan_sequence
 
-'https://josd.github.io/imagining#padovan'(A,B) :-
+'https://josd.github.io/plows#padovan'(A,B) :-
     padovan(A,0,1,1,B).
 
 padovan(0,A,_,_,A).
@@ -12,25 +12,25 @@ padovan(A,B,C,D,E) :-
     G is B+C,
     padovan(F,C,D,G,E).
 
-'https://josd.github.io/imagining#plastic_ratio'(A,B) :-
-    'https://josd.github.io/imagining#padovan'(A,C),
+'https://josd.github.io/plows#plastic_ratio'(A,B) :-
+    'https://josd.github.io/plows#padovan'(A,C),
     D is A+1,
-    'https://josd.github.io/imagining#padovan'(D,E),
+    'https://josd.github.io/plows#padovan'(D,E),
     B is E/C.
 
 % query
-query('https://josd.github.io/imagining#padovan'(1,_ANSWER)).
-query('https://josd.github.io/imagining#padovan'(2,_ANSWER)).
-query('https://josd.github.io/imagining#padovan'(3,_ANSWER)).
-query('https://josd.github.io/imagining#padovan'(4,_ANSWER)).
-query('https://josd.github.io/imagining#padovan'(5,_ANSWER)).
-query('https://josd.github.io/imagining#padovan'(91,_ANSWER)).
-query('https://josd.github.io/imagining#padovan'(283,_ANSWER)).
-query('https://josd.github.io/imagining#padovan'(3674,_ANSWER)).
-query('https://josd.github.io/imagining#plastic_ratio'(1,_ANSWER)).
-query('https://josd.github.io/imagining#plastic_ratio'(10,_ANSWER)).
-query('https://josd.github.io/imagining#plastic_ratio'(100,_ANSWER)).
-query('https://josd.github.io/imagining#plastic_ratio'(1000,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(1,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(2,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(3,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(4,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(5,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(91,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(283,_ANSWER)).
+query('https://josd.github.io/plows#padovan'(3674,_ANSWER)).
+query('https://josd.github.io/plows#plastic_ratio'(1,_ANSWER)).
+query('https://josd.github.io/plows#plastic_ratio'(10,_ANSWER)).
+query('https://josd.github.io/plows#plastic_ratio'(100,_ANSWER)).
+query('https://josd.github.io/plows#plastic_ratio'(1000,_ANSWER)).
 
 run :-
     query(Q),

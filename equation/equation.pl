@@ -4,7 +4,7 @@
 
 :- use_module(library(lists)).
 
-'http://josd.github.io/imagining#equation'([A,B],C) :-
+'http://josd.github.io/plows#equation'([A,B],C) :-
     findall(E,
         (   solve_equation(A,B,B=F),
             E is F
@@ -452,9 +452,9 @@ compound1(Term) :-
     !.
 
 % query
-query('http://josd.github.io/imagining#equation'([x^2-3*x+2=0,x],_ANSWER)).
-query('http://josd.github.io/imagining#equation'([cos(x)*(1-2*sin(x))=0,x],_ANSWER)).
-query('http://josd.github.io/imagining#equation'([2^(2*x)-5*2^(x+1)+16=0,x],_ANSWER)).
+query('http://josd.github.io/plows#equation'([x^2-3*x+2=0,x],_ANSWER)).
+query('http://josd.github.io/plows#equation'([cos(x)*(1-2*sin(x))=0,x],_ANSWER)).
+query('http://josd.github.io/plows#equation'([2^(2*x)-5*2^(x+1)+16=0,x],_ANSWER)).
 
 run :-
     query(Q),

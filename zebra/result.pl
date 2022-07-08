@@ -1,1 +1,1 @@
-'https://josd.github.io/imagining#zebra'(norwegian,japanese).
+'https://josd.github.io/plows#zebra'(norwegian,japanese).
