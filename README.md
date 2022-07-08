@@ -16,9 +16,7 @@ GRAPH           | `RELATION, ...` `true`
 CLAUSE          | Examples
 ----------------|---------
 FACT            | `RELATION.`
-FORWARD_RULE    | `GRAPH => GRAPH.`
-BACKWARD_RULE   | `RELATION :- GRAPH.`
-
+RULE            | `RELATION :- GRAPH.`
 
 ## Installation and test
 
