@@ -1,10 +1,10 @@
 % Gray Code Counter
 % Code from the book "Clause and Effect" Chapter 8
 
-'https://josd.github.io/plows#gcc'([[],_],[]).
-'https://josd.github.io/plows#gcc'([[C|Cs],S],[N|Ns]) :-
+'<https://josd.github.io/plows#gcc>'([[],_],[]).
+'<https://josd.github.io/plows#gcc>'([[C|Cs],S],[N|Ns]) :-
     gcc(C,S,N),
-    'https://josd.github.io/plows#gcc'([Cs,N],Ns).
+    '<https://josd.github.io/plows#gcc>'([Cs,N],Ns).
 
 gcc(C,[Qa,Qb,Qc],[Za,Zb,Zc]) :-
     neta(Qa,Qb,D1),
@@ -46,7 +46,7 @@ inv(0,1).
 inv(1,0).
 
 % query
-query('https://josd.github.io/plows#gcc'([[1,1,1,1,1,1,1,1,1],[0,0,0]],_ANSWER)).
+query('<https://josd.github.io/plows#gcc>'([[1,1,1,1,1,1,1,1,1],[0,0,0]],_ANSWER)).
 
 run :-
     query(Q),
