@@ -1,8 +1,8 @@
-# plows
+# imagining
 
 ## Prolog on Web scale
 
-[Plows](https://github.com/josd/plows) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
+[Imagining](https://github.com/josd/imagining) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
 TERM            | Examples
 ----------------|---------

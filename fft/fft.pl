@@ -3,7 +3,7 @@
 
 :- use_module(library(lists)).
 
-'<https://josd.github.io/plows#fft>'(A,L) :-
+'<https://josd.github.io/imagining#fft>'(A,L) :-
     eval(p(A,w^0),X0,8),
     eval(p(A,w^1),X1,8),
     eval(p(A,w^2),X2,8),
@@ -53,7 +53,7 @@ node(n(A1,N1),[n(A,N)|T]-[n(A1,N1),n(A,N)|T]) :-
     A1 is A+1.
 
 % query
-query('<https://josd.github.io/plows#fft>'([0,1,2,3,4,5,6,7],_ANSWER)).
+query('<https://josd.github.io/imagining#fft>'([0,1,2,3,4,5,6,7],_ANSWER)).
 
 run :-
     query(Q),

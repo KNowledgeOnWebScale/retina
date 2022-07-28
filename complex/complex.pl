@@ -1,47 +1,47 @@
 % See https://en.wikipedia.org/wiki/Complex_number
 
-'<https://josd.github.io/plows#exp>'([[A,B],[C,D]],[E,F]) :-
+'<https://josd.github.io/imagining#exp>'([[A,B],[C,D]],[E,F]) :-
     polar([A,B],[G,H]),
     E is G^C*exp(-D*H)*cos(D*log(G)+C*H),
     F is G^C*exp(-D*H)*sin(D*log(G)+C*H).
 
-'<https://josd.github.io/plows#log>'([[A,B],[C,D]],[E,F]) :-
+'<https://josd.github.io/imagining#log>'([[A,B],[C,D]],[E,F]) :-
     polar([A,B],[G,H]),
     polar([C,D],[I,J]),
     K is log(G),
     L is log(I),
     divide([[L,J],[K,H]],[E,F]).
 
-'<https://josd.github.io/plows#sin>'([A,B],[C,D]) :-
+'<https://josd.github.io/imagining#sin>'([A,B],[C,D]) :-
     C is sin(A)*(exp(B)+exp(-B))/2,
     D is cos(A)*(exp(B)-exp(-B))/2.
 
-'<https://josd.github.io/plows#cos>'([A,B],[C,D]) :-
+'<https://josd.github.io/imagining#cos>'([A,B],[C,D]) :-
     C is cos(A)*(exp(B)+exp(-B))/2,
     D is -sin(A)*(exp(B)-exp(-B))/2.
 
-'<https://josd.github.io/plows#tan>'(A,B) :-
-    '<https://josd.github.io/plows#sin>'(A,C),
-    '<https://josd.github.io/plows#cos>'(A,D),
+'<https://josd.github.io/imagining#tan>'(A,B) :-
+    '<https://josd.github.io/imagining#sin>'(A,C),
+    '<https://josd.github.io/imagining#cos>'(A,D),
     divide([C,D],B).
 
-'<https://josd.github.io/plows#asin>'([A,B],[C,D]) :-
+'<https://josd.github.io/imagining#asin>'([A,B],[C,D]) :-
     E is (sqrt((1+A)^2+B^2)-sqrt((1-A)^2+B^2))/2,
     F is (sqrt((1+A)^2+B^2)+sqrt((1-A)^2+B^2))/2,
     C is asin(E),
     D is log(F+sqrt(F^2-1)).
 
-'<https://josd.github.io/plows#acos>'([A,B],[C,D]) :-
+'<https://josd.github.io/imagining#acos>'([A,B],[C,D]) :-
     E is (sqrt((1+A)^2+B^2)-sqrt((1-A)^2+B^2))/2,
     F is (sqrt((1+A)^2+B^2)+sqrt((1-A)^2+B^2))/2,
     C is acos(E),
     D is -log(F+sqrt(F^2-1)).
 
-'<https://josd.github.io/plows#atan>'(A,B) :-
+'<https://josd.github.io/imagining#atan>'(A,B) :-
     subtract([[0,1],A],C),
     add([[0,1],A],D),
     divide([C,D],E),
-    '<https://josd.github.io/plows#log>'([[e,0],E],F),
+    '<https://josd.github.io/imagining#log>'([[e,0],E],F),
     divide([F,[0,2]],B).
 
 polar([A,B],[C,D]) :-
@@ -91,16 +91,16 @@ divide([A,B],C) :-
     multiply([A,D],C).
 
 % query
-query('<https://josd.github.io/plows#exp>'([[-1,0],[0.5,0]],_ANSWER)).
-query('<https://josd.github.io/plows#exp>'([[e,0],[0,pi]],_ANSWER)).
-query('<https://josd.github.io/plows#log>'([[e,0],[-1,0]],_ANSWER)).
-query('<https://josd.github.io/plows#log>'([[0,1],[0,1]],_ANSWER)).
-query('<https://josd.github.io/plows#sin>'([1.570796326794897,1.316957896924817],_ANSWER)).
-query('<https://josd.github.io/plows#cos>'([0,-1.316957896924817],_ANSWER)).
-query('<https://josd.github.io/plows#tan>'([1.338972522294493,0.4023594781085251],_ANSWER)).
-query('<https://josd.github.io/plows#asin>'([2,0],_ANSWER)).
-query('<https://josd.github.io/plows#acos>'([2,0],_ANSWER)).
-query('<https://josd.github.io/plows#atan>'([1,2],_ANSWER)).
+query('<https://josd.github.io/imagining#exp>'([[-1,0],[0.5,0]],_ANSWER)).
+query('<https://josd.github.io/imagining#exp>'([[e,0],[0,pi]],_ANSWER)).
+query('<https://josd.github.io/imagining#log>'([[e,0],[-1,0]],_ANSWER)).
+query('<https://josd.github.io/imagining#log>'([[0,1],[0,1]],_ANSWER)).
+query('<https://josd.github.io/imagining#sin>'([1.570796326794897,1.316957896924817],_ANSWER)).
+query('<https://josd.github.io/imagining#cos>'([0,-1.316957896924817],_ANSWER)).
+query('<https://josd.github.io/imagining#tan>'([1.338972522294493,0.4023594781085251],_ANSWER)).
+query('<https://josd.github.io/imagining#asin>'([2,0],_ANSWER)).
+query('<https://josd.github.io/imagining#acos>'([2,0],_ANSWER)).
+query('<https://josd.github.io/imagining#atan>'([1,2],_ANSWER)).
 
 run :-
     query(Q),

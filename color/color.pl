@@ -2,7 +2,7 @@
 
 :- use_module(library(lists)).
 
-'<https://josd.github.io/plows#color>'(_Map,Places) :-
+'<https://josd.github.io/imagining#color>'(_Map,Places) :-
     findall([Place,_],neighbours(Place,_),Places),
     places(Places).
 
@@ -45,7 +45,7 @@ neighbours(sweden,[finland,denmark]).
 neighbours(united_kingdom,[ireland,netherlands,belgium,france]).
 
 % query
-query('<https://josd.github.io/plows#color>'(map1,_ANSWER)).
+query('<https://josd.github.io/imagining#color>'(map1,_ANSWER)).
 
 run :-
     query(Q),
