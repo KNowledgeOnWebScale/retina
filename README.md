@@ -1,8 +1,8 @@
-# imagining
+# eyeglass
 
 ## Prolog on Web scale
 
-[Imagining](https://github.com/josd/imagining) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
+[Eyeglass](https://github.com/josd/eyeglass) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
 TERM            | Examples
 ----------------|---------

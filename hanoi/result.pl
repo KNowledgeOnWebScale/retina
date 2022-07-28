@@ -1,1 +1,1 @@
-'<https://josd.github.io/imagining#move>'(14,[left,centre,right]).
+'<https://josd.github.io/eyeglass#move>'(14,[left,centre,right]).
