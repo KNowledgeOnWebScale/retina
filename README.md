@@ -1,13 +1,13 @@
 # eyeglass
 
-## Prolog on Web scale
+## Welding on Web scale
 
 [Eyeglass](https://github.com/josd/eyeglass) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
 TERM            | Examples
 ----------------|---------
 URI             | `'http://example.org/etc#Socrates'`
-LITERAL         | `"Hello world!"` `"chat"-fr` `"2022-07-29"-date` `1.52` `1e-19`
+LITERAL         | `"Hello world!"` `"chat"-fr` `"2022-07-29"-date` `1.52` `1e-19` `pi`
 VARIABLE        | `X` `_abc` `_`
 LIST            | `[TERM,...]` `[TERM,...`\|`LIST]` `[]`
 RELATION        | `URI(TERM, ...)` `abc(TERM, ...)`
