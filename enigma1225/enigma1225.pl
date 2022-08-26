@@ -200,29 +200,6 @@ flatten_([Hd|Tl], Tail, List) :-
     flatten_(Tl, Tail, FlatHeadTail).
 flatten_(NonList, Tl, [NonList|Tl]).
 
-nth1(N, List, Head) :-
-    nonvar(N),
-    (   N < 0
-    ->  throw(error(domain_error(not_less_than_zero), nth1/3))
-    ;   true
-    ),
-    nth1_(N, List, Head),
-    !.
-nth1(N, List, Head) :-
-	nth1_(N, List, Head).
-
-nth1_(1, [Head|_], Head).
-nth1_(N, [_|Tail], Elem) :-
-    nonvar(N),
-    N > 0,
-    M is N-1,
-    nth1_(M, Tail, Elem),
-    !.
-nth1_(N,[_|T],Item) :-
-    var(N),
-    nth1_(M,T,Item),
-    N is M + 1.
-
 last([X|Xs], Last) :-
     last_(Xs, X, Last).
 

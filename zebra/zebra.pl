@@ -43,26 +43,6 @@ nextto(X, Y, [X,Y|_]).
 nextto(X, Y, [_|Zs]) :-
     nextto(X, Y, Zs).
 
-nth1(N, List, Head) :-
-    nonvar(N),
-    (N < 0 -> throw(error(domain_error(not_less_than_zero), nth1/3)) ; true),
-    nth1_(N, List, Head),
-    !.
-nth1(N, List, Head) :-
-	nth1_(N, List, Head).
-
-nth1_(1, [Head|_], Head).
-nth1_(N, [_|Tail], Elem) :-
-    nonvar(N),
-    N > 0,
-    M is N-1,
-    nth1_(M, Tail, Elem),
-    !.
-nth1_(N,[_|T],Item) :-
-    var(N),
-    nth1_(M,T,Item),
-    N is M + 1.
-
 % query
 query('https://josd.github.io/eyeglass#zebra'(_WaterDrinker, _ZebraOwner)).
 
