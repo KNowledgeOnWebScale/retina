@@ -1,8 +1,8 @@
-# eyeglass
+# glass
 
 ## Welding on Web scale
 
-[Eyeglass](https://github.com/josd/eyeglass) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
+[glass](https://github.com/josd/glass) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
 TERM            | Examples
 ----------------|---------

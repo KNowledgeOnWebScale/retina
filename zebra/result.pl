@@ -1,1 +1,1 @@
-'https://josd.github.io/eyeglass#zebra'(norwegian,japanese).
+'https://josd.github.io/glass#zebra'(norwegian,japanese).
