@@ -1,6 +1,6 @@
 # marble
 
-## RDF Surfaces implementation in Scryer Prolog
+## Web logic implementation in Scryer Prolog
 
 [marble](https://github.com/eyereasoner/marble) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
