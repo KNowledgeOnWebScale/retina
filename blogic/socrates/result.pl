@@ -1,2 +1,2 @@
-run,halt causes: error(existence_error(procedure,run/0),run/0)
-[?2004h[0K?- [3C[?2004l
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>(<http://example.org/ns#Socrates>,<http://example.org/ns#Man>)
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>(<http://example.org/ns#Socrates>,<http://example.org/ns#Mortal>)
