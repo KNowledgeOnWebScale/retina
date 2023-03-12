@@ -1,5 +1,5 @@
 #!/bin/bash
-for dir in */
+for dir in prolog/*
 do
     pushd "${dir}"
     ./test
