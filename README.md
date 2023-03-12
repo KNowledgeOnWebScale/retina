@@ -1,14 +1,10 @@
 # marble
 
-### EYE emulation in Scryer Prolog
+EYE emulation in Scryer Prolog
 
-## Installation and test
+## Installation
 
-Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and then run
-
-```
-./test
-```
+Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog).
 
 ## Background
 
