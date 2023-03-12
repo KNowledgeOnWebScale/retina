@@ -1,6 +1,6 @@
 # marble
 
-## Web logic implementation in Scryer Prolog
+## Eye emulation in Scryer Prolog
 
 [marble](https://github.com/eyereasoner/marble) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
