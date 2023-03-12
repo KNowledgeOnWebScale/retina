@@ -1,8 +1,8 @@
-# glass
+# marble
 
-## Welding on Web scale
+## Web logic engine
 
-[glass](https://github.com/josd/glass) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
+[marble](https://github.com/eyereasoner/marble) is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog)
 
 TERM            | Examples
 ----------------|---------
