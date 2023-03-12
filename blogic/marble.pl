@@ -59,7 +59,7 @@ run :-
     forward,
     forall(
         answer(A),
-        (   write(A),
+        (   writeq(A),
             nl
         )
     ).
