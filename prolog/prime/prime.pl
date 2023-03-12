@@ -2,7 +2,7 @@
 
 :- use_module(library(between)).
 
-'https://josd.github.io/glass#primerange'([A,B],L) :-
+'<https://josd.github.io/glass#primerange>'([A,B],L) :-
     findall(I,(between(A,B,I),prime(I)),L).
 
 prime(2).
@@ -32,7 +32,7 @@ factor(N,L) :-
 % for the argument N.
 %   (integer,integer) (+,?)
 
-'https://josd.github.io/glass#totient'(N,Phi) :-
+'<https://josd.github.io/glass#totient>'(N,Phi) :-
     prime_factors_mult(N,L),
     to_phi(L,Phi).
 
@@ -119,12 +119,12 @@ divi(N,F,M,R,K) :-
 divi(N,_,M,N,M).
 
 % query
-query('https://josd.github.io/glass#primerange'([0,100],_ANSWER)).
-query('https://josd.github.io/glass#primerange'([1000000,1000100],_ANSWER)).
-query('https://josd.github.io/glass#totient'(271,_ANSWER)).
-query('https://josd.github.io/glass#totient'(2718281,_ANSWER)).
-query('https://josd.github.io/glass#totient'(27182818284,_ANSWER)).
-query('https://josd.github.io/glass#totient'(271828182845904,_ANSWER)).
+query('<https://josd.github.io/glass#primerange>'([0,100],_ANSWER)).
+query('<https://josd.github.io/glass#primerange>'([1000000,1000100],_ANSWER)).
+query('<https://josd.github.io/glass#totient>'(271,_ANSWER)).
+query('<https://josd.github.io/glass#totient>'(2718281,_ANSWER)).
+query('<https://josd.github.io/glass#totient>'(27182818284,_ANSWER)).
+query('<https://josd.github.io/glass#totient>'(271828182845904,_ANSWER)).
 
 run :-
     query(Q),

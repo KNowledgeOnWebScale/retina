@@ -15,8 +15,8 @@
 
 :- use_module(library(lists)).
 
-% 'https://josd.github.io/glass#solve_zebra'/2 - The main predicate for solving the puzzle
-'https://josd.github.io/glass#zebra'(WaterDrinker, ZebraOwner) :-
+% '<https://josd.github.io/glass#solve_zebra>'/2 - The main predicate for solving the puzzle
+'<https://josd.github.io/glass#zebra>'(WaterDrinker, ZebraOwner) :-
     length(Houses, 5),                                                          % 1. There are five houses.
     member(house(red, english, _, _, _), Houses),                               % 2. The Englishman lives in the red house.
     member(house(_, spanish, dog, _, _), Houses),                               % 3. The Spaniard owns the dog.
@@ -44,7 +44,7 @@ nextto(X, Y, [_|Zs]) :-
     nextto(X, Y, Zs).
 
 % query
-query('https://josd.github.io/glass#zebra'(_WaterDrinker, _ZebraOwner)).
+query('<https://josd.github.io/glass#zebra>'(_WaterDrinker, _ZebraOwner)).
 
 run :-
     query(Q),

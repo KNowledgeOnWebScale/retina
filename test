@@ -1,8 +1,0 @@
-#!/bin/bash
-for dir in prolog/*
-do
-    pushd "${dir}"
-    ./test
-    popd
-    echo ""
-done

@@ -4,10 +4,10 @@
 
 % interpreter for Univeral Turing Machine
 
-'https://josd.github.io/glass#compute'([], OutTape) :-
+'<https://josd.github.io/glass#compute>'([], OutTape) :-
     start(_MACHINE, I),
     find(I, [], "#", [], OutTape).
-'https://josd.github.io/glass#compute'([Head|Tail], OutTape) :-
+'<https://josd.github.io/glass#compute>'([Head|Tail], OutTape) :-
     start(_MACHINE, I),
     find(I, [], Head, Tail, OutTape).
 
@@ -45,10 +45,10 @@ t([1,1,0,l], 1).
 t([1,"#",1,s], halt).
 
 % query
-query('https://josd.github.io/glass#compute'([1,0,1,0,0,1], _ANSWER)).
-query('https://josd.github.io/glass#compute'([1,0,1,1,1,1], _ANSWER)).
-query('https://josd.github.io/glass#compute'([1,1,1,1,1,1], _ANSWER)).
-query('https://josd.github.io/glass#compute'([], _ANSWER)).
+query('<https://josd.github.io/glass#compute>'([1,0,1,0,0,1], _ANSWER)).
+query('<https://josd.github.io/glass#compute>'([1,0,1,1,1,1], _ANSWER)).
+query('<https://josd.github.io/glass#compute>'([1,1,1,1,1,1], _ANSWER)).
+query('<https://josd.github.io/glass#compute>'([], _ANSWER)).
 
 run :-
     query(Q),
