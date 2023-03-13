@@ -1,2 +1,0 @@
-#!/bin/bash
-scryer-prolog -g run,halt enigma1225.pl | tee result.pl

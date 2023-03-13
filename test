@@ -1,0 +1,8 @@
+#!/bin/bash
+for dir in rdfsurfaces/*
+do
+    pushd "${dir}"
+    ./test
+    popd
+    echo ""
+done
