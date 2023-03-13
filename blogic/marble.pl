@@ -114,21 +114,15 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         ;   select(C, L, M),
             conj_list(H, [P|M])
         ),
-        (   ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)),
-            \+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)
-        ->  assertz('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
-        ;   true
-        )), true).
+        ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)).
 
 % factoring
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         list_to_set(L, M),
-        conj_list(H, M),
-        (   \+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)
-        ->  assertz('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
-        ;   true
-        )), true).
+        conj_list(H, M)
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)).
 
 % adjust graffiti
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
