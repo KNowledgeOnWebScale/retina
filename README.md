@@ -1,10 +1,13 @@
 # marble
 
-EYE emulation in Scryer Prolog
+[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) in Rust and Scryer Prolog
 
 ## Installation
 
 Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog).
+
+## Test
+Run [./test](https://github.com/eyereasoner/marble/blob/master/test).
 
 ## Background
 
