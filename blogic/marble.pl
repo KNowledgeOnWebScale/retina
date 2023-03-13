@@ -14,6 +14,10 @@
 :- dynamic(pred/1).
 :- dynamic(implies/2).
 :- dynamic(answer/1).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
 % forward chaining
 forward :-
@@ -59,6 +63,85 @@ astep(A) :-
     ;   true
     ).
 
+% assert positive surface
+implies('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, G), G, '<>').
+
+% blow inference fuse
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        makevars(G, H, V),
+        catch(call(H), _, false)
+        ), false).
+
+% resolve positive surface
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        select('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'([], H), L, K),
+        conj_list(H, D),
+        append(K, D, E),
+        conj_list(F, E)
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, F)).
+
+% erase at even level
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), L, K),
+        conj_list(H, M),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], O), M, N),
+        (   conj_list(O, D),
+            append(K, D, E),
+            conj_list(C, E)
+        ;   length(K, I),
+            I > 1,
+            conj_list(F, N),
+            conj_list(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], F)|K])
+        )), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, C)).
+
+% non-unit resolution
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), L),
+        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
+        length(L, E),
+        E < 4,
+        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
+        conj_list(F, K),
+        length(K, 2),
+        \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
+        makevars(K, J, W),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
+        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, P), L, M),
+            conj_list(H, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|M])
+        ;   select(C, L, M),
+            conj_list(H, [P|M])
+        ),
+        (   ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)),
+            \+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)
+        ->  assertz('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
+        ;   true
+        )), true).
+
+% factoring
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        list_to_set(L, M),
+        conj_list(H, M),
+        (   \+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)
+        ->  assertz('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
+        ;   true
+        )), true).
+
+% adjust graffiti
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        findvars(G, U),
+        findall(M,
+            (   member(M, V),
+                memberchk(M, U)
+            ),
+            W
+        ),
+        W \= V
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, G)).
+
 % forward rule
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
@@ -69,6 +152,30 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, I)).
+
+% contrapositive
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), L),
+        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), L),
+        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
+        select(R, L, J),
+        conj_list(T, J),
+        E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], T),
+        domain(V, R, P),
+        makevars([P, E], [Q, S], V),
+        findvars(S, W),
+        makevars(S, I, W)
+        ), implies(Q, I)).
+
+% backward rule
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, H), L, K),
+        conj_list(H, [T]),
+        conj_list(R, K),
+        makevars(':-'(T, R), C, V)
+        ), C).
 
 % query
 implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
