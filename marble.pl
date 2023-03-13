@@ -77,7 +77,7 @@ implies('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, G), G, '<>')
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(G, H, V),
         catch(call(H), _, false)
-        ), false).
+        ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), H))).
 
 % resolve positive surface
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
@@ -193,13 +193,22 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 % run
 run :-
-    forward,
+    catch(forward, E,
+        (   writeq(E),
+            nl,
+            (   E = inference_fuse(_,_)
+            ->  halt(2)
+            ;   halt(1)
+            )
+        )
+    ),
     forall(
         answer(A),
         (   writeq(A),
             nl
         )
-    ).
+    ),
+    halt(0).
 
 %
 % built-ins
