@@ -16,9 +16,3 @@
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:S', '_:C'],
     '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:S', '_:C')
 ).
-
-% those will be generated
-implies(('<http://www.w3.org/2000/01/rdf-schema#subClassOf>'(A, B), '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(S, A)),
-    '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(S, B)).
-
-implies('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(S, C), answer('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(S, C))).
