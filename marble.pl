@@ -23,8 +23,12 @@
 forward :-
     implies(Prem, Conc),
     Prem,
-    \+Conc,
-    (   Conc \= implies(_, _)
+    (   Conc = ':-'(C, P)
+    ->  \+clause(C, P)
+    ;   \+Conc
+    ),
+    (   Conc \= implies(_, _),
+        Conc \= ':-'(_, _)
     ->  labelvars(Conc)
     ;   true
     ),
@@ -53,7 +57,10 @@ astep((A, B)) :-
     astep(A),
     astep(B).
 astep(A) :-
-    (   \+A
+    (   (   A = ':-'(C, P)
+        ->  \+clause(C, P)
+        ;   \+A
+        )
     ->  assertz(A),
         (   functor(A, B, 2),
             \+pred(B)
@@ -184,7 +191,38 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         makevars(S, I, W)
         ), implies(Q, answer(I))).
 
+% run
+run :-
+    forward,
+    forall(
+        answer(A),
+        (   writeq(A),
+            nl
+        )
+    ).
+
+%
+% built-ins
+%
+'<http://www.w3.org/2000/10/swap/list#triple>'([P, S, O], Triple) :-
+    (   var(P)
+    ->  pred(P)
+    ;   true
+    ),
+    Triple =.. [P, S, O].
+
+'<http://www.w3.org/2000/10/swap/math#greaterThan>'(X, Y) :-
+     X > Y.
+
+'<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
+    Z is X-Y.
+
+'<http://www.w3.org/2000/10/swap/math#sum>'(X, Y) :-
+    sum(X, Y).
+
+%
 % support
+%
 conj_list(true, []) :-
     !.
 conj_list(A, [A]) :-
@@ -263,22 +301,9 @@ findvars(A, B) :-
     A =.. C,
     findvars(C, B).
 
-% run
-run :-
-    forward,
-    forall(
-        answer(A),
-        (   writeq(A),
-            nl
-        )
-    ).
+sum([], 0) :-
+    !.
+sum([A|B], C) :-
+    sum(B, D),
+    C is A+D.
 
-%
-% built-ins
-%
-'<https://josd.github.io/eye/ns#pso_triple>'([P, S, O], Triple) :-
-    (   var(P)
-    ->  pred(P)
-    ;   true
-    ),
-    Triple =.. [P, S, O].
