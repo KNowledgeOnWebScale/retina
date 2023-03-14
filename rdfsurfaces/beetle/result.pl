@@ -1,3 +1,2 @@
-% Processed by Marble v0.2.0
-
+% Processed by Marble v0.3.0
 '<http://example.org/ns#is>'('<http://example.org/ns#beetle>','<http://example.org/ns#beautiful>').

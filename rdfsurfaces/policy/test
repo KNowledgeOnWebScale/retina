@@ -1,0 +1,2 @@
+#!/bin/bash
+scryer-prolog -g run ../../marble.pl policy.pl | tee result.pl

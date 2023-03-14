@@ -20,12 +20,12 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('Marble v0.2.0').
+version_info('Marble v0.3.0').
 
 % run
 run :-
     version_info(Version),
-    format("% Processed by ~w~n~n", [Version]),
+    format("% Processed by ~w~n", [Version]),
     catch(forward, Exc,
         (   writeq(Exc),
             write('.'),
