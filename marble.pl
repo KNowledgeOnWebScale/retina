@@ -19,6 +19,33 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
+version_info('Marble v3.8.3').
+
+% run
+run :-
+    version_info(V),
+    write(V),
+    nl,
+    nl,
+    catch(forward, E,
+        (   writeq(E),
+            write('.'),
+            nl,
+            (   E = inference_fuse(_,_)
+            ->  halt(2)
+            ;   halt(1)
+            )
+        )
+    ),
+    forall(
+        answer(A),
+        (   writeq(A),
+            write('.'),
+            nl
+        )
+    ),
+    halt(0).
+
 % forward chaining
 forward :-
     implies(Prem, Conc),
@@ -190,27 +217,6 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, answer(I))).
-
-% run
-run :-
-    catch(forward, E,
-        (   writeq(E),
-            write('.'),
-            nl,
-            (   E = inference_fuse(_,_)
-            ->  halt(2)
-            ;   halt(1)
-            )
-        )
-    ),
-    forall(
-        answer(A),
-        (   writeq(A),
-            write('.'),
-            nl
-        )
-    ),
-    halt(0).
 
 %
 % built-ins
