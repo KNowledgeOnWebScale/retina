@@ -1,3 +1,3 @@
-Marble v3.8.3
+Marble v0.1.0
 
 '<http://example.org/ns#is>'('<http://example.org/ns#beetle>','<http://example.org/ns#beautiful>').

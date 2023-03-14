@@ -55,7 +55,7 @@ echo "${a[0]}.${a[1]}.${a[2]}" > VERSION
 export RELEASE="v$(cat VERSION)"
 
 # update version in marble.pl
-cat marble.pl | sed -e "s/'Marble v*'/'Marble $RELEASE'/" > marble.pl.tmp
+cat marble.pl | sed -e "s/'Marble.*'/'Marble $RELEASE'/" > marble.pl.tmp
 mv marble.pl.tmp marble.pl
 
 # run the tests and do git diff
