@@ -222,11 +222,40 @@ run :-
     ),
     Triple =.. [P, S, O].
 
+'<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
+    Z is X-Y.
+
 '<http://www.w3.org/2000/10/swap/math#greaterThan>'(X, Y) :-
      X > Y.
 
-'<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
-    Z is X-Y.
+'<http://www.w3.org/2000/10/swap/math#lessThan>'(X, Y) :-
+    X < Y.
+
+'<http://www.w3.org/2000/10/swap/math#negation>'(X, Y) :-
+    (   nonvar(X)
+    ->  Y is -X
+    ;   (   nonvar(Y)
+        ->  X is -Y
+        )
+    ).
+
+'<http://www.w3.org/2000/10/swap/math#notEqualTo>'(X, Y) :-
+    X =\= Y.
+
+'<http://www.w3.org/2000/10/swap/math#notGreaterThan>'(X, Y) :-
+    X =< Y.
+
+'<http://www.w3.org/2000/10/swap/math#notLessThan>'(X, Y) :-
+    X >= Y.
+
+'<http://www.w3.org/2000/10/swap/math#product>'(X, Y) :-
+    product(X, Y).
+
+'<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z) :-
+    (   Y =\= 0
+    ->  Z is X/Y
+    ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z)))
+    ).
 
 '<http://www.w3.org/2000/10/swap/math#sum>'(X, Y) :-
     sum(X, Y).
@@ -318,3 +347,8 @@ sum([A|B], C) :-
     sum(B, D),
     C is A+D.
 
+product([], 1) :-
+    !.
+product([A|B], C) :-
+    product(B, D),
+    C is A*D.
