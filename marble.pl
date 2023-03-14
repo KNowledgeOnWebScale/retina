@@ -20,7 +20,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('Marble v0.1.0').
+version_info('Marble v0.2.0').
 
 % run
 run :-
