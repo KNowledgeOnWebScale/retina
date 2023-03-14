@@ -5,6 +5,7 @@
 % See https://github.com/eyereasoner/marble#readme
 %
 
+:- use_module(library(format)).
 :- use_module(library(iso_ext)).
 :- use_module(library(lists)).
 :- use_module(library(terms)).
@@ -23,23 +24,21 @@ version_info('Marble v0.1.0').
 
 % run
 run :-
-    version_info(V),
-    write(V),
-    nl,
-    nl,
-    catch(forward, E,
-        (   writeq(E),
+    version_info(Version),
+    format("% Processed by ~w~n~n", [Version]),
+    catch(forward, Exc,
+        (   writeq(Exc),
             write('.'),
             nl,
-            (   E = inference_fuse(_,_)
+            (   Exc = inference_fuse(_,_)
             ->  halt(2)
             ;   halt(1)
             )
         )
     ),
     forall(
-        answer(A),
-        (   writeq(A),
+        answer(Answer),
+        (   writeq(Answer),
             write('.'),
             nl
         )
