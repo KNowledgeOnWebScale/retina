@@ -195,6 +195,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 run :-
     catch(forward, E,
         (   writeq(E),
+            write('.'),
             nl,
             (   E = inference_fuse(_,_)
             ->  halt(2)
@@ -205,6 +206,7 @@ run :-
     forall(
         answer(A),
         (   writeq(A),
+            write('.'),
             nl
         )
     ),
