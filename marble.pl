@@ -5,6 +5,7 @@
 % See https://github.com/eyereasoner/marble#readme
 %
 
+:- use_module(library(between)).
 :- use_module(library(format)).
 :- use_module(library(iso_ext)).
 :- use_module(library(lists)).
@@ -20,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('Marble v0.4.0').
+version_info('Marble v0.5.0').
 
 % run
 run :-
@@ -224,8 +225,116 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 %
 % built-ins
 %
+
+% graph
+'<http://www.w3.org/2000/10/swap/graph#list>'(A, B) :-
+    conj_list(A, B).
+
+% list
+'<http://www.w3.org/2000/10/swap/list#append>'(A, B) :-
+    append(A, B).
+
+'<http://www.w3.org/2000/10/swap/list#first>'([A|_], A) .
+
+'<http://www.w3.org/2000/10/swap/list#firstRest>'([A|B], [A, B]).
+
+'<http://www.w3.org/2000/10/swap/list#in>'(A, B) :-
+    member(A, B).
+
+'<http://www.w3.org/2000/10/swap/list#iterate>'(A, [B, C]) :-
+    nth0(B, A, C).
+
+'<http://www.w3.org/2000/10/swap/list#last>'(A, B) :-
+    append(_, [B], A).
+
+'<http://www.w3.org/2000/10/swap/list#length>'(A, B) :-
+    length(A, B).
+
+'<http://www.w3.org/2000/10/swap/list#map>'([A, B], C) :-
+    findall(E,
+        (   member(F, A),
+            G =.. [B, F, E],
+            G
+        ),
+        C
+    ).
+
+'<http://www.w3.org/2000/10/swap/list#member>'(A, B) :-
+    member(B, A).
+
+'<http://www.w3.org/2000/10/swap/list#memberAt>'([A, B], C) :-
+    nth0(B, A, C).
+
+'<http://www.w3.org/2000/10/swap/list#remove>'([A, B], C) :-
+    findall(I,
+        (   member(I, A),
+            I \= B
+        ),
+        C
+    ).
+
+'<http://www.w3.org/2000/10/swap/list#removeAt>'([A, B], C) :-
+    nth0(B, A, D),
+    findall(I,
+        (   member(I, A),
+            I \= D
+        ),
+        C
+    ).
+
+'<http://www.w3.org/2000/10/swap/list#removeDuplicates>'(A, B) :-
+    list_to_set(A, B).
+
+'<http://www.w3.org/2000/10/swap/list#rest>'([_|A], A).
+
+%log
+'<http://www.w3.org/2000/10/swap/log#bound>'(X, Y) :-
+    (   nonvar(X)
+    ->  Y = true
+    ;   Y = false
+    ).
+
+'<http://www.w3.org/2000/10/swap/log#callWithCleanup>'(A, B) :-
+    call_cleanup(A, B).
+
+'<http://www.w3.org/2000/10/swap/log#callWithOptional>'(A, B) :-
+    call(A),
+    (   \+catch(call(B), _, fail)
+    ->  true
+    ;   catch(call(B), _, fail)
+    ).
+
+'<http://www.w3.org/2000/10/swap/log#collectAllIn>'([A, B, C], _) :-
+    nonvar(B),
+    \+is_list(B),
+    catch(findall(A, B, E), _, E = []),
+    E = C.
+
+'<http://www.w3.org/2000/10/swap/log#equalTo>'(X, Y) :-
+    X = Y.
+
+'<http://www.w3.org/2000/10/swap/log#forAllIn>'([A, B], _) :-
+    forall(A, B).
+
+'<http://www.w3.org/2000/10/swap/log#graffiti>'(A, B) :-
+    term_variables(A, B).
+
+'<http://www.w3.org/2000/10/swap/log#ifThenElseIn>'([A, B, C], _) :-
+    if_then_else(A, B, C).
+
+'<http://www.w3.org/2000/10/swap/log#notEqualTo>'(X, Y) :-
+    X \= Y.
+
+'<http://www.w3.org/2000/10/swap/log#repeat>'(A, B) :-
+    C is A-1,
+    between(0, C, B).
+
+% math
 '<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
     Z is X-Y.
+
+'<http://www.w3.org/2000/10/swap/math#equalTo>'(X, Y) :-
+    X =:= Y.
 
 '<http://www.w3.org/2000/10/swap/math#greaterThan>'(X, Y) :-
      X > Y.
