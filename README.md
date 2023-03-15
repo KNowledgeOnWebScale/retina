@@ -10,6 +10,7 @@ Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](http
 Run
 ```
 ./test
+git diff
 ```
 ## Background
 
