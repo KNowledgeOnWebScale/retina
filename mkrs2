@@ -7,7 +7,7 @@ if [ $# -lt 2 ] ; then
 fi
 
 # change working directory
-pushd ~/github.com/josd/marble
+pushd ~/github.com/eyereasoner/rs2
 
 # the following is adapted from https://gist.github.com/codezninja/c227d9c65b09d2be2d99abbfcfa8774a
 while getopts "Mmp" Option
@@ -54,9 +54,9 @@ echo "${a[0]}.${a[1]}.${a[2]}" > VERSION
 
 export RELEASE="v$(cat VERSION)"
 
-# update version in marble.pl
-cat marble.pl | sed -e "s/'Marble.*'/'Marble $RELEASE'/" > marble.pl.tmp
-mv marble.pl.tmp marble.pl
+# update version in rs2.pl
+cat rs2.pl | sed -e "s/'RS2.*'/'RS2 $RELEASE'/" > rs2.pl.tmp
+mv rs2.pl.tmp rs2.pl
 
 # run the tests and do git diff
 ./test

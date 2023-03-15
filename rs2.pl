@@ -1,8 +1,8 @@
-% --------------------
-% Marble -- Jos De Roo
-% --------------------
+% -----------------
+% RS2 -- Jos De Roo
+% -----------------
 %
-% See https://github.com/eyereasoner/marble#readme
+% See https://github.com/eyereasoner/rs2#readme
 %
 
 :- use_module(library(between)).
@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('Marble v0.6.1').
+version_info('RS2 v1.0.0').
 
 % run
 run :-

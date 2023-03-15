@@ -1,6 +1,6 @@
-# marble
+# RS2
 
-[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) in Rust and Scryer Prolog
+[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) in Rust
 
 ## Installation
 
