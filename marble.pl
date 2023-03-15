@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('Marble v0.5.0').
+version_info('Marble v0.6.0').
 
 % run
 run :-
@@ -305,8 +305,6 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/log#collectAllIn>'([A, B, C], _) :-
-    nonvar(B),
-    \+is_list(B),
     catch(findall(A, B, E), _, E = []),
     E = C.
 
@@ -330,17 +328,96 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     between(0, C, B).
 
 % math
+'<http://www.w3.org/2000/10/swap/math#absoluteValue>'(X, Y) :-
+    Y is abs(X).
+
+'<http://www.w3.org/2000/10/swap/math#acos>'(X, Y) :-
+    Y is acos(X).
+
+'<http://www.w3.org/2000/10/swap/math#asin>'(X, Y) :-
+    Y is asin(X).
+
+'<http://www.w3.org/2000/10/swap/math#atan>'(X, Y) :-
+    Y is atan(X).
+
+'<http://www.w3.org/2000/10/swap/math#atan2>'([X, Y], Z) :-
+    Z is atan(X/Y).
+
+'<http://www.w3.org/2000/10/swap/math#ceiling>'(X, Y) :-
+    Y is ceiling(X).
+
+'<http://www.w3.org/2000/10/swap/math#cos>'(X, Y) :-
+    (   nonvar(X),
+        Y is cos(X),
+        !
+    ;   nonvar(Y),
+        X is acos(Y)
+    ).
+
+'<http://www.w3.org/2000/10/swap/math#degrees>'(X, Y) :-
+    (   nonvar(X),
+        Y is X*180/pi,
+        !
+    ;   nonvar(Y),
+        X is Y*pi/180
+    ).
+
 '<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
     Z is X-Y.
 
 '<http://www.w3.org/2000/10/swap/math#equalTo>'(X, Y) :-
     X =:= Y.
 
+'<http://www.w3.org/2000/10/swap/math#exponentiation>'([X, Y], Z) :-
+    (   nonvar(Y),
+        Z is X**Y,
+        !
+    ;   nonvar(Z),
+        Z =\= 0,
+        X =\= 0,
+        Y is log(Z)/log(X)
+    ).
+
+'<http://www.w3.org/2000/10/swap/math#floor>'(X, Y) :-
+    Y is floor(X).
+
 '<http://www.w3.org/2000/10/swap/math#greaterThan>'(X, Y) :-
      X > Y.
 
+'<http://www.w3.org/2000/10/swap/math#integerQuotient>'([X, Y], Z) :-
+    (   Y =\= 0
+    ->  Z is round(floor(X/Y))
+    ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#integerQuotient>'([X, Y], Z)))
+    ).
+
 '<http://www.w3.org/2000/10/swap/math#lessThan>'(X, Y) :-
     X < Y.
+
+'<http://www.w3.org/2000/10/swap/math#logarithm>'([X, Y], Z) :-
+    when(
+        (   ground([X, Y])
+        ;   ground([X, Z])
+        ),
+        (   getnumber(X, U),
+            (   getnumber(Y, V),
+                V =\= 0,
+                U =\= 0,
+                Z is log(U)/log(V),
+                !
+            ;   getnumber(Z, W),
+                Y is U**(1/W)
+            )
+        )
+    ).
+
+'<http://www.w3.org/2000/10/swap/math#max>'(X, Y) :-
+    list_min(X, Y).
+
+'<http://www.w3.org/2000/10/swap/math#memberCount>'(X, Y) :-
+    length(X, Y).
+
+'<http://www.w3.org/2000/10/swap/math#min>'(X, Y) :-
+    list_min(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#negation>'(X, Y) :-
     (   nonvar(X)
@@ -368,8 +445,45 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z)))
     ).
 
+'<http://www.w3.org/2000/10/swap/math#radians>'(X, Y) :-
+    (   nonvar(X),
+        Y is X*pi/180,
+        !
+    ;   nonvar(Y),
+        X is Y*180/pi
+    ).
+
+'<http://www.w3.org/2000/10/swap/math#remainder>'([X, Y], Z) :-
+    (   Y =\= 0
+    ->  Z is X-Y*round(floor(X/Y))
+    ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#remainder>'([X, Y], Z)))
+    ).
+
+'<http://www.w3.org/2000/10/swap/math#rounded>'(X, Y) :-
+    Y is round(round(X)).
+
+'<http://www.w3.org/2000/10/swap/math#roundedTo>'([X, Y], Z) :-
+    F is 10**floor(Y),
+    Z is round(round(X*F))/F.
+
+'<http://www.w3.org/2000/10/swap/math#sin>'(X, Y) :-
+    (   nonvar(X),
+        Y is sin(X),
+        !
+    ;   nonvar(Y),
+        X is asin(Y)
+    ).
+
 '<http://www.w3.org/2000/10/swap/math#sum>'(X, Y) :-
     sum(X, Y).
+
+'<http://www.w3.org/2000/10/swap/math#tan>'(X, Y) :-
+    (   nonvar(X),
+        Y is tan(X),
+        !
+    ;   nonvar(Y),
+        X is atan(Y)
+    ).
 
 %
 % support
