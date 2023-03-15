@@ -20,7 +20,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('Marble v0.3.0').
+version_info('Marble v0.4.0').
 
 % run
 run :-
@@ -36,14 +36,18 @@ run :-
             )
         )
     ),
-    forall(
-        answer(Answer),
-        (   writeq(Answer),
-            write('.'),
-            nl
-        )
-    ),
-    halt(0).
+    (   answer(Answer),
+        (   Answer = exopred(P, S, O)
+        ->  P \= implies,
+            T =.. [P, S, O]
+        ;   T = Answer
+        ),
+        writeq(T),
+        write('.'),
+        nl,
+        fail
+    ;   halt(0)
+    ).
 
 % forward chaining
 forward :-
@@ -97,7 +101,7 @@ astep(A) :-
     ).
 
 % assert positive surface
-implies('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, G), G, '<>').
+implies('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, G), G).
 
 % blow inference fuse
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
@@ -220,13 +224,6 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 %
 % built-ins
 %
-'<http://www.w3.org/2000/10/swap/list#triple>'([P, S, O], Triple) :-
-    (   var(P)
-    ->  pred(P)
-    ;   true
-    ),
-    Triple =.. [P, S, O].
-
 '<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
     Z is X-Y.
 
@@ -277,6 +274,21 @@ conj_list(A, [A]) :-
 conj_list((A, B), [A|C]) :-
     conj_list(B, C).
 
+exopred(P, S, O) :-
+    (   var(P),
+        var(S),
+        var(O)
+    ->  pred(P),
+        H =.. [P, S, O],
+        clause(H, true)
+    ;   (   var(P)
+        ->  pred(P)
+        ;   atom(P),
+            current_predicate(P/2)
+        ),
+        call(P, S, O)
+    ).
+
 domain(A, true, B) :-
     !,
     findall('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(C, _),
@@ -319,7 +331,11 @@ makevar([A|B], [C|D], F) :-
     makevar(B, D, F),
     !.
 makevar(A, B, F) :-
-    A =.. C,
+    A =.. [Ch|Ct],
+    (   sub_atom(Ch, 0, _, _, '_:')
+    ->  C = [exopred, Ch|Ct]
+    ;   C = [Ch|Ct]
+    ),
     makevar(C, [Dh|Dt], F),
     nonvar(Dh),
     B =.. [Dh|Dt].
