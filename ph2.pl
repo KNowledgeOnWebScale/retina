@@ -1,8 +1,8 @@
 % -----------------
-% RS2 -- Jos De Roo
+% PH2 -- Jos De Roo
 % -----------------
 %
-% See https://github.com/eyereasoner/rs2#readme
+% See https://github.com/eyereasoner/ph2#readme
 %
 
 :- use_module(library(between)).
@@ -11,23 +11,25 @@
 :- use_module(library(lists)).
 :- use_module(library(terms)).
 
+:- dynamic(answer/1).
 :- dynamic(brake/0).
+:- dynamic(implies/2).
 :- dynamic(label/1).
 :- dynamic(pred/1).
-:- dynamic(implies/2).
-:- dynamic(answer/1).
-:- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
+:- dynamic(recursion/1).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('RS2 v1.1.0').
+version_info('PH2 v1.2.0').
 
 % run
 run :-
     version_info(Version),
     format("% Processed by ~w~n", [Version]),
-    catch(forward, Exc,
+    bb_put(limit, -1),
+    catch(forward(0), Exc,
         (   writeq(Exc),
             write('.'),
             nl,
@@ -51,26 +53,35 @@ run :-
     ).
 
 % forward chaining
-forward :-
-    implies(Prem, Conc),
-    Prem,
-    (   Conc = ':-'(C, P)
-    ->  \+clause(C, P)
-    ;   \+Conc
-    ),
-    (   Conc \= implies(_, _),
-        Conc \= ':-'(_, _)
-    ->  labelvars(Conc)
-    ;   true
-    ),
-    astep(Conc),
-    retract(brake),
-    fail.
-forward :-
-    (   brake
-    ->  !
+forward(Recursion) :-
+    (   implies(Prem, Conc),
+        Prem,
+        (   Conc = ':-'(C, P)
+        ->  \+clause(C, P)
+        ;   \+Conc
+        ),
+        (   Conc \= implies(_, _),
+            Conc \= ':-'(_, _)
+        ->  labelvars(Conc)
+        ;   true
+        ),
+        astep(Conc),
+        retract(brake),
+        fail
+    ;   brake,
+        (   R is Recursion+1,
+            (   \+recursion(R)
+            ->  assertz(recursion(R))
+            ;   true
+            ),
+            bb_get(limit, Limit),
+            Recursion < Limit,
+            forward(R)
+        ;   true
+        ),
+        !
     ;   assertz(brake),
-        forward
+        forward(Recursion)
     ).
 
 % create witnesses
@@ -99,6 +110,22 @@ astep(A) :-
         ;   true
         )
     ;   true
+    ).
+
+% check recursion
+within_recursion(R) :-
+    (   var(R)
+    ->  R = 1
+    ;   true
+    ),
+    (   R = 0
+    ->  brake
+    ;   bb_get(limit, L),
+        (   L < R
+        ->  bb_put(limit, R)
+        ;   true
+        ),
+        recursion(R)
     ).
 
 % assert positive surface
@@ -309,20 +336,23 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ;   catch(call(B), _, fail)
     ).
 
-'<http://www.w3.org/2000/10/swap/log#collectAllIn>'([A, B, C], _) :-
+'<http://www.w3.org/2000/10/swap/log#collectAllIn>'([A, B, C], D) :-
+    within_recursion(D),
     catch(findall(A, B, E), _, E = []),
     E = C.
 
 '<http://www.w3.org/2000/10/swap/log#equalTo>'(X, Y) :-
     X = Y.
 
-'<http://www.w3.org/2000/10/swap/log#forAllIn>'([A, B], _) :-
+'<http://www.w3.org/2000/10/swap/log#forAllIn>'([A, B], C) :-
+    within_recursion(C),
     forall(A, B).
 
 '<http://www.w3.org/2000/10/swap/log#graffiti>'(A, B) :-
     term_variables(A, B).
 
-'<http://www.w3.org/2000/10/swap/log#ifThenElseIn>'([A, B, C], _) :-
+'<http://www.w3.org/2000/10/swap/log#ifThenElseIn>'([A, B, C], D) :-
+    within_recursion(D),
     if_then_else(A, B, C).
 
 '<http://www.w3.org/2000/10/swap/log#notEqualTo>'(X, Y) :-
@@ -399,20 +429,11 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     X < Y.
 
 '<http://www.w3.org/2000/10/swap/math#logarithm>'([X, Y], Z) :-
-    when(
-        (   ground([X, Y])
-        ;   ground([X, Z])
-        ),
-        (   getnumber(X, U),
-            (   getnumber(Y, V),
-                V =\= 0,
-                U =\= 0,
-                Z is log(U)/log(V),
-                !
-            ;   getnumber(Z, W),
-                Y is U**(1/W)
-            )
-        )
+    (   X =\= 0,
+        Y =\= 0,
+        Z is log(X)/log(Y),
+        !
+    ;   Y is X**(1/Z)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#max>'(X, Y) :-

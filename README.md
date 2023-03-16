@@ -1,6 +1,7 @@
-# rs2
+# ph2
 
-[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) in Rust and Scryer
+[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
+[Pat Hayes](https://en.wikipedia.org/wiki/Pat_Hayes) and [Patrick Hochstenbach](https://patrickhochstenbach.net/)
 
 ## Installation
 
