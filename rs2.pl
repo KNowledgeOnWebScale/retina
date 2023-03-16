@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('RS2 v1.0.0').
+version_info('RS2 v1.1.0').
 
 % run
 run :-
@@ -206,7 +206,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, H), L, K),
         conj_list(H, [T]),
         conj_list(R, K),
-        makevars(':-'(T, R), C, V)
+        conjify(R, S),
+        makevars(':-'(T, S), C, V)
         ), C).
 
 % query
@@ -293,6 +294,10 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ->  Y = true
     ;   Y = false
     ).
+
+'<http://www.w3.org/2000/10/swap/log#call>'(A, B) :-
+    call(A),
+    catch(call(B), _, fail).
 
 '<http://www.w3.org/2000/10/swap/log#callWithCleanup>'(A, B) :-
     call_cleanup(A, B).
@@ -511,6 +516,14 @@ exopred(P, S, O) :-
         ),
         call(P, S, O)
     ).
+
+conjify((A, B), (C, D)) :-
+    !,
+    conjify(A, C),
+    conjify(B, D).
+conjify('<http://www.w3.org/2000/10/swap/log#callWithCut>'(A, _), (A, !)) :-
+    !.
+conjify(A, A).
 
 domain(A, true, B) :-
     !,
