@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.2.0').
+version_info('PH2 v1.2.1').
 
 % run
 run :-
@@ -48,7 +48,7 @@ run :-
         writeq(T),
         write('.'),
         nl,
-        fail
+        false
     ;   halt(0)
     ).
 
@@ -67,7 +67,7 @@ forward(Recursion) :-
         ),
         astep(Conc),
         retract(brake),
-        fail
+        false
     ;   brake,
         (   R is Recursion+1,
             (   \+recursion(R)
@@ -324,16 +324,16 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/log#call>'(A, B) :-
     call(A),
-    catch(call(B), _, fail).
+    catch(call(B), _, false).
 
 '<http://www.w3.org/2000/10/swap/log#callWithCleanup>'(A, B) :-
     call_cleanup(A, B).
 
 '<http://www.w3.org/2000/10/swap/log#callWithOptional>'(A, B) :-
     call(A),
-    (   \+catch(call(B), _, fail)
+    (   \+catch(call(B), _, false)
     ->  true
-    ;   catch(call(B), _, fail)
+    ;   catch(call(B), _, false)
     ).
 
 '<http://www.w3.org/2000/10/swap/log#collectAllIn>'([A, B, C], D) :-
