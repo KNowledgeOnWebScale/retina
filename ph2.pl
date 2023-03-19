@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.2.3').
+version_info('PH2 v1.2.4').
 
 % run
 run :-
@@ -65,8 +65,7 @@ forward(Recursion) :-
         ->  labelvars(Conc)
         ;   true
         ),
-        apred(Prem),
-        apred(Conc),
+        apred((Prem, Conc)),
         astep(Conc),
         retract(brake),
         false
