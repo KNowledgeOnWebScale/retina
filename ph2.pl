@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.2.1').
+version_info('PH2 v1.2.2').
 
 % run
 run :-
@@ -65,6 +65,7 @@ forward(Recursion) :-
         ->  labelvars(Conc)
         ;   true
         ),
+        apred(Prem),
         astep(Conc),
         retract(brake),
         false
@@ -93,7 +94,20 @@ labelvars(Term) :-
     numbervars(Term, Current, Next),
     assertz(label(Next)).
 
-% assert new step
+% assert predicates
+apred((A, B)) :-
+    !,
+    apred(A),
+    apred(B).
+apred(A) :-
+    (   functor(A, B, 2),
+        sub_atom(B, 0, 5, _, '<http'),
+        \+pred(B)
+    ->  assertz(pred(B))
+    ;   true
+    ).
+
+% assert step
 astep((A, B)) :-
     !,
     astep(A),
@@ -589,7 +603,7 @@ makevar([A|B], [C|D], F) :-
     !.
 makevar(A, B, F) :-
     A =.. [Ch|Ct],
-    (   sub_atom(Ch, 0, _, _, '_:')
+    (   sub_atom(Ch, 0, 2, _, '_:')
     ->  C = [exopred, Ch|Ct]
     ;   C = [Ch|Ct]
     ),
@@ -601,7 +615,7 @@ findvars(A, B) :-
     atomic(A),
     !,
     (   atom(A),
-        sub_atom(A, 0, _, _, '_:')
+        sub_atom(A, 0, 2, _, '_:')
     ->  B = [A]
     ;   B = []
     ).
