@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.2.2').
+version_info('PH2 v1.2.3').
 
 % run
 run :-
@@ -66,6 +66,7 @@ forward(Recursion) :-
         ;   true
         ),
         apred(Prem),
+        apred(Conc),
         astep(Conc),
         retract(brake),
         false
@@ -117,12 +118,7 @@ astep(A) :-
         ->  \+clause(C, P)
         ;   \+A
         )
-    ->  assertz(A),
-        (   functor(A, B, 2),
-            \+pred(B)
-        ->  assertz(pred(B))
-        ;   true
-        )
+    ->  assertz(A)
     ;   true
     ).
 
@@ -538,19 +534,11 @@ conj_list((A, B), [A|C]) :-
     conj_list(B, C).
 
 exopred(P, S, O) :-
-    (   var(P),
-        var(S),
-        var(O)
-    ->  pred(P),
-        H =.. [P, S, O],
-        clause(H, true)
-    ;   (   var(P)
-        ->  pred(P)
-        ;   atom(P),
-            current_predicate(P/2)
-        ),
-        call(P, S, O)
-    ).
+    (   var(P)
+    ->  pred(P)
+    ;   true
+    ),
+    call(P, S, O).
 
 conjify((A, B), (C, D)) :-
     !,
