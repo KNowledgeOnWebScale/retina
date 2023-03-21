@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.2.4').
+version_info('PH2 v1.3.0').
 
 % run
 run :-
@@ -170,7 +170,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             conj_list(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], F)|K])
         )), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, C)).
 
-% non-unit resolution
+% resolution
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), L),
@@ -183,19 +183,14 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
         makevars(K, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
-        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, P), L, M),
-            conj_list(H, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|M])
-        ;   select(C, L, M),
-            conj_list(H, [P|M])
-        ),
-        ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
-        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)).
 
-% factoring
-implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        conj_list(G, L),
-        list_to_set(L, M),
-        conj_list(H, M)
+        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, P), L, M),
+            list_to_set(['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|M], T)
+        ;   select(C, L, M),
+            list_to_set([P|M], T)
+        ),
+        conj_list(H, T),
+        ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)).
 
 % adjust graffiti
