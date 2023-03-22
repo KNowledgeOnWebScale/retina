@@ -1,0 +1,2 @@
+#!/bin/bash
+scryer-prolog -g run ../../ph2.pl graph.pl | tee result.pl
