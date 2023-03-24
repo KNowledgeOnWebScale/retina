@@ -22,14 +22,16 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.3.0').
+version_info('PH2 v1.4.0').
+inference_limit(100000000).
 
 % run
 run :-
     version_info(Version),
-    format("% Processed by ~w~n", [Version]),
+    inference_limit(Inf),
+    format("% ~w~n", [Version]),
     bb_put(limit, -1),
-    catch(forward(0), Exc,
+    catch(call_with_inference_limit(forward(0), Inf, Halt), Exc,
         (   writeq(Exc),
             write('.'),
             nl,
@@ -49,7 +51,12 @@ run :-
         write('.'),
         nl,
         false
-    ;   halt(0)
+    ;   (   Halt = inference_limit_exceeded
+        ->  format("% inference limit ~w exceeded~n", [Inf])
+        ;   true
+        ),
+        format("% halt~n", []),
+        halt(0)
     ).
 
 % forward chaining
