@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run $(dirname -- "$0")/ph2.pl "$@"
+scryer-prolog -g run $(dirname -- $(readlink -f -- "$0"))/ph2.pl "$@"
