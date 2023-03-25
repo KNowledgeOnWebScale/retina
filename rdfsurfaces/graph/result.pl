@@ -1,4 +1,4 @@
-% SEE v1.5.1
+% SEE v1.5.2
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#angers>','<http://example.org/ns#nantes>').
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#lemans>','<http://example.org/ns#nantes>').
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#chartres>','<http://example.org/ns#nantes>').

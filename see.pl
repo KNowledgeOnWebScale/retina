@@ -1,6 +1,6 @@
-% --------------------------------------
-% Surface Enactment Engine -- Jos De Roo
-% --------------------------------------
+% -------------------------------------------
+% RDF Surfaces Enactment Engine -- Jos De Roo
+% -------------------------------------------
 %
 % See https://github.com/eyereasoner/see
 %
@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('SEE v1.5.1').
+version_info('SEE v1.5.2').
 inference_limit(100000000).
 
 % run
