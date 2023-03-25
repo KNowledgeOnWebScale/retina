@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.4.0').
+version_info('PH2 v1.5.0').
 inference_limit(100000000).
 
 % run
@@ -372,6 +372,18 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 '<http://www.w3.org/2000/10/swap/log#repeat>'(A, B) :-
     C is A-1,
     between(0, C, B).
+
+'<http://www.w3.org/2000/10/swap/log#uri>'(X, Y) :-
+    (   nonvar(X),
+        atom_concat('<', U, X),
+        atom_concat(V, '>', U),
+        atom_chars(V, Y),
+        !
+    ;   nonvar(Y),
+        atom_chars(U, Y),
+        atom_concat('<', U, V),
+        atom_concat(V, '>', X)
+    ).
 
 % math
 '<http://www.w3.org/2000/10/swap/math#absoluteValue>'(X, Y) :-
