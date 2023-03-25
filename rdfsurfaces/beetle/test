@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../ph2.pl beetle.pl | tee result.pl
+scryer-prolog -g run ../../see.pl beetle.pl | tee result.pl

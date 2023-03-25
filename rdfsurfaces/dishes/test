@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../ph2.pl dishes.pl | tee result.pl
+scryer-prolog -g run ../../see.pl dishes.pl | tee result.pl

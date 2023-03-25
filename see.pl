@@ -1,8 +1,8 @@
-% -----------------
-% PH2 -- Jos De Roo
-% -----------------
+% --------------------------------------
+% Surface Enactment Engine -- Jos De Roo
+% --------------------------------------
 %
-% See https://github.com/eyereasoner/ph2#readme
+% See https://github.com/eyereasoner/see
 %
 
 :- use_module(library(between)).
@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('PH2 v1.5.0').
+version_info('SEE v1.5.1').
 inference_limit(100000000).
 
 % run

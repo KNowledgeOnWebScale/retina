@@ -1,3 +1,3 @@
-% PH2 v1.5.0
+% SEE v1.5.1
 '<http://example.org/ns#is>'('<http://example.org/ns#beetle>','<http://example.org/ns#beautiful>').
 % halt

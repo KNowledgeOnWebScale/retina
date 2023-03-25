@@ -1,7 +1,6 @@
-# ph2
+# see
 
-[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
-[Pat Hayes](https://en.wikipedia.org/wiki/Pat_Hayes) and [Patrick Hochstenbach](https://patrickhochstenbach.net/)
+[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) Enactment Engine.
 
 ## Installation
 

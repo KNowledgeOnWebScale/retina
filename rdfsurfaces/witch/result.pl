@@ -1,3 +1,3 @@
-% PH2 v1.5.0
+% SEE v1.5.1
 '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('<http://example.org/ns#GIRL>','<http://example.org/ns#WITCH>').
 % halt
