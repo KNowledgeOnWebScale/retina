@@ -55,7 +55,7 @@ echo "${a[0]}.${a[1]}.${a[2]}" > VERSION
 export RELEASE="v$(cat VERSION)"
 
 # update version in phy.pl
-cat phy.pl | sed -e "s/'phy.*'/'phy $RELEASE'/" > phy.pl.tmp
+cat phy.pl | sed -e "s/'PHY.*'/'PHY $RELEASE'/" > phy.pl.tmp
 mv phy.pl.tmp phy.pl
 
 # run the tests and do git diff
