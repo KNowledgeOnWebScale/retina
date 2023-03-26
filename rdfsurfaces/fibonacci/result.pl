@@ -1,4 +1,4 @@
-% yta v1.5.4
+% IS v1.5.5
 '<http://example.org/ns#fibonacci>'(1,1).
 '<http://example.org/ns#fibonacci>'(2,1).
 '<http://example.org/ns#fibonacci>'(3,2).

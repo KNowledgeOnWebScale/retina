@@ -1,3 +1,3 @@
-% yta v1.5.4
+% IS v1.5.5
 '<http://example.org/ns#is>'('<http://example.org/ns#beetle>','<http://example.org/ns#beautiful>').
 % halt

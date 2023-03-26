@@ -1,4 +1,4 @@
-# yta
+# is
 
 Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
 [Pat Hayes](https://en.wikipedia.org/wiki/Pat_Hayes) and [Patrick Hochstenbach](https://patrickhochstenbach.net/).

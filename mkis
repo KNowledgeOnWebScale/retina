@@ -7,7 +7,7 @@ if [ $# -lt 2 ] ; then
 fi
 
 # change working directory
-pushd ~/github.com/eyereasoner/yta
+pushd ~/github.com/eyereasoner/is
 
 # the following is adapted from https://gist.github.com/codezninja/c227d9c65b09d2be2d99abbfcfa8774a
 while getopts "Mmp" Option
@@ -54,9 +54,9 @@ echo "${a[0]}.${a[1]}.${a[2]}" > VERSION
 
 export RELEASE="v$(cat VERSION)"
 
-# update version in yta.pl
-cat yta.pl | sed -e "s/'yta.*'/'yta $RELEASE'/" > yta.pl.tmp
-mv yta.pl.tmp yta.pl
+# update version in is.pl
+cat is.pl | sed -e "s/'IS.*'/'IS $RELEASE'/" > is.pl.tmp
+mv is.pl.tmp is.pl
 
 # run the tests and do git diff
 ./test
