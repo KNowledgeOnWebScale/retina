@@ -1,4 +1,4 @@
-% phy v1.5.8
+% PHY v1.5.10
 '<http://example.org/ns#compute>'([1,0,1,0,0,1],[1,0,1,0,1,0,"#"]).
 '<http://example.org/ns#compute>'([1,0,1,1,1,1],[1,1,0,0,0,0,"#"]).
 '<http://example.org/ns#compute>'([1,1,1,1,1,1],[1,0,0,0,0,0,0,"#"]).
