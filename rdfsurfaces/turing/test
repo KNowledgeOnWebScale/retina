@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../see.pl turing.pl | tee result.pl
+scryer-prolog -g run ../../yta.pl turing.pl | tee result.pl

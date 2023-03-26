@@ -1,8 +1,8 @@
-% -------------------------------------------
-% RDF Surfaces Enactment Engine -- Jos De Roo
-% -------------------------------------------
+% -------------------------------------
+% Integrated RDF Surfaces -- Jos De Roo
+% -------------------------------------
 %
-% See https://github.com/eyereasoner/see
+% See https://github.com/eyereasoner/yta
 %
 
 :- use_module(library(between)).
@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('SEE v1.5.2').
+version_info('yta v1.5.3').
 inference_limit(100000000).
 
 % run

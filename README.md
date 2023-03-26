@@ -1,6 +1,6 @@
-# see
+# yta
 
-[RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) Enactment Engine.
+Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/)
 
 ## Installation
 

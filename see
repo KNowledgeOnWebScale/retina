@@ -1,2 +1,0 @@
-#!/bin/bash
-scryer-prolog -g run $(dirname -- $(readlink -f -- "$0"))/see.pl "$@"
