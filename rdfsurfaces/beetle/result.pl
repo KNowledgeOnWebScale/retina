@@ -1,3 +1,3 @@
-% PHY v1.5.10
+% phy v1.5.11
 '<http://example.org/ns#is>'('<http://example.org/ns#beetle>','<http://example.org/ns#beautiful>').
 % halt
