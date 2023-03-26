@@ -1,6 +1,6 @@
-% -----------------
-% phy -- Jos De Roo
-% -----------------
+% -----------------------------------------------------------------------------------------------
+% phy - Integrated RDF Surfaces inspired by Pat Hayes, Patrick Hochstenbach and EYE -- Jos De Roo
+% -----------------------------------------------------------------------------------------------
 %
 % See https://github.com/eyereasoner/phy
 %
