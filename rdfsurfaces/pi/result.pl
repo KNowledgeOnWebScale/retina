@@ -1,3 +1,3 @@
-% IS v1.5.5
+% is v1.5.6
 '<http://eyereasoner.github.io/eye/reasoning#pi>'([100000,3.141592653589792],true).
 % halt

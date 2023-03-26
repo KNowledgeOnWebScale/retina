@@ -1,4 +1,4 @@
-% IS v1.5.5
+% is v1.5.6
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#angers>','<http://example.org/ns#nantes>').
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#lemans>','<http://example.org/ns#nantes>').
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#chartres>','<http://example.org/ns#nantes>').

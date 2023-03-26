@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('IS v1.5.5').
+version_info('is v1.5.6').
 inference_limit(100000000).
 
 % run

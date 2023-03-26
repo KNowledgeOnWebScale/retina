@@ -55,7 +55,7 @@ echo "${a[0]}.${a[1]}.${a[2]}" > VERSION
 export RELEASE="v$(cat VERSION)"
 
 # update version in is.pl
-cat is.pl | sed -e "s/'IS.*'/'IS $RELEASE'/" > is.pl.tmp
+cat is.pl | sed -e "s/'is.*'/'is $RELEASE'/" > is.pl.tmp
 mv is.pl.tmp is.pl
 
 # run the tests and do git diff
