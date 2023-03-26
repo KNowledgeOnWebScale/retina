@@ -5,7 +5,7 @@
 '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('<http://example.org/ns#JosD>', '<http://www.w3.org/2006/vcard/ns#Individual>').
 
 % define mapping operation
-'<http://www.w3.org/2000/10/swap/log#onOperationSurface>'([],
+'<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'([],
     (
         % mapping foaf:Person and vcard:Individual on each other
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:S'],
@@ -30,7 +30,7 @@
 % enact
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:S'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onOperationSurface>'([], '_:S'),
+        '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'([], '_:S'),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], '_:S')
     )
 ).
