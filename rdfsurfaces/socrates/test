@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../si.pl socrates.pl | tee result.pl
+scryer-prolog -g run ../../phy.pl socrates.pl | tee result.pl

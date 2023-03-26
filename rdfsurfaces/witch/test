@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../si.pl witch.pl | tee result.pl
+scryer-prolog -g run ../../phy.pl witch.pl | tee result.pl

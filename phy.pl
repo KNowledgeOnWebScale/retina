@@ -1,8 +1,8 @@
-% --------------------------------------
-% RDF Surfaces Integration -- Jos De Roo
-% --------------------------------------
+% -----------------
+% phy -- Jos De Roo
+% -----------------
 %
-% See https://github.com/eyereasoner/si
+% See https://github.com/eyereasoner/phy
 %
 
 :- use_module(library(between)).
@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('si v1.5.7').
+version_info('phy v1.5.8').
 inference_limit(100000000).
 
 % run
