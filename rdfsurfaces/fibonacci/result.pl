@@ -1,4 +1,4 @@
-% is v1.5.6
+% si v1.5.7
 '<http://example.org/ns#fibonacci>'(1,1).
 '<http://example.org/ns#fibonacci>'(2,1).
 '<http://example.org/ns#fibonacci>'(3,2).

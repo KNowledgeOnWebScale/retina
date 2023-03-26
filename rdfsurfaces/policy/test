@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../is.pl policy.pl | tee result.pl
+scryer-prolog -g run ../../si.pl policy.pl | tee result.pl

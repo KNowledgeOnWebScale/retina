@@ -1,8 +1,8 @@
-% -------------------------------------
-% Integrated RDF Surfaces -- Jos De Roo
-% -------------------------------------
+% --------------------------------------
+% RDF Surfaces Integration -- Jos De Roo
+% --------------------------------------
 %
-% See https://github.com/eyereasoner/is
+% See https://github.com/eyereasoner/si
 %
 
 :- use_module(library(between)).
@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('is v1.5.6').
+version_info('si v1.5.7').
 inference_limit(100000000).
 
 % run
