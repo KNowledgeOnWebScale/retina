@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v1.5.11').
+version_info('phy v1.5.12').
 inference_limit(100000000).
 
 % run
@@ -390,13 +390,28 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     Y is abs(X).
 
 '<http://www.w3.org/2000/10/swap/math#acos>'(X, Y) :-
-    Y is acos(X).
+    (   nonvar(X),
+        Y is acos(X),
+        !
+    ;   nonvar(Y),
+        X is cos(Y)
+    ).
 
 '<http://www.w3.org/2000/10/swap/math#asin>'(X, Y) :-
-    Y is asin(X).
+    (   nonvar(X),
+        Y is asin(X),
+        !
+    ;   nonvar(Y),
+        X is sin(Y)
+    ).
 
 '<http://www.w3.org/2000/10/swap/math#atan>'(X, Y) :-
-    Y is atan(X).
+    (   nonvar(X),
+        Y is atan(X),
+        !
+    ;   nonvar(Y),
+        X is tan(Y)
+    ).
 
 '<http://www.w3.org/2000/10/swap/math#atan2>'([X, Y], Z) :-
     Z is atan(X/Y).
@@ -421,7 +436,18 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
-    Z is X-Y.
+    (   nonvar(X),
+        nonvar(Y),
+        Z is X-Y,
+        !
+    ;   nonvar(X),
+        nonvar(Z),
+        Y is X-Z,
+        !
+    ;   nonvar(Y),
+        nonvar(Z),
+        X is Y+Z
+    ).
 
 '<http://www.w3.org/2000/10/swap/math#equalTo>'(X, Y) :-
     X =:= Y.
@@ -489,9 +515,23 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     product(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z) :-
-    (   Y =\= 0
-    ->  Z is X/Y
-    ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z)))
+    (   nonvar(X),
+        nonvar(Y),
+        (   Y =\= 0
+        ->  Z is X/Y
+        ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z)))
+        ),
+        !
+    ;   nonvar(X),
+        nonvar(Z),
+        (   Z =\= 0
+        ->  Y is X/Z
+        ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z)))
+        ),
+        !
+    ;   nonvar(Y),
+        nonvar(Z),
+        X is Y*Z
     ).
 
 '<http://www.w3.org/2000/10/swap/math#radians>'(X, Y) :-
