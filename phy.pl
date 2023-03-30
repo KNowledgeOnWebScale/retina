@@ -22,16 +22,14 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v1.5.12').
-inference_limit(100000000).
+version_info('phy v1.6.0').
 
 % run
 run :-
     version_info(Version),
-    inference_limit(Inf),
     format("% ~w~n", [Version]),
     bb_put(limit, -1),
-    catch(call_with_inference_limit(forward(0), Inf, Halt), Exc,
+    catch(forward(0), Exc,
         (   writeq(Exc),
             write('.'),
             nl,
@@ -41,23 +39,7 @@ run :-
             )
         )
     ),
-    (   answer(Answer),
-        (   Answer = exopred(P, S, O)
-        ->  P \= implies,
-            T =.. [P, S, O]
-        ;   T = Answer
-        ),
-        writeq(T),
-        write('.'),
-        nl,
-        false
-    ;   (   Halt = inference_limit_exceeded
-        ->  format("% inference limit ~w exceeded~n", [Inf])
-        ;   true
-        ),
-        format("% halt~n", []),
-        halt(0)
-    ).
+    halt(0).
 
 % forward chaining
 forward(Recursion) :-
@@ -124,7 +106,18 @@ astep(A) :-
         ->  \+clause(C, P)
         ;   \+A
         )
-    ->  assertz(A)
+    ->  assertz(A),
+        (   A = answer(Answer)
+        ->  (   Answer = exopred(Q, S, O)
+            ->  Q \= implies,
+                T =.. [Q, S, O]
+            ;   T = Answer
+            ),
+            writeq(T),
+            write('.'),
+            nl
+        ;   true
+        )
     ;   true
     ).
 
