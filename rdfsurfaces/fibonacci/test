@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../phy.pl fibonacci.pl | tee result.pl
+phy fibonacci.pl | tee result.pl

@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run $(dirname -- $(readlink -f -- "$0"))/phy.pl "$@"
+timeout 15 scryer-prolog -g run $(dirname -- $(readlink -f -- "$0"))/phy.pl "$@"

@@ -1,2 +1,2 @@
 #!/bin/bash
-scryer-prolog -g run ../../phy.pl contradiction.pl | tee result.pl
+phy contradiction.pl | tee result.pl
