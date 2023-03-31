@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v1.6.0').
+version_info('phy v2.0.0').
 
 % run
 run :-

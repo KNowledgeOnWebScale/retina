@@ -1,4 +1,4 @@
-% phy v1.6.0
+% phy v2.0.0
 '<http://example.org/ns#fibonacci>'(1,1).
 '<http://example.org/ns#fibonacci>'(2,1).
 '<http://example.org/ns#fibonacci>'(3,2).
