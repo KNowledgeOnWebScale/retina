@@ -4,7 +4,7 @@
 %
 % See https://github.com/josd/phy
 %
-% not availble:
+% not available:
 %   image, multifile relabeling, existentials, djiti, gc, when, regex, varpred, log:conlusion
 
 :- use_module(library(between)).
