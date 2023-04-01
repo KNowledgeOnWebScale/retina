@@ -2,7 +2,7 @@
 for dir in rdfsurfaces/*
 do
     pushd "${dir}"
-    ./test
+    timeout 30 ./test
     popd
     echo ""
 done

@@ -4,6 +4,8 @@
 %
 % See https://github.com/josd/phy
 %
+% not availble:
+%   image, multifile relabeling, existentials, djiti, gc, when, regex, varpred, log:conlusion
 
 :- use_module(library(between)).
 :- use_module(library(format)).
@@ -22,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.0.1').
+version_info('phy v2.0.2').
 
 % run
 run :-
