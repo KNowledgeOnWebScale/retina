@@ -1,2 +1,2 @@
 #!/bin/bash
-phy witch.pl | tee result.pl
+retina witch.pl | tee result.pl

@@ -1,2 +1,2 @@
 #!/bin/bash
-phy contradiction.pl | tee result.pl
+retina contradiction.pl | tee result.pl

@@ -1,2 +1,2 @@
 #!/bin/bash
-phy graph.pl | tee result.pl
+retina graph.pl | tee result.pl

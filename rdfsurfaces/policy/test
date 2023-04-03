@@ -1,2 +1,2 @@
 #!/bin/bash
-phy policy.pl | tee result.pl
+retina policy.pl | tee result.pl

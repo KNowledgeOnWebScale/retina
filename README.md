@@ -1,18 +1,15 @@
-# phy
+# retina
 
-Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
-[Pat Hayes](https://en.wikipedia.org/wiki/Pat_Hayes), [Patrick Hochstenbach](https://patrickhochstenbach.net/) and [EYE](https://eyereasoner.github.io/eye/).
+Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/)
 
-## Installation
+## Installation and test
 
-Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog).
-
-## Test
-Run
+Install [Trealla](https://github.com/trealla-prolog/trealla#building) and run
 ```
 ./test
 git diff
 ```
+
 ## Background
 
 - Personal notes by Tim Berners-Lee: [Design Issues](https://www.w3.org/DesignIssues/)

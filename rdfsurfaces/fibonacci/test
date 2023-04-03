@@ -1,2 +1,2 @@
 #!/bin/bash
-phy fibonacci.pl | tee result.pl
+retina fibonacci.pl | tee result.pl

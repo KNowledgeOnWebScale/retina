@@ -1,2 +1,2 @@
 #!/bin/bash
-phy socrates.pl | tee result.pl
+retina socrates.pl | tee result.pl

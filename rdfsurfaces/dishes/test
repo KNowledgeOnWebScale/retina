@@ -1,2 +1,2 @@
 #!/bin/bash
-phy dishes.pl | tee result.pl
+retina dishes.pl | tee result.pl

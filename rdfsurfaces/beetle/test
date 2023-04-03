@@ -1,2 +1,2 @@
 #!/bin/bash
-phy beetle.pl | tee result.pl
+retina beetle.pl | tee result.pl

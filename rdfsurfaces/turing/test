@@ -1,2 +1,2 @@
 #!/bin/bash
-phy turing.pl | tee result.pl
+retina turing.pl | tee result.pl

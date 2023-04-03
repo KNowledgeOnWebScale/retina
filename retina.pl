@@ -1,20 +1,9 @@
 % -----------------
-% phy -- Jos De Roo
+% retina -- Jos De Roo
 % -----------------
 %
-% See https://github.com/josd/phy
+% See https://github.com/josd/retina
 %
-% not available:
-%   image
-%   multifile relabeling
-%   existentials
-%   n3
-%   djiti
-%   garbage collection
-%   coroutining
-%   regex
-%   varpred
-%   log:conlusion
 
 :- use_module(library(between)).
 :- use_module(library(format)).
@@ -33,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.0.4').
+version_info('retina v2.1.0').
 
 % run
 run :-
@@ -186,11 +175,12 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), L),
         \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
-        length(L, E),
-        E < 4,
+        length(L, D),
+        D < 4,
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
         conj_list(F, K),
-        length(K, 2),
+        length(K, E),
+        E < 4,
         \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
         makevars(K, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),

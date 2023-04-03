@@ -1,2 +1,2 @@
 #!/bin/bash
-phy pi.pl | tee result.pl
+retina pi.pl | tee result.pl
