@@ -15,14 +15,13 @@
 :- dynamic(brake/0).
 :- dynamic(implies/2).
 :- dynamic(label/1).
-:- dynamic(pred/1).
 :- dynamic(recursion/1).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v2.1.0').
+version_info('retina v2.2.0').
 
 % run
 run :-
@@ -54,7 +53,6 @@ forward(Recursion) :-
         ->  labelvars(Conc)
         ;   true
         ),
-        apred((Prem, Conc)),
         astep(Conc),
         retract(brake),
         false
@@ -82,19 +80,6 @@ labelvars(Term) :-
     ),
     numbervars(Term, Current, Next),
     assertz(label(Next)).
-
-% assert predicates
-apred((A, B)) :-
-    !,
-    apred(A),
-    apred(B).
-apred(A) :-
-    (   functor(A, B, 2),
-        sub_atom(B, 0, 5, _, '<http'),
-        \+pred(B)
-    ->  assertz(pred(B))
-    ;   true
-    ).
 
 % assert step
 astep((A, B)) :-
@@ -582,7 +567,9 @@ conj_list((A, B), [A|C]) :-
 
 exopred(P, S, O) :-
     (   var(P)
-    ->  pred(P)
+    ->  current_predicate(P/2),
+        sub_atom(P, 0, 5, _, '<http'),
+        \+sub_atom(P, 0, 32, _, '<http://www.w3.org/2000/10/swap/')
     ;   true
     ),
     call(P, S, O).
