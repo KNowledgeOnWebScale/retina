@@ -19,7 +19,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v2.3.0').
+version_info('retina v2.3.1').
 
 % run
 run :-
@@ -652,3 +652,14 @@ product([], 1) :-
 product([A|B], C) :-
     product(B, D),
     C is A*D.
+
+fm(A) :-
+    format(user_error, "~n*** ~q~n", [A]),
+    flush_output(user_error).
+
+mf(A) :-
+    forall(
+        catch(A, _, fail),
+        format(user_error, "~n*** ~q~n", [A])
+    ),
+    flush_output(user_error).

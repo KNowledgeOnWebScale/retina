@@ -1,4 +1,4 @@
-% retina v2.3.0
+% retina v2.3.1
 '<http://example.org/ns#compute>'([1,0,1,0,0,1],[1,0,1,0,1,0,"#"]).
 '<http://example.org/ns#compute>'([1,0,1,1,1,1],[1,1,0,0,0,0,"#"]).
 '<http://example.org/ns#compute>'([1,1,1,1,1,1],[1,0,0,0,0,0,0,"#"]).
