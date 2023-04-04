@@ -17,9 +17,11 @@
 :- dynamic(label/1).
 :- dynamic(recursion/1).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v2.3.1').
+version_info('retina v2.4.0').
 
 % run
 run :-
@@ -120,11 +122,23 @@ within_recursion(R) :-
         recursion(R)
     ).
 
+% assert positive surface
+implies('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, G), G).
+
 % blow inference fuse
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(G, H, V),
         catch(call(H), _, false)
         ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), H))).
+
+% resolve positive surface
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        select('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'([], H), L, K),
+        conj_list(H, D),
+        append(K, D, E),
+        conj_list(F, E)
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, F)).
 
 % erase at even level
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
@@ -238,7 +252,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 '<http://www.w3.org/2000/10/swap/list#append>'(A, B) :-
     append(A, B).
 
-'<http://www.w3.org/2000/10/swap/list#first>'([A|_], A) .
+'<http://www.w3.org/2000/10/swap/list#first>'([A|_], A).
 
 '<http://www.w3.org/2000/10/swap/list#firstRest>'([A|B], [A, B]).
 
