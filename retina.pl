@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v2.4.0').
+version_info('retina v2.4.1').
 
 % run
 run :-
@@ -250,25 +250,34 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 % list
 '<http://www.w3.org/2000/10/swap/list#append>'(A, B) :-
+    nonvar(A),
     append(A, B).
 
-'<http://www.w3.org/2000/10/swap/list#first>'([A|_], A).
+'<http://www.w3.org/2000/10/swap/list#first>'(A, B) :-
+    nonvar(A),
+    A = [B|_].
 
 '<http://www.w3.org/2000/10/swap/list#firstRest>'([A|B], [A, B]).
 
 '<http://www.w3.org/2000/10/swap/list#in>'(A, B) :-
+    nonvar(B),
     member(A, B).
 
 '<http://www.w3.org/2000/10/swap/list#iterate>'(A, [B, C]) :-
+    nonvar(A),
     nth0(B, A, C).
 
 '<http://www.w3.org/2000/10/swap/list#last>'(A, B) :-
+    nonvar(A),
     append(_, [B], A).
 
 '<http://www.w3.org/2000/10/swap/list#length>'(A, B) :-
+    nonvar(A),
     length(A, B).
 
 '<http://www.w3.org/2000/10/swap/list#map>'([A, B], C) :-
+    nonvar(A),
+    nonvar(B),
     findall(E,
         (   member(F, A),
             G =.. [B, F, E],
@@ -278,12 +287,16 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/list#member>'(A, B) :-
+    nonvar(A),
     member(B, A).
 
 '<http://www.w3.org/2000/10/swap/list#memberAt>'([A, B], C) :-
+    nonvar(A),
     nth0(B, A, C).
 
 '<http://www.w3.org/2000/10/swap/list#remove>'([A, B], C) :-
+    nonvar(A),
+    nonvar(B),
     findall(I,
         (   member(I, A),
             I \= B
@@ -292,6 +305,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/list#removeAt>'([A, B], C) :-
+    nonvar(A),
     nth0(B, A, D),
     findall(I,
         (   member(I, A),
@@ -301,9 +315,16 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/list#removeDuplicates>'(A, B) :-
+    nonvar(A),
     list_to_set(A, B).
 
-'<http://www.w3.org/2000/10/swap/list#rest>'([_|A], A).
+'<http://www.w3.org/2000/10/swap/list#rest>'(A, B) :-
+    nonvar(A),
+    A = [_|B].
+
+'<http://www.w3.org/2000/10/swap/list#sort>'(A, B) :-
+    nonvar(A),
+    sort(A, B).
 
 %log
 '<http://www.w3.org/2000/10/swap/log#bound>'(X, Y) :-
@@ -328,6 +349,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/log#collectAllIn>'([A, B, C], D) :-
     within_recursion(D),
+    nonvar(B),
     catch(findall(A, B, E), _, E = []),
     E = C.
 
@@ -336,19 +358,26 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/log#forAllIn>'([A, B], C) :-
     within_recursion(C),
+    nonvar(A),
+    nonvar(B),
     forall(A, B).
 
 '<http://www.w3.org/2000/10/swap/log#graffiti>'(A, B) :-
+    nonvar(A),
     term_variables(A, B).
 
 '<http://www.w3.org/2000/10/swap/log#ifThenElseIn>'([A, B, C], D) :-
     within_recursion(D),
+    nonvar(A),
+    nonvar(B),
+    nonvar(C),
     if_then_else(A, B, C).
 
 '<http://www.w3.org/2000/10/swap/log#notEqualTo>'(X, Y) :-
     X \= Y.
 
 '<http://www.w3.org/2000/10/swap/log#repeat>'(A, B) :-
+    nonvar(A),
     C is A-1,
     between(0, C, B).
 
@@ -366,6 +395,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 % math
 '<http://www.w3.org/2000/10/swap/math#absoluteValue>'(X, Y) :-
+    nonvar(X),
     Y is abs(X).
 
 '<http://www.w3.org/2000/10/swap/math#acos>'(X, Y) :-
@@ -393,9 +423,12 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/math#atan2>'([X, Y], Z) :-
+    nonvar(X),
+    nonvar(Y),
     Z is atan(X/Y).
 
 '<http://www.w3.org/2000/10/swap/math#ceiling>'(X, Y) :-
+    nonvar(X),
     Y is ceiling(X).
 
 '<http://www.w3.org/2000/10/swap/math#cos>'(X, Y) :-
@@ -429,49 +462,67 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/math#equalTo>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
     X =:= Y.
 
 '<http://www.w3.org/2000/10/swap/math#exponentiation>'([X, Y], Z) :-
-    (   nonvar(Y),
+    (   nonvar(X),
+        nonvar(Y),
         Z is X**Y,
         !
-    ;   nonvar(Z),
+    ;   nonvar(X),
+        nonvar(Z),
         Z =\= 0,
         X =\= 0,
         Y is log(Z)/log(X)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#floor>'(X, Y) :-
+    nonvar(X),
     Y is floor(X).
 
 '<http://www.w3.org/2000/10/swap/math#greaterThan>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
      X > Y.
 
 '<http://www.w3.org/2000/10/swap/math#integerQuotient>'([X, Y], Z) :-
+    nonvar(X),
+    nonvar(Y),
     (   Y =\= 0
     ->  Z is round(floor(X/Y))
     ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#integerQuotient>'([X, Y], Z)))
     ).
 
 '<http://www.w3.org/2000/10/swap/math#lessThan>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
     X < Y.
 
 '<http://www.w3.org/2000/10/swap/math#logarithm>'([X, Y], Z) :-
-    (   X =\= 0,
+    (   nonvar(X),
+        nonvar(Y),
+        X =\= 0,
         Y =\= 0,
         Z is log(X)/log(Y),
         !
-    ;   Y is X**(1/Z)
+    ;   nonvar(X),
+        nonvar(Z),
+        Y is X**(1/Z)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#max>'(X, Y) :-
-    list_min(X, Y).
+    ground(X),
+    max_list(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#memberCount>'(X, Y) :-
+    nonvar(X),
     length(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#min>'(X, Y) :-
-    list_min(X, Y).
+    ground(X),
+    min_list(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#negation>'(X, Y) :-
     (   nonvar(X)
@@ -482,15 +533,22 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/math#notEqualTo>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
     X =\= Y.
 
 '<http://www.w3.org/2000/10/swap/math#notGreaterThan>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
     X =< Y.
 
 '<http://www.w3.org/2000/10/swap/math#notLessThan>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
     X >= Y.
 
 '<http://www.w3.org/2000/10/swap/math#product>'(X, Y) :-
+    ground(X),
     product(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z) :-
@@ -522,15 +580,20 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/math#remainder>'([X, Y], Z) :-
+    nonvar(X),
+    nonvar(Y),
     (   Y =\= 0
     ->  Z is X-Y*round(floor(X/Y))
     ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#remainder>'([X, Y], Z)))
     ).
 
 '<http://www.w3.org/2000/10/swap/math#rounded>'(X, Y) :-
+    nonvar(X),
     Y is round(round(X)).
 
 '<http://www.w3.org/2000/10/swap/math#roundedTo>'([X, Y], Z) :-
+    nonvar(X),
+    nonvar(Y),
     F is 10**floor(Y),
     Z is round(round(X*F))/F.
 
@@ -543,6 +606,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     ).
 
 '<http://www.w3.org/2000/10/swap/math#sum>'(X, Y) :-
+    ground(X),
     sum(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#tan>'(X, Y) :-
