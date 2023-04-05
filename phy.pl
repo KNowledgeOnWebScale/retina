@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.6.0').
+version_info('phy v2.6.1').
 
 % run
 run :-
@@ -514,7 +514,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/math#max>'(X, Y) :-
     ground(X),
-    max_list(X, Y).
+    catch(list_max(X, Y), _, max_list(X, Y)).
 
 '<http://www.w3.org/2000/10/swap/math#memberCount>'(X, Y) :-
     nonvar(X),
@@ -522,7 +522,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/math#min>'(X, Y) :-
     ground(X),
-    min_list(X, Y).
+    catch(list_min(X, Y), _, min_list(X, Y)).
 
 '<http://www.w3.org/2000/10/swap/math#negation>'(X, Y) :-
     (   nonvar(X)
@@ -663,7 +663,7 @@ makevars(A, B, C) :-
     ->  throw(invalid_graffiti(D, in(A)))
     ;   true
     ),
-    findall([X,_],
+    findall([X, _],
         (   member(X, D)
         ),
         F
@@ -674,7 +674,7 @@ makevar(A, B, D) :-
     atomic(A),
     !,
     (   atom(A),
-        member([A,B], D)
+        member([A, B], D)
     ->  true
     ;   B = A
     ).
