@@ -7,7 +7,7 @@ if [ $# -lt 2 ] ; then
 fi
 
 # change working directory
-pushd ~/github.com/josd/retina
+pushd ~/github.com/josd/phy
 
 # the following is adapted from https://gist.github.com/codezninja/c227d9c65b09d2be2d99abbfcfa8774a
 while getopts "Mmp" Option
@@ -54,9 +54,9 @@ echo "${a[0]}.${a[1]}.${a[2]}" > VERSION
 
 export RELEASE="v$(cat VERSION)"
 
-# update version in retina.pl
-cat retina.pl | sed -e "s/'retina.*'/'retina $RELEASE'/" > retina.pl.tmp
-mv retina.pl.tmp retina.pl
+# update version in phy.pl
+cat phy.pl | sed -e "s/'phy.*'/'phy $RELEASE'/" > phy.pl.tmp
+mv phy.pl.tmp phy.pl
 
 # run the tests and do git diff
 ./test

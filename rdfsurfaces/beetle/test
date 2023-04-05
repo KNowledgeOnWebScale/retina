@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../retina.pl beetle.pl | tee result.pl
+prolog -g run ../../phy.pl beetle.pl | tee result.pl

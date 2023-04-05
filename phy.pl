@@ -1,8 +1,8 @@
-% --------------------
-% retina -- Jos De Roo
-% --------------------
+% -----------------
+% phy -- Jos De Roo
+% -----------------
 %
-% See https://github.com/josd/retina
+% See https://github.com/josd/phy
 %
 
 :- use_module(library(between)).
@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v2.5.0').
+version_info('phy v2.6.0').
 
 % run
 run :-

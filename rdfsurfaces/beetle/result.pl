@@ -1,2 +1,2 @@
-% retina v2.5.0
+% phy v2.6.0
 '<http://example.org/ns#is>'('<http://example.org/ns#beetle>','<http://example.org/ns#beautiful>').

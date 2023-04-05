@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../retina.pl contradiction.pl | tee result.pl
+prolog -g run ../../phy.pl contradiction.pl | tee result.pl

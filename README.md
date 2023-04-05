@@ -1,4 +1,4 @@
-# retina
+# phy
 
 Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/)
 
