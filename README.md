@@ -1,18 +1,21 @@
 # phy
 
-Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/)
+Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
+[Pat Hayes](https://en.wikipedia.org/wiki/Pat_Hayes),
+[Patrick Hochstenbach](https://patrickhochstenbach.net/) and
+[EYE](https://eyereasoner.github.io/eye/).
 
 ## Installation and test
 
-Install [Trealla](https://github.com/trealla-prolog/trealla#building) and run
+Install [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and run
 ```
-sudo ln -sf /usr/local/bin/tpl /usr/local/bin/prolog
+sudo ln -sf $(which scryer-prolog) /usr/local/bin/prolog
 ./test
 git diff
 ```
-or install [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and run
+or install [Trealla](https://github.com/trealla-prolog/trealla#building) and run
 ```
-sudo ln -sf /usr/local/bin/scryer-prolog /usr/local/bin/prolog
+sudo ln -sf $(which tpl) /usr/local/bin/prolog
 ./test
 git diff
 ```
