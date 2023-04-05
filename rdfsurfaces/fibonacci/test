@@ -1,2 +1,2 @@
 #!/bin/bash
-retina fibonacci.pl | tee result.pl
+prolog -g run ../../retina.pl fibonacci.pl | tee result.pl

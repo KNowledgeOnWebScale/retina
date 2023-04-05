@@ -6,6 +6,13 @@ Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/)
 
 Install [Trealla](https://github.com/trealla-prolog/trealla#building) and run
 ```
+sudo ln -sf /usr/local/bin/tpl /usr/local/bin/prolog
+./test
+git diff
+```
+or install [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and run
+```
+sudo ln -sf /usr/local/bin/scryer-prolog /usr/local/bin/prolog
 ./test
 git diff
 ```

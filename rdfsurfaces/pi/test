@@ -1,2 +1,2 @@
 #!/bin/bash
-retina pi.pl | tee result.pl
+prolog -g run ../../retina.pl pi.pl | tee result.pl

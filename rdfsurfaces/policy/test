@@ -1,2 +1,2 @@
 #!/bin/bash
-retina policy.pl | tee result.pl
+prolog -g run ../../retina.pl policy.pl | tee result.pl

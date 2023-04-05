@@ -1,2 +1,2 @@
 #!/bin/bash
-retina socrates.pl | tee result.pl
+prolog -g run ../../retina.pl socrates.pl | tee result.pl

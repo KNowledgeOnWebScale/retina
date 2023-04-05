@@ -1,2 +1,0 @@
-#!/bin/bash
-tpl -g run $(dirname -- $(readlink -f -- "$0"))/retina.pl "$@"
