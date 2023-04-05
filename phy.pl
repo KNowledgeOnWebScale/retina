@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.6.1').
+version_info('phy v2.6.2').
 
 % run
 run :-
@@ -514,7 +514,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/math#max>'(X, Y) :-
     ground(X),
-    catch(list_max(X, Y), _, max_list(X, Y)).
+    list_max(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#memberCount>'(X, Y) :-
     nonvar(X),
@@ -522,7 +522,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/math#min>'(X, Y) :-
     ground(X),
-    catch(list_min(X, Y), _, min_list(X, Y)).
+    list_min(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#negation>'(X, Y) :-
     (   nonvar(X)
