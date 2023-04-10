@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.6.2').
+version_info('phy v2.6.3').
 
 % run
 run :-
@@ -156,23 +156,37 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         )), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, C)).
 
 % resolve negative surfaces
-implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+implies((findall(1,
+            (   '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _)
+            ),
+            O
+        ),
+        length(O, N),
+        (   N < 100
+        ->  S = 3
+        ;   (   N < 200
+            ->  S = 2
+            ;   S = 1
+            )
+        ),
+        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
-        \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), L),
-        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
         length(L, D),
-        D < 4,
+        D =< S,
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
         conj_list(F, K),
         length(K, E),
-        E < 4,
+        E =< S+1,
         \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
         makevars(K, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
-
-        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, P), L, M),
+        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, Q), L, M),
+            conj_list(Q, R),
+            member(P, R),
             list_to_set(['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|M], T)
-        ;   select(C, L, M),
+        ;   select(Q, L, M),
+            conj_list(C, R),
+            member(Q, R),
             list_to_set([P|M], T)
         ),
         conj_list(H, T),
