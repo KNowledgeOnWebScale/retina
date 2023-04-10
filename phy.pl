@@ -21,13 +21,14 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.6.3').
+version_info('phy v2.6.4').
 
 % run
 run :-
     version_info(Version),
     format("% ~w~n", [Version]),
     bb_put(limit, -1),
+    bb_put(fm, 0),
     catch(forward(0), Exc,
         (   writeq(Exc),
             write('.'),
@@ -37,6 +38,12 @@ run :-
             ;   halt(1)
             )
         )
+    ),
+    bb_get(fm, Cnt),
+    (   Cnt = 0
+    ->  true
+    ;   format(user_error, '*** fm=~w~n', [Cnt]),
+        flush_output(user_error)
     ),
     halt(0).
 
@@ -746,8 +753,14 @@ product([A|B], C) :-
     C is A*D.
 
 fm(A) :-
-    format(user_error, "~n*** ~q~n", [A]),
-    flush_output(user_error).
+    (   A = !
+    ->  true
+    ;   format(user_error, '~n*** ~q~n', [A]),
+        flush_output(user_error)
+    ),
+    bb_get(fm, B),
+    C is B+1,
+    bb_put(fm, C).
 
 mf(A) :-
     forall(
