@@ -1,4 +1,4 @@
-% phy v2.6.6 (2023-04-11)
+% phy v2.6.7 (2023-04-11)
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#angers>','<http://example.org/ns#nantes>').
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#lemans>','<http://example.org/ns#nantes>').
 '<https://josd.github.io/eye/ns#path>'('<http://example.org/ns#chartres>','<http://example.org/ns#nantes>').
