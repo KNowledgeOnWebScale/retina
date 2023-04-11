@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.6.5 (2023-04-11)').
+version_info('phy v2.6.6 (2023-04-11)').
 
 % run
 run :-
@@ -171,10 +171,7 @@ implies((findall(1,
         length(O, N),
         (   N < 100
         ->  S = 3
-        ;   (   N < 200
-            ->  S = 2
-            ;   S = 1
-            )
+        ;   S = 1
         ),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
@@ -182,21 +179,20 @@ implies((findall(1,
         D =< S,
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
         conj_list(F, K),
-        length(K, E),
-        E =< S+1,
+        length(K, 2),
         \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
         makevars(K, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
-        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, Q), L, M),
+        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, Q), L, T),
             conj_list(Q, R),
             member(P, R),
-            list_to_set(['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|M], T)
-        ;   select(Q, L, M),
+            list_to_set(['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|T], M)
+        ;   select(Q, L, T),
             conj_list(C, R),
             member(Q, R),
-            list_to_set([P|M], T)
+            list_to_set([P|T], M)
         ),
-        conj_list(H, T),
+        conj_list(H, M),
         ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)).
 
@@ -755,7 +751,7 @@ product([A|B], C) :-
 fm(A) :-
     (   A = !
     ->  true
-    ;   format(user_error, '~n*** ~q~n', [A]),
+    ;   format(user_error, '*** ~q~n', [A]),
         flush_output(user_error)
     ),
     bb_get(fm, B),
