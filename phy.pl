@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.6.7 (2023-04-11)').
+version_info('phy v2.7.0 (2023-04-13)').
 
 % run
 run :-
@@ -163,32 +163,27 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         )), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, C)).
 
 % resolve negative surfaces
-implies((findall(1,
-            (   '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _)
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        conj_list(G, L),
+        findall(1,
+            (   member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), L)
             ),
             O
         ),
-        length(O, N),
-        (   N < 100
-        ->  S = 3
-        ;   S = 1
-        ),
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        conj_list(G, L),
-        length(L, D),
-        D =< S,
+        length(O, E),
+        memberchk(E, [0, 2, 3]),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
         conj_list(F, K),
         length(K, 2),
         \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
         makevars(K, J, W),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, P),
         (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, Q), L, A),
             M = ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|A],
             conj_list(Q, R),
-            member(P, R)
+            includes(R, P)
         ;   select(Q, L, A),
-            M = [P|A],
+            append(P, A, M),
             conj_list(C, R),
             member(Q, R)
         ),
@@ -748,6 +743,12 @@ product([], 1) :-
 product([A|B], C) :-
     product(B, D),
     C is A*D.
+
+includes(_, []) :-
+    !.
+includes(X, [Y|Z]) :-
+    member(Y, X),
+    includes(X, Z).
 
 fm(A) :-
     (   A = !
