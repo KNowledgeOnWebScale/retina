@@ -15,13 +15,22 @@
 :- dynamic(brake/0).
 :- dynamic(implies/2).
 :- dynamic(label/1).
+:- dynamic(pred/1).
 :- dynamic(recursion/1).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.8.0 (2023-04-13)').
+version_info('phy v2.8.1 (2023-04-14)').
+
+term_expansion(A, _) :-
+    A =.. [P, _, _],
+    sub_atom(P, 0, 5, _, '<http'),
+    \+sub_atom(P, 0, 32, _, '<http://www.w3.org/2000/10/swap/'),
+    \+pred(P),
+    assertz(pred(P)),
+    fail.
 
 % run
 run :-
@@ -50,8 +59,7 @@ run :-
 
 % relabel graffiti
 relabel_graffiti :-
-    current_predicate(P/2),
-    memberchk(P, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
+    member(P, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
     A =.. [P, _, _],
     retract(A),
     tr_tr(A, B),
@@ -688,9 +696,7 @@ conj_list((A, B), [A|C]) :-
 
 exopred(P, S, O) :-
     (   var(P)
-    ->  current_predicate(P/2),
-        sub_atom(P, 0, 5, _, '<http'),
-        \+sub_atom(P, 0, 32, _, '<http://www.w3.org/2000/10/swap/')
+    ->  pred(P)
     ;   true
     ),
     call(P, S, O).
