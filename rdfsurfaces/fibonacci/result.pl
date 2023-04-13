@@ -1,4 +1,4 @@
-% phy v2.7.1 (2023-04-13)
+% phy v2.8.0 (2023-04-13)
 '<http://example.org/ns#fibonacci>'(1,1).
 '<http://example.org/ns#fibonacci>'(2,1).
 '<http://example.org/ns#fibonacci>'(3,2).

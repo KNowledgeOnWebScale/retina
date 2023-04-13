@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.7.1 (2023-04-13)').
+version_info('phy v2.8.0 (2023-04-13)').
 
 % run
 run :-
@@ -29,6 +29,7 @@ run :-
     format("% ~w~n", [Version]),
     bb_put(limit, -1),
     bb_put(fm, 0),
+    relabel_graffiti,
     catch(forward(0), Exc,
         (   writeq(Exc),
             write('.'),
@@ -46,6 +47,49 @@ run :-
         flush_output(user_error)
     ),
     halt(0).
+
+% relabel graffiti
+relabel_graffiti :-
+    current_predicate(P/2),
+    memberchk(P, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
+    A =.. [P, _, _],
+    retract(A),
+    tr_tr(A, B),
+    assertz(B),
+    fail.
+relabel_graffiti.
+
+tr_tr([], []) :-
+    !.
+tr_tr([A|B], [C|D]) :-
+    !,
+    tr_tr(A, C),
+    tr_tr(B, D).
+tr_tr(A, A) :-
+    number(A),
+    !.
+tr_tr(A, B) :-
+    A =.. [C|D],
+    tr_tr(D, E),
+    (   memberchk(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
+        E = [[_|_]|_]
+    ->  tr_graffiti(A, B)
+    ;   B =.. [C|E]
+    ).
+
+tr_graffiti(A, B) :-
+    A =.. [C, D, E],
+    tr_tr(D, F),
+    tr_tr(E, R),
+    findall([G, H],
+        (   member(G, F),
+            genlabel(G, H)
+        ),
+        L
+    ),
+    couple(_, M, L),
+    makevar(R, O, L),
+    B =.. [C, M, O].
 
 % forward chaining
 forward(Recursion) :-
@@ -750,6 +794,25 @@ includes(X, [Y|Z]) :-
     member(Y, X),
     includes(X, Z).
 
+couple([], [], []).
+couple([A|B], [C|D], [[A, C]|E]) :-
+    couple(B, D, E).
+
+genlabel(A, B) :-
+    (   bb_get(A, C)
+    ->  D is C+1,
+        bb_put(A, D),
+        taglabel(A, D, B)
+    ;   bb_put(A, 1),
+        taglabel(A, 1, B)
+    ).
+
+taglabel(A, B, C) :-
+    atom_chars(A, D),
+    number_chars(B, E),
+    append(D, ['_'|E], F),
+    atom_chars(C, F).
+
 fm(A) :-
     (   A = !
     ->  true
@@ -763,6 +826,6 @@ fm(A) :-
 mf(A) :-
     forall(
         catch(A, _, fail),
-        format(user_error, "~n*** ~q~n", [A])
+        format(user_error, "*** ~q~n", [A])
     ),
     flush_output(user_error).
