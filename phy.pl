@@ -21,7 +21,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.7.0 (2023-04-13)').
+version_info('phy v2.7.1 (2023-04-13)').
 
 % run
 run :-
@@ -177,15 +177,15 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         length(K, 2),
         \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
         makevars(K, J, W),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, P),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
         (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, Q), L, A),
             M = ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|A],
             conj_list(Q, R),
-            includes(R, P)
+            memberchk(P, R)
         ;   select(Q, L, A),
-            append(P, A, M),
+            M = [P|A],
             conj_list(C, R),
-            member(Q, R)
+            memberchk(Q, R)
         ),
         list_to_set(M, T),
         conj_list(H, T),
