@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.8.1 (2023-04-14)').
+version_info('phy v2.8.2 (2023-04-14)').
 
 term_expansion(A, _) :-
     A =.. [P, _, _],
@@ -30,7 +30,7 @@ term_expansion(A, _) :-
     \+sub_atom(P, 0, 32, _, '<http://www.w3.org/2000/10/swap/'),
     \+pred(P),
     assertz(pred(P)),
-    fail.
+    false.
 
 % run
 run :-
@@ -64,7 +64,7 @@ relabel_graffiti :-
     retract(A),
     tr_tr(A, B),
     assertz(B),
-    fail.
+    false.
 relabel_graffiti.
 
 tr_tr([], []) :-
@@ -831,7 +831,7 @@ fm(A) :-
 
 mf(A) :-
     forall(
-        catch(A, _, fail),
+        catch(A, _, false),
         format(user_error, "*** ~q~n", [A])
     ),
     flush_output(user_error).
