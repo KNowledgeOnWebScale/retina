@@ -22,7 +22,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.8.2 (2023-04-14)').
+version_info('phy v2.9.0 (2023-04-14)').
 
 term_expansion(A, _) :-
     A =.. [P, _, _],
@@ -187,7 +187,8 @@ implies('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, G), G).
 % blow inference fuse
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(G, H, V),
-        catch(call(H), _, false)
+        catch(call(H), _, false),
+        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, H)
         ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), H))).
 
 % resolve positive surface
@@ -217,6 +218,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 % resolve negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
+        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
         findall(1,
             (   member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), L)
             ),
@@ -226,6 +228,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         memberchk(E, [0, 2, 3]),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
         conj_list(F, K),
+        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
         length(K, 2),
         \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
         makevars(K, J, W),
