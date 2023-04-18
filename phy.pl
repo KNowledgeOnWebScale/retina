@@ -9,6 +9,7 @@
 :- use_module(library(format)).
 :- use_module(library(iso_ext)).
 :- use_module(library(lists)).
+:- use_module(library(si)).
 :- use_module(library(terms)).
 
 :- dynamic(answer/1).
@@ -22,7 +23,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.9.0 (2023-04-14)').
+version_info('phy v2.9.1 (2023-04-19)').
 
 term_expansion(A, _) :-
     A =.. [P, _, _],
@@ -205,7 +206,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), L, K),
         conj_list(H, M),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], O), M, N),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, O), M, N),
         (   conj_list(O, D),
             append(K, D, E),
             conj_list(C, E)
@@ -213,7 +214,9 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             I > 1,
             conj_list(F, N),
             conj_list(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], F)|K])
-        )), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, C)).
+        ),
+        append(V, W, U)
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)).
 
 % resolve negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
@@ -265,7 +268,9 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, H), L, K),
         conj_list(R, K),
         domain(V, R, P),
-        makevars([P, H], [Q, S], V),
+        find_graffiti(K, D),
+        append(V, D, U),
+        makevars([P, H], [Q, S], U),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, I)).
@@ -280,7 +285,9 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(T, J),
         E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], T),
         domain(V, R, P),
-        makevars([P, E], [Q, S], V),
+        find_graffiti([R], D),
+        append(V, D, U),
+        makevars([P, E], [Q, S], U),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, I)).
@@ -292,18 +299,23 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(H, [T]),
         conj_list(R, K),
         conjify(R, S),
-        makevars(':-'(T, S), C, V)
+        find_graffiti([R], D),
+        append(V, D, U),
+        makevars(':-'(T, S), C, U)
         ), C).
 
 % create query
 implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         conj_list(G, L),
         (   select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, H), L, K)
-        ->  conj_list(P, K)
+        ->  conj_list(P, K),
+            find_graffiti(K, D)
         ;   P = G,
-            H = G
+            H = G,
+            find_graffiti(L, D)
         ),
-        makevars([P, H], [Q, S], V),
+        append(V, D, U),
+        makevars([P, H], [Q, S], U),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, answer(I))).
@@ -784,6 +796,27 @@ findvars([A|B], C) :-
 findvars(A, B) :-
     A =.. C,
     findvars(C, B).
+
+find_graffiti(A, []) :-
+    atomic(A),
+    !.
+find_graffiti([], []) :-
+    !.
+find_graffiti([A|B], C) :-
+    !,
+    find_graffiti(A, D),
+    find_graffiti(B, E),
+    append(D, E, C).
+find_graffiti(A, B) :-
+    A =.. [C, D, E],
+    memberchk(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
+    list_si(D),
+    !,
+    find_graffiti(E, F),
+    append(D, F, B).
+find_graffiti(A, B) :-
+    A =.. C,
+    find_graffiti(C, B).
 
 sum([], 0) :-
     !.
