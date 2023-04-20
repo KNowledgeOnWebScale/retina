@@ -23,7 +23,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('phy v2.9.1 (2023-04-19)').
+version_info('phy v2.9.2 (2023-04-20)').
 
 term_expansion(A, _) :-
     A =.. [P, _, _],
@@ -283,7 +283,14 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
         select(R, L, J),
         conj_list(T, J),
-        E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], T),
+        findvars(R, N),
+        findall(A,
+            (   member(A, V),
+                \+member(A, N)
+            ),
+            B
+        ),
+        E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(B, T),
         domain(V, R, P),
         find_graffiti([R], D),
         append(V, D, U),
