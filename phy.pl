@@ -192,7 +192,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, H)
         ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), H))).
 
-% resolve positive surface
+% simplify positive surface
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         select('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'([], H), L, K),
@@ -201,7 +201,19 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(F, E)
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, F)).
 
-% erase at even level
+% simplify graffiti
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        findvars(G, U),
+        findall(M,
+            (   member(M, V),
+                memberchk(M, U)
+            ),
+            W
+        ),
+        W \= V
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, G)).
+
+% simplify nested negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), L, K),
@@ -218,7 +230,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         append(V, W, U)
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)).
 
-% resolve negative surfaces
+% resolve two negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
@@ -250,18 +262,6 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)).
 
-% adjust graffiti
-implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        findvars(G, U),
-        findall(M,
-            (   member(M, V),
-                memberchk(M, U)
-            ),
-            W
-        ),
-        W \= V
-        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, G)).
-
 % create forward rule
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
@@ -275,7 +275,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(S, I, W)
         ), implies(Q, I)).
 
-% create contrapositive
+% create contrapositive rule
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), L),
