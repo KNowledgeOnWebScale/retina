@@ -22,8 +22,9 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
+:- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.10.1 (2023-04-23)').
+version_info('phy v2.10.2 (2023-04-23)').
 
 term_expansion(A, _) :-
     A =.. [P, _, _],
