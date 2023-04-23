@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../phy.pl turing.pl | tee result.pl
+prolog -g run ../../phy.pl turing.pl | tee turing-answer.pl

@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../phy.pl fibonacci.pl | tee result.pl
+prolog -g run ../../phy.pl fibonacci.pl | tee fibonacci-answer.pl
