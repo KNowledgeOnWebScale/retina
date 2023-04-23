@@ -1,2 +1,3 @@
 #!/bin/bash
-prolog -g run ../../phy.pl contradiction.pl | tee result.pl
+prolog -g run ../../phy.pl contradiction.pl | tee contradiction-answer.pl
+prolog -g run ../../phy.pl contradiction5.pl | tee contradiction5-answer.pl
