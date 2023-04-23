@@ -1,2 +1,2 @@
-% phy v2.9.2 (2023-04-20)
+% phy v2.10.0 (2023-04-23)
 '<http://example.org/ns#is>'('<http://example.org/ns#beetle>','<http://example.org/ns#beautiful>').
