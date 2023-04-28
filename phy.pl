@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.10.2 (2023-04-23)').
+version_info('phy v2.11.0 (2023-04-29)').
 
 term_expansion(A, _) :-
     A =.. [P, _, _],
@@ -251,7 +251,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             O
         ),
         length(O, E),
-        memberchk(E, [0, 2, 3]),
+        length(L, D),
+        memberchk(E, [0, 2, D]),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
         list_si(W),
         conj_list(F, K),
