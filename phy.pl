@@ -24,15 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.11.0 (2023-04-29)').
-
-term_expansion(A, _) :-
-    A =.. [P, _, _],
-    sub_atom(P, 0, 5, _, '<http'),
-    \+sub_atom(P, 0, 32, _, '<http://www.w3.org/2000/10/swap/'),
-    \+pred(P),
-    assertz(pred(P)),
-    false.
+version_info('phy v2.11.1 (2023-04-30)').
 
 % run
 run :-
@@ -740,7 +732,9 @@ conj_list((A, B), [A|C]) :-
 
 exopred(P, S, O) :-
     (   var(P)
-    ->  pred(P)
+    ->  current_predicate(P/2),
+        sub_atom(P, 0, 5, _, '<http'),
+        \+sub_atom(P, 0, 32, _, '<http://www.w3.org/2000/10/swap/')
     ;   true
     ),
     call(P, S, O).
