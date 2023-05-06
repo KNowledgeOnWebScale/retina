@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.11.2 (2023-05-06)').
+version_info('phy v2.11.3 (2023-05-06)').
 
 % run
 run :-
@@ -305,9 +305,9 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             (   member(A, V),
                 \+member(A, N)
             ),
-            B
+            Z
         ),
-        E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(B, T),
+        E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, T),
         domain(V, R, P),
         find_graffiti([R], D),
         append(V, D, U),
