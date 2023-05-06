@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.11.1 (2023-04-30)').
+version_info('phy v2.11.2 (2023-05-06)').
 
 % run
 run :-
@@ -46,7 +46,7 @@ run :-
     bb_get(fm, Cnt),
     (   Cnt = 0
     ->  true
-    ;   format(user_error, '*** fm=~w~n', [Cnt]),
+    ;   format(user_error, "*** fm=~w~n", [Cnt]),
         flush_output(user_error)
     ),
     halt(0).
@@ -197,7 +197,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         select('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'([], H), L, K),
         conj_list(H, D),
         append(K, D, E),
-        conj_list(F, E)
+        list_to_set(E, B),
+        conj_list(F, B)
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, F)).
 
 % simplify graffiti
@@ -217,9 +218,11 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), L, K),
+        list_to_set(L, B),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), B, K),
         conj_list(H, M),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, O), M, N),
+        list_to_set(M, T),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, O), T, N),
         list_si(W),
         (   conj_list(O, D),
             append(K, D, E),
@@ -236,30 +239,32 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
-        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
+        list_to_set(L, B),
+        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), B),
         findall(1,
-            (   member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), L)
+            (   member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B)
             ),
             O
         ),
         length(O, E),
-        length(L, D),
+        length(B, D),
         memberchk(E, [0, 2, D]),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
         list_si(W),
         conj_list(F, K),
-        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
-        length(K, 2),
-        \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), K), atomic(I)),
-        makevars(K, J, W),
+        list_to_set(K, N),
+        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), B),
+        length(N, 2),
+        \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), N), atomic(I)),
+        makevars(N, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
         list_si(U),
-        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, Q), L, A),
+        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, Q), B, A),
             list_si(Z),
             M = ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|A],
             conj_list(Q, R),
             memberchk(P, R)
-        ;   select(Q, L, A),
+        ;   select(Q, B, A),
             M = [P|A],
             conj_list(C, R),
             memberchk(Q, R)
@@ -273,7 +278,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H), L, K),
+        list_to_set(L, B),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H), B, K),
         list_si(Z),
         conj_list(R, K),
         domain(V, R, P),
@@ -288,10 +294,11 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
-        \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), L),
-        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), L),
-        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), L),
-        select(R, L, J),
+        list_to_set(L, B),
+        \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), B),
+        select(R, B, J),
         conj_list(T, J),
         findvars(R, N),
         findall(A,
@@ -313,7 +320,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
-        select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(Z, H), L, K),
+        list_to_set(L, B),
+        select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(Z, H), B, K),
         list_si(Z),
         conj_list(H, [T]),
         conj_list(R, K),
@@ -327,13 +335,14 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         list_si(V),
         conj_list(G, L),
-        (   select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(Z, H), L, K),
+        list_to_set(L, B),
+        (   select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(Z, H), B, K),
             list_si(Z)
         ->  conj_list(P, K),
             find_graffiti(K, D)
         ;   P = G,
             H = G,
-            find_graffiti(L, D)
+            find_graffiti(B, D)
         ),
         append(V, D, U),
         makevars([P, H], [Q, S], U),
@@ -882,7 +891,7 @@ taglabel(A, B, C) :-
 fm(A) :-
     (   A = !
     ->  true
-    ;   format(user_error, '*** ~q~n', [A]),
+    ;   format(user_error, "*** ~q~n", [A]),
         flush_output(user_error)
     ),
     bb_get(fm, B),
