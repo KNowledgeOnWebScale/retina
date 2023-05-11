@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.11.3 (2023-05-06)').
+version_info('phy v2.12.0 (2023-05-11)').
 
 % run
 run :-
@@ -81,8 +81,14 @@ tr_tr(A, B) :-
 
 tr_graffiti(A, B) :-
     A =.. [C, D, E],
-    tr_tr(D, F),
+    tr_tr(D, T),
     tr_tr(E, R),
+    (   C = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>',
+        select('<http://www.w3.org/2000/10/swap/pragma#query>', T, F)
+    ->  Z = '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'
+    ;   F = T,
+        Z = C
+    ),
     findall([G, H],
         (   member(G, F),
             genlabel(G, H)
@@ -91,7 +97,7 @@ tr_graffiti(A, B) :-
     ),
     couple(_, M, L),
     makevar(R, O, L),
-    B =.. [C, M, O].
+    B =.. [Z, M, O].
 
 % forward chaining
 forward(Recursion) :-

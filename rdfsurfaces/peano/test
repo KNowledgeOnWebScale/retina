@@ -1,0 +1,2 @@
+#!/bin/bash
+prolog -g run ../../phy.pl peano.pl | tee peano-answer.pl

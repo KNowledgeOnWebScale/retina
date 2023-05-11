@@ -1,4 +1,4 @@
-% phy v2.11.3 (2023-05-06)
+% phy v2.12.0 (2023-05-11)
 '<http://www.example.org/degreeFrom>'('<http://www.example.org/Department0-University0-AssistantProfessor4>','<http://www.example.org/University462>').
 '<http://www.example.org/degreeFrom>'('<http://www.example.org/Department0-University0-AssociateProfessor2>','<http://www.example.org/University223>').
 '<http://www.example.org/degreeFrom>'('<http://www.example.org/Department0-University0-FullProfessor4>','<http://www.example.org/University143>').

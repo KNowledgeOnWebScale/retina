@@ -19,6 +19,6 @@
 ).
 
 % query
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:P', '_:S', '_:O'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['<http://www.w3.org/2000/10/swap/pragma#query>', '_:P', '_:S', '_:O'],
     '_:P'('_:S', '_:O')
 ).
