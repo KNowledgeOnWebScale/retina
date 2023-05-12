@@ -5,7 +5,7 @@
             '<http://example.org/ns#compute>'([], '_:OutTape')
         ),
         '<http://example.org/ns#start>'('_:Machine', '_:I'),
-        '<http://example.org/ns#find>'(['_:I', [], "#", []], '_:OutTape')
+        '<http://example.org/ns#find>'(['_:I', [], #, []], '_:OutTape')
     )
 ).
 
@@ -54,7 +54,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:Cell', '_:Right', '_:L'],
     (
         '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'([],
-            '<http://example.org/ns#move>'(['<http://example.org/ns#left>', [], '_:Cell', '_:Right', [], "#", '_:L'], true)
+            '<http://example.org/ns#move>'(['<http://example.org/ns#left>', [], '_:Cell', '_:Right', [], #, '_:L'], true)
         ),
         '<http://www.w3.org/2000/10/swap/list#firstRest>'('_:L', ['_:Cell', '_:Right'])
     )
@@ -79,7 +79,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:Left', '_:Cell', '_:L'],
     (
         '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'([],
-            '<http://example.org/ns#move>'(['<http://example.org/ns#right>', '_:Left', '_:Cell', [], '_:L', "#", []], true)
+            '<http://example.org/ns#move>'(['<http://example.org/ns#right>', '_:Left', '_:Cell', [], '_:L', #, []], true)
         ),
         '<http://www.w3.org/2000/10/swap/list#firstRest>'('_:L', ['_:Cell', '_:Left'])
     )
@@ -117,10 +117,10 @@
 
 '<http://example.org/ns#tape>'([0, 0, 0, '<http://example.org/ns#right>'], 0).
 '<http://example.org/ns#tape>'([0, 1, 1, '<http://example.org/ns#right>'], 0).
-'<http://example.org/ns#tape>'([0, "#", "#", '<http://example.org/ns#left>'], 1).
+'<http://example.org/ns#tape>'([0, #, #, '<http://example.org/ns#left>'], 1).
 '<http://example.org/ns#tape>'([1, 0, 1, '<http://example.org/ns#stop>'], '<http://example.org/ns#halt>').
 '<http://example.org/ns#tape>'([1, 1, 0, '<http://example.org/ns#left>'], 1).
-'<http://example.org/ns#tape>'([1, "#", 1, '<http://example.org/ns#stop>'], '<http://example.org/ns#halt>').
+'<http://example.org/ns#tape>'([1, #, 1, '<http://example.org/ns#stop>'], '<http://example.org/ns#halt>').
 
 % query
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
