@@ -18,13 +18,14 @@
 :- dynamic(label/1).
 :- dynamic(pred/1).
 :- dynamic(recursion/1).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#negativeTriple>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.12.0 (2023-05-11)').
+version_info('phy v2.13.0 (2023-06-02)').
 
 % run
 run :-
@@ -83,21 +84,15 @@ tr_graffiti(A, B) :-
     A =.. [C, D, E],
     tr_tr(D, T),
     tr_tr(E, R),
-    (   C = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>',
-        select('<http://www.w3.org/2000/10/swap/pragma#query>', T, F)
-    ->  Z = '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'
-    ;   F = T,
-        Z = C
-    ),
     findall([G, H],
-        (   member(G, F),
+        (   member(G, T),
             genlabel(G, H)
         ),
         L
     ),
     couple(_, M, L),
     makevar(R, O, L),
-    B =.. [Z, M, O].
+    B =.. [C, M, O].
 
 % forward chaining
 forward(Recursion) :-
@@ -195,6 +190,9 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         ),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I)
         ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), H))).
+implies(('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(A, T),
+        catch(call(T), _, false)
+        ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(A, T), T))).
 
 % simplify positive surface
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
@@ -246,7 +244,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), B),
         findall(1,
             (   member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B)
             ),
@@ -259,9 +257,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(W),
         conj_list(F, K),
         list_to_set(K, N),
-        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), B),
         length(N, 2),
-        \+ (member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I), N), atomic(I)),
         makevars(N, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
         list_si(U),
@@ -303,7 +300,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_to_set(L, B),
         \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B),
-        \+member('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), B),
         select(R, B, J),
         conj_list(T, J),
         findvars(R, N),
@@ -327,7 +324,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(Z, H), B, K),
+        select('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(Z, H), B, K),
         list_si(Z),
         conj_list(H, [T]),
         conj_list(R, K),

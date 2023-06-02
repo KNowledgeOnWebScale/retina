@@ -1,7 +1,7 @@
 % Calculate pi using Nilakantha series
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:N', '_:Pi', '_:P', '_:B'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
             '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:N', '_:Pi'], true)
         ),
         '<http://eyereasoner.github.io/eye/reasoning#pi>'([1, '_:N', 0, '_:P', 1], true),
@@ -11,14 +11,14 @@
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:N', '_:P', '_:S'],
-    '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'([],
+    '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
         '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:N', '_:N', '_:P', '_:P', '_:S'], true)
     )
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:K', '_:N', '_:P0', '_:P', '_:S', '_:K1', '_:K2', '_:P1', '_:S1', '_:B2', '_:B3', '_:B4', '_:B5'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
             '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:K', '_:N', '_:P0', '_:P', '_:S'], true)
         ),
         '<http://www.w3.org/2000/10/swap/math#notEqualTo>'('_:K', '_:N'),

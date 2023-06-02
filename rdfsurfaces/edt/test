@@ -1,0 +1,2 @@
+#!/bin/bash
+prolog -g run ../../phy.pl edt.pl | tee edt-answer.pl
