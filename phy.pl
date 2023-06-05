@@ -25,7 +25,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('phy v2.13.0 (2023-06-02)').
+version_info('phy v3.0.0 (2023-06-05)').
 
 % run
 run :-
