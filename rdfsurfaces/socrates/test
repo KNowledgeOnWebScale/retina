@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../phy.pl socrates.pl | tee socrates-answer.pl
+tpl -g run ../../retina.pl socrates.pl | tee socrates-answer.pl

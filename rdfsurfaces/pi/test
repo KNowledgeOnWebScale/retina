@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../phy.pl pi.pl | tee pi-answer.pl
+tpl -g run ../../retina.pl pi.pl | tee pi-answer.pl

@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../phy.pl policy.pl | tee policy-answer.pl
+tpl -g run ../../retina.pl policy.pl | tee policy-answer.pl

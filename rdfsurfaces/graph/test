@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../phy.pl graph.pl | tee graph-answer.pl
+tpl -g run ../../retina.pl graph.pl | tee graph-answer.pl

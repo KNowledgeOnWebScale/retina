@@ -1,2 +1,2 @@
 #!/bin/bash
-prolog -g run ../../phy.pl peano.pl | tee peano-answer.pl
+tpl -g run ../../retina.pl peano.pl | tee peano-answer.pl
