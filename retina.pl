@@ -1,6 +1,6 @@
-% -----------------
+% --------------------
 % retina -- Jos De Roo
-% -----------------
+% --------------------
 %
 % See https://github.com/eyereasoner/retina
 %
