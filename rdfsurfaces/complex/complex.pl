@@ -2,9 +2,9 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C', '_:D', '_:E', '_:F', '_:R', '_:T', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5', '_:Z6', '_:Z7', '_:Z8', '_:Z9', '_:Z10'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#exponentiation>'([['_:A', '_:B'], ['_:C', '_:D']], ['_:E', '_:F'])
+            '<http://eyereasoner.github.io/eye/complex#exponentiation>'([['_:A', '_:B'], ['_:C', '_:D']], ['_:E', '_:F'])
         ),
-        '<http://eyereasoner.github.io/retina/complex#polar>'(['_:A', '_:B'], ['_:R', '_:T']),
+        '<http://eyereasoner.github.io/eye/complex#polar>'(['_:A', '_:B'], ['_:R', '_:T']),
         '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:R', '_:C'], '_:Z1'),
         '<http://www.w3.org/2000/10/swap/math#negation>'('_:D', '_:Z2'),
         '<http://www.w3.org/2000/10/swap/math#product>'(['_:Z2', '_:T'], '_:Z3'),
@@ -24,7 +24,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C', '_:D', '_:E', '_:F', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5', '_:Z6', '_:Z7', '_:Z8', '_:Z9', '_:Z10', '_:Z11', '_:Z12', '_:Z13', '_:Z14', '_:Z15'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#asin>'(['_:A', '_:B'], ['_:C', '_:D'])
+            '<http://eyereasoner.github.io/eye/complex#asin>'(['_:A', '_:B'], ['_:C', '_:D'])
         ),
         '<http://www.w3.org/2000/10/swap/math#sum>'([1, '_:A'], '_:Z1'),
         '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z1', 2], '_:Z2'),
@@ -52,7 +52,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C', '_:D', '_:E', '_:F', '_:U', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5', '_:Z6', '_:Z7', '_:Z8', '_:Z9', '_:Z10', '_:Z11', '_:Z12', '_:Z13', '_:Z14', '_:Z15'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#acos>'(['_:A', '_:B'], ['_:C', '_:D'])
+            '<http://eyereasoner.github.io/eye/complex#acos>'(['_:A', '_:B'], ['_:C', '_:D'])
         ),
         '<http://www.w3.org/2000/10/swap/math#sum>'([1, '_:A'], '_:Z1'),
         '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z1', 2], '_:Z2'),
@@ -80,7 +80,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:R', '_:T', '_:Tp', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#polar>'(['_:X', '_:Y'], ['_:R', '_:Tp'])
+            '<http://eyereasoner.github.io/eye/complex#polar>'(['_:X', '_:Y'], ['_:R', '_:Tp'])
         ),
         '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:X', 2], '_:Z1'),
         '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Y', 2], '_:Z2'),
@@ -89,14 +89,14 @@
         '<http://www.w3.org/2000/10/swap/math#absoluteValue>'('_:X', '_:Z4'),
         '<http://www.w3.org/2000/10/swap/math#quotient>'(['_:Z4', '_:R'], '_:Z5'),
         '<http://www.w3.org/2000/10/swap/math#acos>'('_:Z5', '_:T'),
-        '<http://eyereasoner.github.io/retina/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
+        '<http://eyereasoner.github.io/eye/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
     )
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
+            '<http://eyereasoner.github.io/eye/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
         ),
         '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:X', 0),
         '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:Y', 0),
@@ -107,7 +107,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
+            '<http://eyereasoner.github.io/eye/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
         ),
         '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:X', 0),
         '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:Y', 0),
@@ -118,7 +118,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
+            '<http://eyereasoner.github.io/eye/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
         ),
         '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:X', 0),
         '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:Y', 0),
@@ -129,7 +129,7 @@
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
     (
         '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/retina/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
+            '<http://eyereasoner.github.io/eye/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
         ),
         '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:X', 0),
         '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:Y', 0),
@@ -140,25 +140,25 @@
 
 % query
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    '<http://eyereasoner.github.io/retina/complex#exponentiation>'([[-1, 0], [0.5, 0]], ['_:A', '_:B'])
+    '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[-1, 0], [0.5, 0]], ['_:A', '_:B'])
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    '<http://eyereasoner.github.io/retina/complex#exponentiation>'([[2.718281828459045, 0], [0, 3.141592653589793]], ['_:A', '_:B'])
+    '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [0, 3.141592653589793]], ['_:A', '_:B'])
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    '<http://eyereasoner.github.io/retina/complex#exponentiation>'([[0, 1], [0, 1]], ['_:A', '_:B'])
+    '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[0, 1], [0, 1]], ['_:A', '_:B'])
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    '<http://eyereasoner.github.io/retina/complex#exponentiation>'([[2.718281828459045, 0], [-1.57079632679, 0]], ['_:A', '_:B'])
+    '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [-1.57079632679, 0]], ['_:A', '_:B'])
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    '<http://eyereasoner.github.io/retina/complex#asin>'([2, 0], ['_:A', '_:B'])
+    '<http://eyereasoner.github.io/eye/complex#asin>'([2, 0], ['_:A', '_:B'])
 ).
 
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    '<http://eyereasoner.github.io/retina/complex#acos>'([2, 0], ['_:A', '_:B'])
+    '<http://eyereasoner.github.io/eye/complex#acos>'([2, 0], ['_:A', '_:B'])
 ).
