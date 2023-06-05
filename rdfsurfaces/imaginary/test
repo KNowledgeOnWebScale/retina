@@ -1,0 +1,2 @@
+#!/bin/bash
+tpl -g run ../../retina.pl imaginary.pl | tee imaginary-answer.pl
