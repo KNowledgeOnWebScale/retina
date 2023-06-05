@@ -25,7 +25,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.0.0 (2023-06-05)').
+version_info('retina v4.0.1 (2023-06-06)').
 
 % run
 run :-
@@ -339,7 +339,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        (   select('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(Z, H), B, K),
+        (   select('<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'(Z, H), B, K),
             list_si(Z)
         ->  conj_list(P, K),
             find_graffiti(K, D)
