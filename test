@@ -1,4 +1,5 @@
 #!/bin/bash
+export prolog="${1:-tpl}"
 for dir in rdfsurfaces/*
 do
     pushd "${dir}"

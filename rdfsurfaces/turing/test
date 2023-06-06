@@ -1,2 +1,2 @@
 #!/bin/bash
-tpl -g run ../../retina.pl turing.pl | tee turing-answer.pl
+retina turing.pl | tee turing-answer.pl

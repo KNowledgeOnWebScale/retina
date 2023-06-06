@@ -1,2 +1,2 @@
 #!/bin/bash
-tpl -g run ../../retina.pl pi.pl | tee pi-answer.pl
+retina pi.pl | tee pi-answer.pl

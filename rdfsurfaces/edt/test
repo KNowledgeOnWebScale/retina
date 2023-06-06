@@ -1,2 +1,2 @@
 #!/bin/bash
-tpl -g run ../../retina.pl edt.pl | tee edt-answer.pl
+retina edt.pl | tee edt-answer.pl

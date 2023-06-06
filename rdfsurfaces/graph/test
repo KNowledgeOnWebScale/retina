@@ -1,2 +1,2 @@
 #!/bin/bash
-tpl -g run ../../retina.pl graph.pl | tee graph-answer.pl
+retina graph.pl | tee graph-answer.pl

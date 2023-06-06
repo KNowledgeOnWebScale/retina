@@ -1,2 +1,2 @@
 #!/bin/bash
-tpl -g run ../../retina.pl beetle.pl | tee beetle-answer.pl
+retina beetle.pl | tee beetle-answer.pl
