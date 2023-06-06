@@ -1,2 +1,4 @@
 #!/bin/bash
-retina edt.pl | tee edt-answer.pl
+if [ $prolog = "tpl" ]; then
+    retina edt.pl | tee edt-answer.pl
+fi
