@@ -1,4 +1,4 @@
 #!/bin/bash
 if [ $prolog = "tpl" ]; then
-    retina edt.pl | tee edt-answer.pl
+    ../../retina edt.pl | tee edt-answer.pl
 fi

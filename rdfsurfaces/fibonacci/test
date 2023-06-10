@@ -1,2 +1,2 @@
 #!/bin/bash
-retina fibonacci.pl | tee fibonacci-answer.pl
+../../retina fibonacci.pl | tee fibonacci-answer.pl

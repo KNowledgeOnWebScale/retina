@@ -1,2 +1,2 @@
 #!/bin/bash
-retina dishes.pl | tee dishes-answer.pl
+../../retina dishes.pl | tee dishes-answer.pl

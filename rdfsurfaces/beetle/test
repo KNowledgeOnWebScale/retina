@@ -1,2 +1,2 @@
 #!/bin/bash
-retina beetle.pl | tee beetle-answer.pl
+../../retina beetle.pl | tee beetle-answer.pl
