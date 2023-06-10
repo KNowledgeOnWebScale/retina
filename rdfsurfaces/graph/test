@@ -1,2 +1,2 @@
 #!/bin/bash
-retina graph.pl | tee graph-answer.pl
+../../retina graph.pl | tee graph-answer.pl
