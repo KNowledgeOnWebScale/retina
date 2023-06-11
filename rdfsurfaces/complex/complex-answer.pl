@@ -1,4 +1,4 @@
-% retina v4.0.1 (2023-06-06)
+% retina v4.0.2 (2023-06-11)
 '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[-1,0],[0.5,0]],[6.123233995736766e-17,1.0]).
 '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045,0],[0,3.141592653589793]],[-1.0,1.2246467991473532e-16]).
 '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[0,1],[0,1]],[0.207879576350762,0.0]).

@@ -25,7 +25,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.0.1 (2023-06-06)').
+version_info('retina v4.0.2 (2023-06-11)').
 
 % run
 run :-
@@ -218,7 +218,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         W \= V
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, G)).
 
-% simplify nested negative surfaces
+% simplify negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -239,7 +239,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         append(V, W, U)
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)).
 
-% resolve paired negative surfaces
+% resolve negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -301,7 +301,12 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), B),
-        select(R, B, J),
+        \+member(exopred(_, _, _), B),
+        (   length(B, O),
+            O =< 2
+        ->  select(R, B, J)
+        ;   B = [R|J]
+        ),
         conj_list(T, J),
         findvars(R, N),
         findall(A,
