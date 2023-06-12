@@ -16,7 +16,6 @@
 :- dynamic(brake/0).
 :- dynamic(implies/2).
 :- dynamic(label/1).
-:- dynamic(pred/1).
 :- dynamic(recursion/1).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#negativeTriple>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
@@ -25,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.0.1 (2023-06-06)').
+version_info('retina v4.1.0 (2023-06-12)').
 
 % run
 run :-
@@ -333,7 +332,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(W),
         conj_list(F, K),
         list_to_set(K, N),
-        \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), N),
         length(N, 2),
         makevars(N, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
@@ -361,10 +360,9 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H), B, K),
         list_si(Z),
         conj_list(R, K),
-        domain(V, R, P),
         find_graffiti(K, D),
         append(V, D, U),
-        makevars([P, H], [Q, S], U),
+        makevars([R, H], [Q, S], U),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, I)).
@@ -377,7 +375,12 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), B),
-        select(R, B, J),
+        \+member(exopred(_, _, _), B),
+        (   length(B, O),
+            O =< 2
+        ->  select(R, B, J)
+        ;   B = [R|J]
+        ),
         conj_list(T, J),
         findvars(R, N),
         findall(A,
@@ -387,10 +390,9 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             Z
         ),
         E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, T),
-        domain(V, R, P),
         find_graffiti([R], D),
         append(V, D, U),
-        makevars([P, E], [Q, S], U),
+        makevars([R, E], [Q, S], U),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, I)).
@@ -841,28 +843,6 @@ conjify((A, B), (C, D)) :-
 conjify('<http://www.w3.org/2000/10/swap/log#callWithCut>'(A, _), (A, !)) :-
     !.
 conjify(A, A).
-
-% domain(+SubjectList,true,+Domain)
-%   Return true when SubjectList is in the domain of discourse Domain.
-%   E.g.
-%     ['rdfsurfaces/socrates/socrates.pl'].
-%     domain(
-%        ['<http://example.org/ns#Socrates>'],
-%        true,
-%        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('<http://example.org/ns#Socrates>','<http://example.org/ns#Human>')
-%     ).
-domain(A, true, B) :-
-    '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(_, _),
-    !,
-    findall('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(C, _),
-        (   member(C, A)
-        ),
-        D
-    ),
-    conj_list(B, D).
-% domain(+SubjectList,+Predicate,+Domain)
-%   True when the Predicate is equal to the Domain.
-domain(_, B, B).
 
 % makevars(+List,-NewList,?Graffiti)
 %   Transform a pso-predicate list into a new pso-predicate list with 

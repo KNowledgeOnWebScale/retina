@@ -1,4 +1,4 @@
-% retina v4.0.1 (2023-06-06)
+% retina v4.1.0 (2023-06-12)
 '<http://www.example.org/degreeFrom>'('<http://www.example.org/Department0-University0-AssistantProfessor4>','<http://www.example.org/University462>').
 '<http://www.example.org/degreeFrom>'('<http://www.example.org/Department0-University0-AssociateProfessor2>','<http://www.example.org/University223>').
 '<http://www.example.org/degreeFrom>'('<http://www.example.org/Department0-University0-FullProfessor4>','<http://www.example.org/University143>').
