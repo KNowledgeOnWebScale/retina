@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.1.1 (2023-06-12)').
+version_info('retina v4.1.2 (2023-06-13)').
 
 % run
 run :-
@@ -830,7 +830,8 @@ conj_list((A, B), [A|C]) :-
 exopred(P, S, O) :-
     (   var(P)
     ->  current_predicate(P/2),
-        sub_atom(P, 0, 5, _, '<http'),
+        sub_atom(P, 0, 1, _, '<'),
+        sub_atom(P, _, 1, 0, '>'),
         \+sub_atom(P, 0, 32, _, '<http://www.w3.org/2000/10/swap/')
     ;   true
     ),
