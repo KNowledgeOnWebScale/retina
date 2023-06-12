@@ -1,6 +1,6 @@
-% --------------------
-% retina -- Jos De Roo
-% --------------------
+% -------------------------------------------
+% retina -- Jos De Roo & Patrick Hochstenbach
+% -------------------------------------------
 %
 % See https://github.com/eyereasoner/retina
 %
@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.1.0 (2023-06-12)').
+version_info('retina v4.1.1 (2023-06-12)').
 
 % run
 run :-
