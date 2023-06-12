@@ -25,7 +25,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.0.2 (2023-06-11)').
+version_info('retina v4.0.1 (2023-06-06)').
 
 % run
 run :-
@@ -52,7 +52,12 @@ run :-
     ),
     halt(0).
 
-% relabel graffiti
+% relabel_graffiti
+%   Replace all graffiti in negative, positiv, neutral and query
+%   surfaces with a new generated variables.
+%   E.g. (_:A) log:onNegativeSurface { .. _:A .. }
+%   becomes
+%   (_A_1) log:onNegativeSurface { .. _A_1 .. }
 relabel_graffiti :-
     member(P, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
     A =.. [P, _, _],
@@ -94,21 +99,30 @@ tr_graffiti(A, B) :-
     makevar(R, O, L),
     B =.. [C, M, O].
 
-% forward chaining
+% forward(+Recursion)
+%   Forward chaining starting with Recursion step 0 until Recursion 
+%   larger than bb_get(limit,Value) (default: Value = -1)
 forward(Recursion) :-
-    (   implies(Prem, Conc),
+    (   % find all implies rules
+        implies(Prem, Conc),
+        % match the premise Prem against the database
         Prem,
+        % check if the conclusion Conc is not already defined
         (   Conc = ':-'(C, P)
         ->  \+clause(C, P)
         ;   \+Conc
         ),
+        % create witnesses if needed
         (   Conc \= implies(_, _),
             Conc \= ':-'(_, _)
         ->  labelvars(Conc)
         ;   true
         ),
+        % assert the conclusion
         astep(Conc),
+        % release the brake
         retract(brake),
+        % repeat the process
         false
     ;   brake,
         (   R is Recursion+1,
@@ -126,7 +140,8 @@ forward(Recursion) :-
         forward(Recursion)
     ).
 
-% create witnesses
+% labelvars(+Term)
+%   Create witnesses for a free variables in Term
 labelvars(Term) :-
     (   retract(label(Current))
     ->  true
@@ -135,7 +150,8 @@ labelvars(Term) :-
     numbervars(Term, Current, Next),
     assertz(label(Next)).
 
-% assert step
+% astep(+Term)
+%   Assert +Term or write to the stdout if the Term = answer(Answer)
 astep((A, B)) :-
     !,
     astep(A),
@@ -176,36 +192,82 @@ within_recursion(R) :-
         recursion(R)
     ).
 
-% assert positive surface
+%%%
+% rules
+%
+
+% implies(+Premise,-Conclusion)
+%   From Premise follows the Conclusion.
+
+% - assert positive surface
 implies('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, G), G).
 
-% blow inference fuse
+% - blow inference fuse (negative surface)
+%   Given:
+%       (Graffiti) log:onNegativeSurface {
+%            TripleX
+%       }
+%   If TripleX is true, we can throw an inference fuse
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         makevars(G, H, V),
+        % test if the predicate is true (exists in the database)
         catch(call(H), _, false),
+        % creating fuse explanation
         (   H = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, C)
         ->  I = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, C)
         ;   I = H
         ),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I)
         ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), H))).
+
+% - blow inference fuse (negative triple)
+%   Given:
+%       () log:negativeTriple {
+%            TripleX
+%       }
+%   If TripleX is true, we can throw an inference fuse
 implies(('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(A, T),
+        % test if the predicate is true (exists in the database)
         catch(call(T), _, false)
         ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(A, T), T))).
 
-% simplify positive surface
+% - simplify nested positive surface
+%   Given:
+%      (Graffiti) log:onNegativeSurface {
+%          TripleX
+%          (...) log:onPositiveSurface {
+%              TripleY  
+%          }
+%      }
+%   We can remove the positive surfaces and create a negative surface:
+%      (Graffiti) log:onNegativeSurface {
+%          TripleX
+%          TripleY
+%      } 
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
+        % K contains all triples except the nested positive surface
         select('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'([], H), L, K),
         conj_list(H, D),
+        % add the triples from the nested positive surface to K
         append(K, D, E),
         list_to_set(E, B),
         conj_list(F, B)
+        % conclusion is the simplified negative surface
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, F)).
 
-% simplify graffiti
+% - simplify graffiti
+%   Remove unused graffiti nodes.
+%   Given:
+%      (_:A _:B) log:onNegativeSurface {
+%          _:A a :X .
+%      }
+%   create a
+%      (_:A) log:onNegativeSurface {
+%          _:A a :X .
+%      }
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         findvars(G, U),
@@ -215,10 +277,24 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             ),
             W
         ),
-        W \= V
+        W \= V 
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, G)).
 
-% simplify negative surfaces
+% - simplify double nested negative surfaces
+%   Given:
+%      (Graffiti) log:onNegativeSurface {
+%          TripleX
+%          () log:onNegativeSurface {
+%               () log:onNegativeSurface {
+%                  TripleY
+%               }
+%          }
+%      }
+%    becomes
+%      (Graffiti) log:onNegativeSurface {
+%          TripleX
+%          TripleY
+%      } 
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -239,7 +315,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         append(V, W, U)
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)).
 
-% resolve negative surfaces
+% - resolve paired negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -277,7 +353,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         ground('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H))
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, H)).
 
-% create forward rule
+% - create forward rule
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -293,7 +369,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(S, I, W)
         ), implies(Q, I)).
 
-% create contrapositive rule
+% - create contrapositive rule
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -301,12 +377,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         \+member('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(_, _), B),
-        \+member(exopred(_, _, _), B),
-        (   length(B, O),
-            O =< 2
-        ->  select(R, B, J)
-        ;   B = [R|J]
-        ),
+        select(R, B, J),
         conj_list(T, J),
         findvars(R, N),
         findall(A,
@@ -324,7 +395,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(S, I, W)
         ), implies(Q, I)).
 
-% create backward rule
+% - create backward rule
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -339,7 +410,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(':-'(T, S), C, U)
         ), C).
 
-% create query
+% - create query
 implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -358,7 +429,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         makevars(S, I, W)
         ), implies(Q, answer(I))).
 
-%
+%%%
 % built-ins
 %
 
@@ -738,6 +809,10 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 %
 % support
 %
+
+% conj_list(?Conjunction,?List).
+%   True if ?List contains all items of the ?Conjunction
+%   E.g. conj_list((1,2,3),[1,2,3])
 conj_list(true, []) :-
     !.
 conj_list(A, [A]) :-
@@ -747,6 +822,9 @@ conj_list(A, [A]) :-
 conj_list((A, B), [A|C]) :-
     conj_list(B, C).
 
+% exopred(?Predicate,?Subject,?Object)
+%    True when an ?Predicate exists that matches ?Preficate(?Subject,?Object)
+%    E.g. exopred(X,'<http://example.org/ns#Alice>', '<http://example.org/ns#Person>').
 exopred(P, S, O) :-
     (   var(P)
     ->  current_predicate(P/2),
@@ -764,6 +842,15 @@ conjify('<http://www.w3.org/2000/10/swap/log#callWithCut>'(A, _), (A, !)) :-
     !.
 conjify(A, A).
 
+% domain(+SubjectList,true,+Domain)
+%   Return true when SubjectList is in the domain of discourse Domain.
+%   E.g.
+%     ['rdfsurfaces/socrates/socrates.pl'].
+%     domain(
+%        ['<http://example.org/ns#Socrates>'],
+%        true,
+%        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('<http://example.org/ns#Socrates>','<http://example.org/ns#Human>')
+%     ).
 domain(A, true, B) :-
     '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'(_, _),
     !,
@@ -773,8 +860,19 @@ domain(A, true, B) :-
         D
     ),
     conj_list(B, D).
+% domain(+SubjectList,+Predicate,+Domain)
+%   True when the Predicate is equal to the Domain.
 domain(_, B, B).
 
+% makevars(+List,-NewList,?Graffiti)
+%   Transform a pso-predicate list into a new pso-predicate list with 
+%   all graffiti filled in. Possible graffiti in the 
+%   predicate position will be replaced by an exopred.
+%   E.g. 
+%      makevars( '<urn:example.org:is>'('_:A',42), Y , ['_:A'] ).
+%      Y = '<urn:example.org:is>'(_A,42)
+%      makevars( '_:B'('_:A',42), Y , ['_:A','_:B'] ). 
+%      Y = 'exopred(_A,42,_B)' 
 makevars(A, B, C) :-
     list_to_set(C, D),
     findvars(D, G),
@@ -816,6 +914,10 @@ makevar(A, B, F) :-
     nonvar(Dh),
     B =.. [Dh|Dt].
 
+% findvars(+Predicate,-VarList)
+%   Find all blank node reference in a pso predicate expression.
+%   E.g. findvars('<urn:foo>'('_:A','_:B'),X)
+%        X = ['_:A','_:B']
 findvars(A, B) :-
     atomic(A),
     !,
@@ -838,6 +940,10 @@ findvars(A, B) :-
     A =.. C,
     findvars(C, B).
 
+% find_graffiti(+Predicate,-GraffitiList)
+%   Find all graffiti declaration in a (nested) surface.
+%   E.g. find_graffiti('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],'<urn:foo>'('_:C',2)),X).
+%        X = ['_:A'].
 find_graffiti(A, []) :-
     atomic(A),
     !.
@@ -859,28 +965,46 @@ find_graffiti(A, B) :-
     A =.. C,
     find_graffiti(C, B).
 
+% sum(+ListOfNumbers,-SumOfNumbers)
+%   True when the sum of ListOfNumbers is SumOfNumbers.
+%   E.g. sum([1,2],3).
 sum([], 0) :-
     !.
 sum([A|B], C) :-
     sum(B, D),
     C is A+D.
 
+% product(+ListOfNumbers,-ProductOfNumbers)
+%   True when the product of ListOfNumbers is ProductOfNumbers.
+%   E.g. product([2,4],8).
 product([], 1) :-
     !.
 product([A|B], C) :-
     product(B, D),
     C is A*D.
 
+% includes(?ListA,?ListB)
+%   True when every item of ListB is in ListA
+%   E.g. includes([1,2,[5]],[[5],2]).
 includes(_, []) :-
     !.
 includes(X, [Y|Z]) :-
     member(Y, X),
     includes(X, Z).
 
+% couple(?List1, ?List2, ?CoupleList)
+%  True if CoupleList is a pair wise combination of elements 
+%  of List1 and List2.
+%  Example: couple([1,2,3],['A','B','C'],[[1,'A'],[2,'B'],[3,'C'])
 couple([], [], []).
 couple([A|B], [C|D], [[A, C]|E]) :-
     couple(B, D, E).
 
+% genlabel(+OldString,-NewString)
+%  For each invocation of this built-in a new label will
+%  be created for OldString by appending it with an ever
+%  increasing '_<Number>'
+%  Example: genlabel('A','A_1'),genlabel('A','A_2'),...
 genlabel(A, B) :-
     (   bb_get(A, C)
     ->  D is C+1,
@@ -890,6 +1014,9 @@ genlabel(A, B) :-
         taglabel(A, 1, B)
     ).
 
+% taglabel(+String,+Number,-Tag)
+%   Tag is the result of appending '_<Number>' to '<String>'
+%   Example: taglabel('A',1,'A_1')
 taglabel(A, B, C) :-
     atom_chars(A, D),
     number_chars(B, E),
