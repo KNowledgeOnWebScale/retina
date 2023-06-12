@@ -1023,6 +1023,10 @@ taglabel(A, B, C) :-
     append(D, ['_'|E], F),
     atom_chars(C, F).
 
+%%
+% debugging tools
+%
+
 fm(A) :-
     (   A = !
     ->  true
