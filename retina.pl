@@ -24,12 +24,10 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.1.2 (2023-06-13)').
+version_info('retina v4.1.3 (2023-06-13)').
 
 % run
 run :-
-    version_info(Version),
-    format("% ~w~n", [Version]),
     bb_put(limit, -1),
     bb_put(fm, 0),
     relabel_graffiti,
@@ -48,6 +46,11 @@ run :-
     ->  true
     ;   format(user_error, "*** fm=~w~n", [Cnt]),
         flush_output(user_error)
+    ),
+    (   answer(_)
+    ->  true
+    ;   version_info(Version),
+        format("% ~w~n", [Version])
     ),
     halt(0).
 
