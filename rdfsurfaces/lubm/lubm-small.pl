@@ -1,3 +1,5 @@
+:- discontiguous('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
+
 :- dynamic('<http://www.example.org/advisor>'/2).
 :- dynamic('<http://www.example.org/affiliatedOrganizationOf>'/2).
 :- dynamic('<http://www.example.org/affiliateOf>'/2).
