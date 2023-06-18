@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.1.5 (2023-06-18)').
+version_info('retina v4.1.6 (2023-06-18)').
 
 % run
 run :-
@@ -570,6 +570,10 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 '<http://www.w3.org/2000/10/swap/log#notEqualTo>'(X, Y) :-
     X \= Y.
 
+'<http://www.w3.org/2000/10/swap/log#rawType>'(A, B) :-
+    raw_type(A, C),
+    C = B.
+
 '<http://www.w3.org/2000/10/swap/log#repeat>'(A, B) :-
     nonvar(A),
     C is A-1,
@@ -1066,6 +1070,37 @@ taglabel(A, B, C) :-
     number_chars(B, E),
     append(D, ['_'|E], F),
     atom_chars(C, F).
+
+% raw_type(+Term,-Type)
+raw_type(A, '<http://www.w3.org/1999/02/22-rdf-syntax-ns#List>') :-
+    list_si(A),
+    !.
+raw_type(A, '<http://www.w3.org/2000/10/swap/log#Literal>') :-
+    number(A),
+    !.
+raw_type(true, '<http://www.w3.org/2000/10/swap/log#Formula>').
+raw_type(false, '<http://www.w3.org/2000/10/swap/log#Formula>').
+raw_type(A, '<http://www.w3.org/2000/10/swap/log#Literal>') :-
+    atom(A),
+    \+ sub_atom(A, 0, 2, _, '_:'),
+    \+ (sub_atom(A, 0, 1, _, '<'), sub_atom(A, _, 1, 0, '>')),
+    !.
+raw_type(literal(_, _), '<http://www.w3.org/2000/10/swap/log#Literal>') :-
+    !.
+raw_type((_, _), '<http://www.w3.org/2000/10/swap/log#Formula>') :-
+    !.
+raw_type(A, '<http://www.w3.org/2000/10/swap/log#Formula>') :-
+    functor(A, B, C),
+    B \= ':',
+    C >= 2,
+    !.
+raw_type(A, '<http://www.w3.org/2000/10/swap/log#LabeledBlankNode>') :-
+    sub_atom(A, _, 2, _, '_:'),
+    !.
+raw_type(A, '<http://www.w3.org/2000/10/swap/log#SkolemIRI>') :-
+    sub_atom(A, _, 19, _, '/.well-known/genid/'),
+    !.
+raw_type(_, '<http://www.w3.org/2000/10/swap/log#Other>').
 
 % getnumber(+Literal,-Number)
 getnumber(A, A) :-
