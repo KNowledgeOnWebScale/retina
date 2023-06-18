@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.1.4 (2023-06-14)').
+version_info('retina v4.1.5 (2023-06-18)').
 
 % run
 run :-
@@ -590,120 +590,153 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 % math
 '<http://www.w3.org/2000/10/swap/math#absoluteValue>'(X, Y) :-
     nonvar(X),
-    Y is abs(X).
+    getnumber(X, U),
+    Y is abs(U).
 
 '<http://www.w3.org/2000/10/swap/math#acos>'(X, Y) :-
     (   nonvar(X),
-        Y is acos(X),
+        getnumber(X, U),
+        Y is acos(U),
         !
     ;   nonvar(Y),
-        X is cos(Y)
+        getnumber(Y, V),
+        X is cos(V)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#asin>'(X, Y) :-
     (   nonvar(X),
-        Y is asin(X),
+        getnumber(X, U),
+        Y is asin(U),
         !
     ;   nonvar(Y),
-        X is sin(Y)
+        getnumber(Y, V),
+        X is sin(V)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#atan>'(X, Y) :-
     (   nonvar(X),
-        Y is atan(X),
+        getnumber(X, U),
+        Y is atan(U),
         !
     ;   nonvar(Y),
-        X is tan(Y)
+        getnumber(Y, V),
+        X is tan(V)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#atan2>'([X, Y], Z) :-
     nonvar(X),
     nonvar(Y),
-    Z is atan(X/Y).
+    getnumber(X, U),
+    getnumber(Y, V),
+    Z is atan(U/V).
 
 '<http://www.w3.org/2000/10/swap/math#ceiling>'(X, Y) :-
     nonvar(X),
-    Y is ceiling(X).
+    getnumber(X, U),
+    Y is ceiling(U).
 
 '<http://www.w3.org/2000/10/swap/math#cos>'(X, Y) :-
     (   nonvar(X),
-        Y is cos(X),
+        getnumber(X, U),
+        Y is cos(U),
         !
     ;   nonvar(Y),
-        X is acos(Y)
+        getnumber(Y, V),
+        X is acos(V)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#degrees>'(X, Y) :-
     (   nonvar(X),
-        Y is X*180/pi,
+        getnumber(X, U),
+        Y is U*180/pi,
         !
     ;   nonvar(Y),
-        X is Y*pi/180
+        getnumber(Y, V),
+        X is V*pi/180
     ).
 
 '<http://www.w3.org/2000/10/swap/math#difference>'([X, Y], Z) :-
     (   nonvar(X),
         nonvar(Y),
-        Z is X-Y,
+        getnumber(X, U),
+        getnumber(Y, V),
+        Z is U-V,
         !
     ;   nonvar(X),
         nonvar(Z),
-        Y is X-Z,
+        getnumber(X, U),
+        getnumber(Z, W),
+        Y is U-W,
         !
     ;   nonvar(Y),
         nonvar(Z),
-        X is Y+Z
+        getnumber(Y, V),
+        getnumber(Z, W),
+        X is V+W
     ).
 
 '<http://www.w3.org/2000/10/swap/math#equalTo>'(X, Y) :-
     nonvar(X),
     nonvar(Y),
-    X =:= Y.
+    getnumber(X, U),
+    getnumber(Y, V),
+    U =:= V.
 
 '<http://www.w3.org/2000/10/swap/math#exponentiation>'([X, Y], Z) :-
-    (   nonvar(X),
-        nonvar(Y),
-        Z is X**Y,
+    nonvar(X),
+    getnumber(X, U),
+    (   nonvar(Y),
+        getnumber(Y, V),
+        Z is U**V,
         !
-    ;   nonvar(X),
-        nonvar(Z),
-        Z =\= 0,
-        X =\= 0,
-        Y is log(Z)/log(X)
+    ;   nonvar(Z),
+        getnumber(Z, W),
+        W =\= 0,
+        U =\= 0,
+        Y is log(W)/log(U)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#floor>'(X, Y) :-
     nonvar(X),
-    Y is floor(X).
+    getnumber(X, U),
+    Y is floor(U).
 
 '<http://www.w3.org/2000/10/swap/math#greaterThan>'(X, Y) :-
     nonvar(X),
     nonvar(Y),
-     X > Y.
+    getnumber(X, U),
+    getnumber(Y, V),
+    U > V.
 
 '<http://www.w3.org/2000/10/swap/math#integerQuotient>'([X, Y], Z) :-
     nonvar(X),
     nonvar(Y),
-    (   Y =\= 0
-    ->  Z is round(floor(X/Y))
+    getnumber(X, U),
+    getnumber(Y, V),
+    (   V =\= 0
+    ->  Z is round(floor(U/V))
     ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#integerQuotient>'([X, Y], Z)))
     ).
 
 '<http://www.w3.org/2000/10/swap/math#lessThan>'(X, Y) :-
     nonvar(X),
     nonvar(Y),
-    X < Y.
+    getnumber(X, U),
+    getnumber(Y, V),
+    U < V.
 
 '<http://www.w3.org/2000/10/swap/math#logarithm>'([X, Y], Z) :-
-    (   nonvar(X),
-        nonvar(Y),
-        X =\= 0,
-        Y =\= 0,
-        Z is log(X)/log(Y),
+    nonvar(X),
+    getnumber(X, U),
+    (   nonvar(Y),
+        getnumber(Y, V),
+        U =\= 0,
+        V =\= 0,
+        Z is log(U)/log(V),
         !
-    ;   nonvar(X),
-        nonvar(Z),
-        Y is X**(1/Z)
+    ;   nonvar(Z),
+        getnumber(Z, W),
+        Y is U**(1/W)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#max>'(X, Y) :-
@@ -719,27 +752,35 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
     list_min(X, Y).
 
 '<http://www.w3.org/2000/10/swap/math#negation>'(X, Y) :-
-    (   nonvar(X)
-    ->  Y is -X
-    ;   (   nonvar(Y)
-        ->  X is -Y
+    (   nonvar(X),
+        getnumber(X, U)
+    ->  Y is -U
+    ;   (   nonvar(Y),
+            getnumber(Y, V)
+        ->  X is -V
         )
     ).
 
 '<http://www.w3.org/2000/10/swap/math#notEqualTo>'(X, Y) :-
     nonvar(X),
     nonvar(Y),
-    X =\= Y.
+    getnumber(X, U),
+    getnumber(Y, V),
+    U =\= V.
 
 '<http://www.w3.org/2000/10/swap/math#notGreaterThan>'(X, Y) :-
     nonvar(X),
     nonvar(Y),
-    X =< Y.
+    getnumber(X, U),
+    getnumber(Y, V),
+    U =< V.
 
 '<http://www.w3.org/2000/10/swap/math#notLessThan>'(X, Y) :-
     nonvar(X),
     nonvar(Y),
-    X >= Y.
+    getnumber(X, U),
+    getnumber(Y, V),
+    U >= V.
 
 '<http://www.w3.org/2000/10/swap/math#product>'(X, Y) :-
     ground(X),
@@ -748,55 +789,70 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 '<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z) :-
     (   nonvar(X),
         nonvar(Y),
-        (   Y =\= 0
-        ->  Z is X/Y
+        getnumber(X, U),
+        getnumber(Y, V),
+        (   V =\= 0
+        ->  Z is U/V
         ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z)))
         ),
         !
     ;   nonvar(X),
         nonvar(Z),
-        (   Z =\= 0
-        ->  Y is X/Z
+        getnumber(X, U),
+        getnumber(Z, W),
+        (   W =\= 0
+        ->  Y is U/W
         ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#quotient>'([X, Y], Z)))
         ),
         !
     ;   nonvar(Y),
         nonvar(Z),
-        X is Y*Z
+        getnumber(Y, V),
+        getnumber(Z, W),
+        X is V*W
     ).
 
 '<http://www.w3.org/2000/10/swap/math#radians>'(X, Y) :-
     (   nonvar(X),
-        Y is X*pi/180,
+        getnumber(X, U),
+        Y is U*pi/180,
         !
     ;   nonvar(Y),
-        X is Y*180/pi
+        getnumber(Y, V),
+        X is V*180/pi
     ).
 
 '<http://www.w3.org/2000/10/swap/math#remainder>'([X, Y], Z) :-
     nonvar(X),
     nonvar(Y),
-    (   Y =\= 0
-    ->  Z is X-Y*round(floor(X/Y))
+    getnumber(X, U),
+    getnumber(Y, V),
+    (   V =\= 0
+    ->  Z is U-V*round(floor(U/V))
     ;   throw(zero_division('<http://www.w3.org/2000/10/swap/math#remainder>'([X, Y], Z)))
     ).
 
 '<http://www.w3.org/2000/10/swap/math#rounded>'(X, Y) :-
     nonvar(X),
-    Y is round(round(X)).
+    getnumber(X, U),
+    Y is round(round(U)).
 
 '<http://www.w3.org/2000/10/swap/math#roundedTo>'([X, Y], Z) :-
     nonvar(X),
     nonvar(Y),
-    F is 10**floor(Y),
-    Z is round(round(X*F))/F.
+    getnumber(X, U),
+    getnumber(Y, V),
+    F is 10**floor(V),
+    Z is round(round(U*F))/F.
 
 '<http://www.w3.org/2000/10/swap/math#sin>'(X, Y) :-
     (   nonvar(X),
-        Y is sin(X),
+        getnumber(X, U),
+        Y is sin(U),
         !
     ;   nonvar(Y),
-        X is asin(Y)
+        getnumber(Y, V),
+        X is asin(V)
     ).
 
 '<http://www.w3.org/2000/10/swap/math#sum>'(X, Y) :-
@@ -805,10 +861,12 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
 
 '<http://www.w3.org/2000/10/swap/math#tan>'(X, Y) :-
     (   nonvar(X),
-        Y is tan(X),
+        getnumber(X, U),
+        Y is tan(U),
         !
     ;   nonvar(Y),
-        X is atan(Y)
+        getnumber(Y, V),
+        X is atan(V)
     ).
 
 %
@@ -955,8 +1013,9 @@ find_graffiti(A, B) :-
 sum([], 0) :-
     !.
 sum([A|B], C) :-
-    sum(B, D),
-    C is A+D.
+    getnumber(A, D),
+    sum(B, E),
+    C is D+E.
 
 % product(+ListOfNumbers,-ProductOfNumbers)
 %   True when the product of ListOfNumbers is ProductOfNumbers.
@@ -964,8 +1023,9 @@ sum([A|B], C) :-
 product([], 1) :-
     !.
 product([A|B], C) :-
-    product(B, D),
-    C is A*D.
+    getnumber(A, D),
+    product(B, E),
+    C is D*E.
 
 % includes(?ListA,?ListB)
 %   True when every item of ListB is in ListA
@@ -1006,6 +1066,15 @@ taglabel(A, B, C) :-
     number_chars(B, E),
     append(D, ['_'|E], F),
     atom_chars(C, F).
+
+% getnumber(+Literal,-Number)
+getnumber(A, A) :-
+    number(A),
+    !.
+getnumber(literal(A, _), B) :-
+    ground(A),
+    atom_codes(A, C),
+    catch(number_codes(B, C), _, fail).
 
 %%
 % debugging tools
