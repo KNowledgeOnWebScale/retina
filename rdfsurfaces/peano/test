@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina peano.pl | tee peano-answer.pl
+../../retina peano.s | tee peano-answer.s

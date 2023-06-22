@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina pi.pl | tee pi-answer.pl
+../../retina pi.s | tee pi-answer.s

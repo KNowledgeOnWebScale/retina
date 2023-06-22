@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina turing.pl | tee turing-answer.pl
+../../retina turing.s | tee turing-answer.s

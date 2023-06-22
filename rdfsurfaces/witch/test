@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina witch.pl | tee witch-answer.pl
+../../retina witch.s | tee witch-answer.s

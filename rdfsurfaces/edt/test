@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina edt.pl | tee edt-answer.pl
+../../retina edt.s | tee edt-answer.s

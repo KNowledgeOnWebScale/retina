@@ -1,4 +1,4 @@
 #!/bin/bash
-../../retina contradiction.pl | tee contradiction-answer.pl
-../../retina contradiction5.pl | tee contradiction5-answer.pl
-../../retina contradiction-builtin.pl | tee contradiction-builtin-answer.pl
+../../retina contradiction.s | tee contradiction-answer.s
+../../retina contradiction5.s | tee contradiction5-answer.s
+../../retina contradiction-builtin.s | tee contradiction-builtin-answer.s
