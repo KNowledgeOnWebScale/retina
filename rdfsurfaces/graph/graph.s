@@ -1,23 +1,23 @@
-:- dynamic('<https://eyereasoner.github.io/eye/ns#path>'/2).
+:- dynamic('<urn:example:path>'/2).
 
 % French roads
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#paris>','<http://example.org/ns#orleans>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#paris>','<http://example.org/ns#chartres>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#paris>','<http://example.org/ns#amiens>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#orleans>','<http://example.org/ns#blois>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#orleans>','<http://example.org/ns#bourges>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#blois>','<http://example.org/ns#tours>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#chartres>','<http://example.org/ns#lemans>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#lemans>','<http://example.org/ns#angers>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#lemans>','<http://example.org/ns#tours>').
-'<https://eyereasoner.github.io/eye/ns#oneway>'('<http://example.org/ns#angers>','<http://example.org/ns#nantes>').
+'<urn:example:oneway>'('<urn:example:paris>','<urn:example:orleans>').
+'<urn:example:oneway>'('<urn:example:paris>','<urn:example:chartres>').
+'<urn:example:oneway>'('<urn:example:paris>','<urn:example:amiens>').
+'<urn:example:oneway>'('<urn:example:orleans>','<urn:example:blois>').
+'<urn:example:oneway>'('<urn:example:orleans>','<urn:example:bourges>').
+'<urn:example:oneway>'('<urn:example:blois>','<urn:example:tours>').
+'<urn:example:oneway>'('<urn:example:chartres>','<urn:example:lemans>').
+'<urn:example:oneway>'('<urn:example:lemans>','<urn:example:angers>').
+'<urn:example:oneway>'('<urn:example:lemans>','<urn:example:tours>').
+'<urn:example:oneway>'('<urn:example:angers>','<urn:example:nantes>').
 
 % oneway subproperty of path
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
     (
-        '<https://eyereasoner.github.io/eye/ns#oneway>'('_:A', '_:B'),
+        '<urn:example:oneway>'('_:A', '_:B'),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            '<https://eyereasoner.github.io/eye/ns#path>'('_:A', '_:B')
+            '<urn:example:path>'('_:A', '_:B')
         )
     )
 ).
@@ -25,15 +25,15 @@
 % path transitive property
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C'],
     (
-        '<https://eyereasoner.github.io/eye/ns#path>'('_:B', '_:C'),
-        '<https://eyereasoner.github.io/eye/ns#path>'('_:A', '_:B'),
+        '<urn:example:path>'('_:B', '_:C'),
+        '<urn:example:path>'('_:A', '_:B'),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            '<https://eyereasoner.github.io/eye/ns#path>'('_:A', '_:C')
+            '<urn:example:path>'('_:A', '_:C')
         )
     )
 ).
 
 % query
 '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
-    '<https://eyereasoner.github.io/eye/ns#path>'('_:A', '<http://example.org/ns#nantes>')
+    '<urn:example:path>'('_:A', '<urn:example:nantes>')
 ).

@@ -1,4 +1,4 @@
-'<https://eyereasoner.github.io/eye/ns#path>'('<http://example.org/ns#angers>','<http://example.org/ns#nantes>').
-'<https://eyereasoner.github.io/eye/ns#path>'('<http://example.org/ns#lemans>','<http://example.org/ns#nantes>').
-'<https://eyereasoner.github.io/eye/ns#path>'('<http://example.org/ns#chartres>','<http://example.org/ns#nantes>').
-'<https://eyereasoner.github.io/eye/ns#path>'('<http://example.org/ns#paris>','<http://example.org/ns#nantes>').
+'<urn:example:path>'('<urn:example:angers>','<urn:example:nantes>').
+'<urn:example:path>'('<urn:example:lemans>','<urn:example:nantes>').
+'<urn:example:path>'('<urn:example:chartres>','<urn:example:nantes>').
+'<urn:example:path>'('<urn:example:paris>','<urn:example:nantes>').
