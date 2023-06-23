@@ -1,2 +1,5 @@
 #!/bin/bash
+export prolog=${prolog:=tpl}
+export retina=$(dirname "$(readlink -f "$0")")/retina.pl
+
 $prolog -g run $retina "$@"
