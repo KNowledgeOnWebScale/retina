@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.1.7 (2023-06-23)').
+version_info('retina v4.1.8 (2023-06-23)').
 
 % run
 run :-
@@ -1091,7 +1091,7 @@ raw_type((_, _), '<http://www.w3.org/2000/10/swap/log#Formula>') :-
     !.
 raw_type(A, '<http://www.w3.org/2000/10/swap/log#Formula>') :-
     functor(A, B, C),
-    diff_si(B, :),
+    dif_si(B, :),
     C >= 2,
     !.
 raw_type(A, '<http://www.w3.org/2000/10/swap/log#LabeledBlankNode>') :-
