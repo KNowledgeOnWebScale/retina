@@ -22,9 +22,10 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.1.8 (2023-06-23)').
+version_info('retina v4.2.0 (2023-06-27)').
 
 % run
 run :-
@@ -61,7 +62,14 @@ run :-
 %   becomes
 %   (_A_1) log:onNegativeSurface { .. _A_1 .. }
 relabel_graffiti :-
-    member(P, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
+    member(P, [
+            '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>',
+            '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>',
+            '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>',
+            '<http://www.w3.org/2000/10/swap/log#onQuerySurface>',
+            '<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'
+        ]
+    ),
     A =.. [P, _, _],
     retract(A),
     tr_tr(A, B),
@@ -81,7 +89,14 @@ tr_tr(A, A) :-
 tr_tr(A, B) :-
     A =.. [C|D],
     tr_tr(D, E),
-    (   memberchk(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
+    (   memberchk(C, [
+                '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>',
+                '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>',
+                '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>',
+                '<http://www.w3.org/2000/10/swap/log#onQuerySurface>',
+                '<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'
+            ]
+        ),
         E = [[_|_]|_]
     ->  tr_graffiti(A, B)
     ;   B =.. [C|E]
@@ -420,14 +435,24 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        (   select('<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'(Z, H), B, K),
-            list_si(Z)
-        ->  conj_list(P, K),
-            find_graffiti(K, D)
-        ;   P = G,
-            H = G,
-            find_graffiti(B, D)
-        ),
+        P = G,
+        H = G,
+        find_graffiti(B, D),
+        append(V, D, U),
+        makevars([P, H], [Q, S], U),
+        findvars(S, W),
+        makevars(S, I, W)
+        ), implies(Q, answer(I))).
+
+% - create question
+implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
+        list_si(V),
+        conj_list(G, L),
+        list_to_set(L, B),
+        select('<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'(Z, H), B, K),
+        list_si(Z),
+        conj_list(P, K),
+        find_graffiti(K, D),
         append(V, D, U),
         makevars([P, H], [Q, S], U),
         findvars(S, W),
@@ -1002,7 +1027,14 @@ find_graffiti([A|B], C) :-
     append(D, E, C).
 find_graffiti(A, B) :-
     A =.. [C, D, E],
-    memberchk(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>', '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>', '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>', '<http://www.w3.org/2000/10/swap/log#onQuerySurface>']),
+    memberchk(C, [
+            '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>',
+            '<http://www.w3.org/2000/10/swap/log#onNeutralSurface>',
+            '<http://www.w3.org/2000/10/swap/log#onPositiveSurface>',
+            '<http://www.w3.org/2000/10/swap/log#onQuerySurface>',
+            '<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'
+        ]
+    ),
     list_si(D),
     !,
     find_graffiti(E, F),
