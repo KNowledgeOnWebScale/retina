@@ -1,6 +1,3 @@
-%:- dynamic('<http://books.example/loves>'/2).
-%:- dynamic('<http://books.example/is>'/2).
-
 % everybody loves somebody who is lonely
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
     (
