@@ -9,6 +9,7 @@
 :- use_module(library(format)).
 :- use_module(library(iso_ext)).
 :- use_module(library(lists)).
+:- use_module(library(random)).
 :- use_module(library(si)).
 :- use_module(library(terms)).
 
@@ -17,6 +18,7 @@
 :- dynamic(implies/2).
 :- dynamic(label/1).
 :- dynamic(recursion/1).
+:- dynamic(skolem/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#negativeTriple>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
@@ -25,12 +27,16 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.2.0 (2023-06-27)').
+version_info('retina v4.3.0 (2023-06-29)').
 
 % run
 run :-
     bb_put(limit, -1),
+    bb_put(sknum, -1),
     bb_put(fm, 0),
+    random(Rand),
+    Genid is floor(Rand*2^62),
+    bb_put(genid, Genid),
     relabel_graffiti,
     catch(forward(0), Exc,
         (   writeq(Exc),
@@ -117,7 +123,7 @@ tr_graffiti(A, B) :-
     B =.. [C, M, O].
 
 % forward(+Recursion)
-%   Forward chaining starting with Recursion step 0 until Recursion 
+%   Forward chaining starting with Recursion step 0 until Recursion
 %   larger than bb_get(limit,Value) (default: Value = -1)
 forward(Recursion) :-
     (   % find all implies rules
@@ -254,14 +260,14 @@ implies(('<http://www.w3.org/2000/10/swap/log#negativeTriple>'(A, T),
 %      (Graffiti) log:onNegativeSurface {
 %          TripleX
 %          (...) log:onPositiveSurface {
-%              TripleY  
+%              TripleY
 %          }
 %      }
 %   We can remove the positive surfaces and create a negative surface:
 %      (Graffiti) log:onNegativeSurface {
 %          TripleX
 %          TripleY
-%      } 
+%      }
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -294,7 +300,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             ),
             W
         ),
-        W \= V 
+        W \= V
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, G)).
 
 % - simplify double nested negative surfaces
@@ -311,7 +317,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 %      (Graffiti) log:onNegativeSurface {
 %          TripleX
 %          TripleY
-%      } 
+%      }
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -428,6 +434,24 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         find_graffiti([R], D),
         append(V, D, U),
         makevars(':-'(T, S), C, U)
+        ), C).
+
+% - convert universal statements
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+        list_si(V),
+        V \= [],
+        G = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H),
+        list_si(Z),
+        conj_list(H, B),
+        member(M, B),
+        findall('<http://www.w3.org/2000/10/swap/log#skolem>'(V, X),
+            (   member(X, Z)
+            ),
+            Y
+        ),
+        conj_list(S, Y),
+        append(V, Z, U),
+        makevars(':-'(M, S), C, U)
         ), C).
 
 % - create query
@@ -603,6 +627,25 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
     nonvar(A),
     C is A-1,
     between(0, C, B).
+
+'<http://www.w3.org/2000/10/swap/log#skolem>'(A, B) :-
+    (   ground(A)
+    ;   nonvar(B)
+    ),
+    (   skolem(A, B)
+    ->  true
+    ;   var(B),
+        bb_get(sknum, M),
+        N is M+1,
+        bb_put(sknum, N),
+        number_chars(N, C),
+        bb_get(genid, I),
+        number_chars(I, D),
+        atom_chars('<http://eyereasoner.github.io/.well-known/genid/', E),
+        append([E, D, "#t_", C, ">"], F),
+        atom_chars(B, F),
+        assertz(skolem(A, B))
+    ).
 
 '<http://www.w3.org/2000/10/swap/log#uri>'(X, Y) :-
     (   nonvar(X),
@@ -936,14 +979,14 @@ conjify('<http://www.w3.org/2000/10/swap/log#callWithCut>'(A, _), (A, !)) :-
 conjify(A, A).
 
 % makevars(+List,-NewList,?Graffiti)
-%   Transform a pso-predicate list into a new pso-predicate list with 
-%   all graffiti filled in. Possible graffiti in the 
+%   Transform a pso-predicate list into a new pso-predicate list with
+%   all graffiti filled in. Possible graffiti in the
 %   predicate position will be replaced by an exopred.
-%   E.g. 
+%   E.g.
 %      makevars( '<urn:example.org:is>'('_:A',42), Y , ['_:A'] ).
 %      Y = '<urn:example.org:is>'(_A,42)
-%      makevars( '_:B'('_:A',42), Y , ['_:A','_:B'] ). 
-%      Y = 'exopred(_A,42,_B)' 
+%      makevars( '_:B'('_:A',42), Y , ['_:A','_:B'] ).
+%      Y = 'exopred(_A,42,_B)'
 makevars(A, B, C) :-
     list_to_set(C, D),
     findvars(D, G),
@@ -1073,7 +1116,7 @@ includes(X, [Y|Z]) :-
     includes(X, Z).
 
 % couple(?List1, ?List2, ?CoupleList)
-%  True if CoupleList is a pair wise combination of elements 
+%  True if CoupleList is a pair wise combination of elements
 %  of List1 and List2.
 %  Example: couple([1,2,3],['A','B','C'],[[1,'A'],[2,'B'],[3,'C'])
 couple([], [], []).
@@ -1140,8 +1183,8 @@ getnumber(A, A) :-
     !.
 getnumber(literal(A, _), B) :-
     ground(A),
-    atom_codes(A, C),
-    catch(number_codes(B, C), _, fail).
+    atom_chars(A, C),
+    catch(number_chars(B, C), _, fail).
 
 %%
 % debugging tools
