@@ -27,15 +27,18 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.0 (2023-06-29)').
+version_info('retina v4.3.1 (2023-06-29)').
 
 % run
 run :-
     bb_put(limit, -1),
     bb_put(sknum, -1),
     bb_put(fm, 0),
-    random(Rand),
-    Genid is floor(Rand*2^62),
+    catch(uuid(Genid), _,
+        (   use_module(library(uuid)),
+            uuidv4_string(Genid)
+        )
+    ),
     bb_put(genid, Genid),
     relabel_graffiti,
     catch(forward(0), Exc,
@@ -639,8 +642,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         N is M+1,
         bb_put(sknum, N),
         number_chars(N, C),
-        bb_get(genid, I),
-        number_chars(I, D),
+        bb_get(genid, D),
         atom_chars('<http://eyereasoner.github.io/.well-known/genid/', E),
         append([E, D, "#t_", C, ">"], F),
         atom_chars(B, F),

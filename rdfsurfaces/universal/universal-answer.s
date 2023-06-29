@@ -1,1 +1,1 @@
-'<http://books.example/loves>'('<http://books.example/bob>','<http://eyereasoner.github.io/.well-known/genid/12719545653027#t_0>'),'<http://books.example/is>'('<http://eyereasoner.github.io/.well-known/genid/12719545653027#t_0>','<http://books.example/lonely>').
+'<http://books.example/loves>'('<http://books.example/bob>','<http://eyereasoner.github.io/.well-known/genid/0005ff4b3bf99381-0000-0000649df505#t_0>'),'<http://books.example/is>'('<http://eyereasoner.github.io/.well-known/genid/0005ff4b3bf99381-0000-0000649df505#t_0>','<http://books.example/lonely>').
