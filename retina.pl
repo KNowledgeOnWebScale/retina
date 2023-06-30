@@ -27,12 +27,11 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.1 (2023-06-29)').
+version_info('retina v4.3.2 (2023-06-30)').
 
 % run
 run :-
     bb_put(limit, -1),
-    bb_put(sknum, -1),
     bb_put(fm, 0),
     catch(uuid(Genid), _,
         (   use_module(library(uuid)),
@@ -638,13 +637,10 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
     (   skolem(A, B)
     ->  true
     ;   var(B),
-        bb_get(sknum, M),
-        N is M+1,
-        bb_put(sknum, N),
-        number_chars(N, C),
-        bb_get(genid, D),
-        atom_chars('<http://eyereasoner.github.io/.well-known/genid/', E),
-        append([E, D, "#t_", C, ">"], F),
+        bb_get(genid, C),
+        genlabel('#t', D),
+        atom_chars(D, E),
+        append(["<http://eyereasoner.github.io/.well-known/genid/", C, E, ">"], F),
         atom_chars(B, F),
         assertz(skolem(A, B))
     ).
@@ -1125,9 +1121,9 @@ couple([], [], []).
 couple([A|B], [C|D], [[A, C]|E]) :-
     couple(B, D, E).
 
-% genlabel(+OldString,-NewString)
+% genlabel(+OldAtom,-NewAtom)
 %  For each invocation of this built-in a new label will
-%  be created for OldString by appending it with an ever
+%  be created for OldAtom by appending it with an ever
 %  increasing '_<Number>'
 %  Example: genlabel('A','A_1'),genlabel('A','A_2'),...
 genlabel(A, B) :-
@@ -1139,13 +1135,13 @@ genlabel(A, B) :-
         taglabel(A, 1, B)
     ).
 
-% taglabel(+String,+Number,-Tag)
-%   Tag is the result of appending '_<Number>' to '<String>'
+% taglabel(+Atom,+Number,-Tag)
+%   Tag is the result of appending '_<Number>' to '<Atom>'
 %   Example: taglabel('A',1,'A_1')
 taglabel(A, B, C) :-
     atom_chars(A, D),
     number_chars(B, E),
-    append(D, ['_'|E], F),
+    append([D, "_", E], F),
     atom_chars(C, F).
 
 % raw_type(+Term,-Type)
