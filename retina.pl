@@ -19,6 +19,7 @@
 :- dynamic(label/1).
 :- dynamic(recursion/1).
 :- dynamic(skolem/2).
+:- dynamic(uuid/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#negativeTriple>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNeutralSurface>'/2).
@@ -27,13 +28,13 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.2 (2023-06-30)').
+version_info('retina v4.3.3 (2023-06-30)').
 
 % run
 run :-
     bb_put(limit, -1),
     bb_put(fm, 0),
-    catch(uuid(Genid), _,
+    catch(uuid_string(Genid), _,
         (   use_module(library(uuid)),
             uuidv4_string(Genid)
         )
@@ -657,6 +658,15 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         atom_concat(V, '>', X)
     ).
 
+'<http://www.w3.org/2000/10/swap/log#uuid>'(X, Y) :-
+    ground(X),
+    '<http://www.w3.org/2000/10/swap/log#uri>'(X, U),
+    (   uuid(U, Y)
+    ->  true
+    ;   catch(uuid_string(Y), _, uuidv4_string(Y)),
+        assertz(uuid(U, Y))
+    ).
+
 % math
 '<http://www.w3.org/2000/10/swap/math#absoluteValue>'(X, Y) :-
     nonvar(X),
@@ -1184,7 +1194,23 @@ getnumber(literal(A, _), B) :-
     atom_chars(A, C),
     catch(number_chars(B, C), _, fail).
 
-%%
+% uuid_string(-String)
+uuid_string(UUID) :-
+    Version = 4,
+    now(N),
+    S is (N mod 10)*1000000000+N,
+    setrand(S),
+    random_between(0, 0x100000000, A),
+    random_between(0, 0x10000, B),
+    random_between(0, 0x1000, U),
+    C is U \/ Version<<12,
+    random_between(0, 0x4000, V),
+    D is V \/ 0x8000,
+    random_between(0, 0x10000, E),
+    random_between(0, 0x100000000, F),
+    format(string(UUID), "~`0t~16r~8+-~|~`0t~16r~4+-~|~`0t~16r~4+-~|~`0t~16r~4+-~|~`0t~16r~4+~|~`0t~16r~8+", [A,B,C,D,E,F]).
+
+%%%
 % debugging tools
 %
 
