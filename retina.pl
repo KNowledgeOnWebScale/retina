@@ -2,7 +2,7 @@
 % retina -- Jos De Roo, Patrick Hochstenbach
 % ------------------------------------------
 %
-% See https://github.com/eyereasoner/retina
+% See https://github.com/IDLabResearch/retina
 %
 
 :- use_module(library(between)).
