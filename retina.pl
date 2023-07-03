@@ -2,7 +2,7 @@
 % retina -- Jos De Roo, Patrick Hochstenbach
 % ------------------------------------------
 %
-% See https://github.com/IDLabResearch/retina
+% See https://github.com/KNowledgeOnWebScale/retina
 %
 
 :- use_module(library(between)).
@@ -28,7 +28,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.3 (2023-06-30)').
+version_info('retina v4.3.4 (2023-07-04)').
 
 % run
 run :-
