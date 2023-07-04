@@ -12,6 +12,7 @@
 :- use_module(library(random)).
 :- use_module(library(si)).
 :- use_module(library(terms)).
+:- use_module(library(uuid)).
 
 :- dynamic(answer/1).
 :- dynamic(brake/0).
@@ -28,17 +29,13 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.4 (2023-07-04)').
+version_info('retina v4.3.5 (2023-07-04)').
 
 % run
 run :-
     bb_put(limit, -1),
     bb_put(fm, 0),
-    catch(uuid_string(Genid), _,
-        (   use_module(library(uuid)),
-            uuidv4_string(Genid)
-        )
-    ),
+    uuidv4_string(Genid),
     bb_put(genid, Genid),
     relabel_graffiti,
     catch(forward(0), Exc,
@@ -663,7 +660,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
     '<http://www.w3.org/2000/10/swap/log#uri>'(X, U),
     (   uuid(U, Y)
     ->  true
-    ;   catch(uuid_string(Y), _, uuidv4_string(Y)),
+    ;   uuidv4_string(Y),
         assertz(uuid(U, Y))
     ).
 
@@ -1193,22 +1190,6 @@ getnumber(literal(A, _), B) :-
     ground(A),
     atom_chars(A, C),
     catch(number_chars(B, C), _, fail).
-
-% uuid_string(-String)
-uuid_string(UUID) :-
-    Version = 4,
-    now(N),
-    S is (N mod 10)*1000000000+N,
-    setrand(S),
-    random_between(0, 0x100000000, A),
-    random_between(0, 0x10000, B),
-    random_between(0, 0x1000, U),
-    C is U \/ Version<<12,
-    random_between(0, 0x4000, V),
-    D is V \/ 0x8000,
-    random_between(0, 0x10000, E),
-    random_between(0, 0x100000000, F),
-    format(string(UUID), "~`0t~16r~8+-~|~`0t~16r~4+-~|~`0t~16r~4+-~|~`0t~16r~4+-~|~`0t~16r~4+~|~`0t~16r~8+", [A,B,C,D,E,F]).
 
 %%%
 % debugging tools
