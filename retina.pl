@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.5 (2023-07-04)').
+version_info('retina v4.3.6 (2023-07-06)').
 
 % run
 run :-
@@ -638,7 +638,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         bb_get(genid, C),
         genlabel('#t', D),
         atom_chars(D, E),
-        append(["<http://eyereasoner.github.io/.well-known/genid/", C, E, ">"], F),
+        append(["<http://knowledgeonwebscale.github.io/.well-known/genid/", C, E, ">"], F),
         atom_chars(B, F),
         assertz(skolem(A, B))
     ).
