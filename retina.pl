@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.6 (2023-07-06)').
+version_info('retina v4.3.7 (2023-07-07)').
 
 % run
 run :-
@@ -186,18 +186,26 @@ astep(A) :-
         )
     ->  assertz(A),
         (   A = answer(Answer)
-        ->  (   Answer = exopred(Q, S, O)
-            ->  Q \= implies,
-                T =.. [Q, S, O]
-            ;   T = Answer
-            ),
-            writeq(T),
-            write('.'),
-            nl
+        ->  wt(Answer)
         ;   true
         )
     ;   true
     ).
+
+% wt(+Term)
+%   write term
+wt(exopred(A, B, C)) :-
+    !,
+    D =.. [A, B, C],
+    wt(D).
+wt((A, B)) :-
+    !,
+    wt(A),
+    wt(B).
+wt(A) :-
+    writeq(A),
+    write('.'),
+    nl.
 
 % check recursion
 within_recursion(R) :-
