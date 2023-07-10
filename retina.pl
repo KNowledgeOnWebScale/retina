@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.3.7 (2023-07-07)').
+version_info('retina v4.4.0 (2023-07-10)').
 
 % run
 run :-
@@ -311,7 +311,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         W \= V
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, G)).
 
-% - simplify double nested negative surfaces
+% - simplify negative surfaces
 %   Given:
 %      (Graffiti) log:onNegativeSurface {
 %          TripleX
@@ -346,7 +346,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         append(V, W, U)
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)).
 
-% - resolve paired negative surfaces
+% - resolve negative surfaces
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
@@ -490,6 +490,41 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         findvars(S, W),
         makevars(S, I, W)
         ), implies(Q, answer(I))).
+
+% - simplify question surfaces
+%   Given:
+%      (Graffiti) log:onQuestionSurface {
+%          TripleX
+%          () log:onNegativeSurface {
+%               () log:onNegativeSurface {
+%                  TripleY
+%               }
+%          }
+%      }
+%    becomes
+%      (Graffiti) log:onQuestionSurface {
+%          TripleX
+%          TripleY
+%      }
+implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
+        list_si(V),
+        conj_list(G, L),
+        list_to_set(L, B),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), B, K),
+        conj_list(H, M),
+        list_to_set(M, T),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, O), T, N),
+        list_si(W),
+        (   conj_list(O, D),
+            append(K, D, E),
+            conj_list(C, E)
+        ;   length(K, I),
+            I > 1,
+            conj_list(F, N),
+            conj_list(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], F)|K])
+        ),
+        append(V, W, U)
+        ), '<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(U, C)).
 
 %%%
 % built-ins
