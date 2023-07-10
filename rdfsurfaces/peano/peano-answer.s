@@ -1,2 +1,2 @@
-'<urn:example:add>'([['<urn:example:s>',['<urn:example:s>',0]],['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',0]]]],['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',0]]]]]).
-'<urn:example:multiply>'([['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',0]]]]],['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',0]]]]],['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',['<urn:example:s>',0]]]]]]]]]]]]]]]]]]]]).
+*** OOPS src/heap.c 188
+error(resource_error(memory),'$call'/1).

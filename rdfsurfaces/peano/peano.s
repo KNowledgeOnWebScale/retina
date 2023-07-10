@@ -36,10 +36,37 @@
     )
 ).
 
+% factorial
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+    (
+        '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
+            '<urn:example:factorial>'('_:A', '_:B')
+        ),
+        '<urn:example:fac>'(['_:A', ['<urn:example:s>', 0]], '_:B')
+    )
+).
+
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
+    '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
+        '<urn:example:fac>'([0, '_:A'], '_:A')
+    )
+).
+
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C', '_:D'],
+    (
+        '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
+            '<urn:example:fac>'([['<urn:example:s>', '_:A'], '_:B'], '_:C')
+        ),
+        '<urn:example:multiply>'(['_:B', ['<urn:example:s>', '_:A']], '_:D'),
+        '<urn:example:fac>'(['_:A', '_:D'], '_:C')
+    )
+).
+
 % query
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B', '_:C'],
     (
         '<urn:example:add>'([['<urn:example:s>', ['<urn:example:s>', 0]], ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', 0]]]], '_:A'),
-        '<urn:example:multiply>'(['_:A', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', 0]]]]], '_:B')
+        '<urn:example:multiply>'(['_:A', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', 0]]]]], '_:B'),
+        '<urn:example:factorial>'(['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', ['<urn:example:s>', 0]]]]]]]]], '_:C')
     )
 ).
