@@ -1,4 +1,10 @@
 #!/bin/bash
 export prolog=${prolog:=tpl}
 export retina=$(dirname "$(readlink -f "$0")")/retina.pl
-$prolog -g run $retina "$@"
+
+if [ $prolog == swipl ]
+then
+	eye --quiet --nope --blogic --n3p-output --n3p "$@"
+else
+	$prolog -g run $retina "$@"
+fi
