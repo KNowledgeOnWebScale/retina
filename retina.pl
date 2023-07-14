@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.4.0 (2023-07-10)').
+version_info('retina v4.4.1 (2023-07-14)').
 
 % run
 run :-
@@ -330,7 +330,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), B, K),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H), B, K),
         conj_list(H, M),
         list_to_set(M, T),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, O), T, N),
@@ -343,7 +343,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
             conj_list(F, N),
             conj_list(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], F)|K])
         ),
-        append(V, W, U)
+        append([V, Z, W], U)
         ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)).
 
 % - resolve negative surfaces
@@ -448,7 +448,12 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         V \= [],
-        G = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H),
+        conj_list(G, [G]),
+        (   G = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H)
+        ->  true
+        ;   Z = [],
+            H = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], G)
+        ),
         list_si(Z),
         conj_list(H, B),
         member(M, B),
@@ -510,7 +515,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], H), B, K),
+        select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H), B, K),
         conj_list(H, M),
         list_to_set(M, T),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, O), T, N),
@@ -523,7 +528,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
             conj_list(F, N),
             conj_list(C, ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], F)|K])
         ),
-        append(V, W, U)
+        append([V, Z, W], U)
         ), '<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(U, C)).
 
 %%%
