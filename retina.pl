@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 
-version_info('retina v4.4.1 (2023-07-14)').
+version_info('retina v4.5.0 (2023-07-14)').
 
 % run
 run :-
@@ -280,14 +280,15 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         % K contains all triples except the nested positive surface
-        select('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'([], H), L, K),
+        select('<http://www.w3.org/2000/10/swap/log#onPositiveSurface>'(Z, H), L, K),
         conj_list(H, D),
         % add the triples from the nested positive surface to K
         append(K, D, E),
         list_to_set(E, B),
-        conj_list(F, B)
+        conj_list(F, B),
+        append(V, Z, U)
         % conclusion is the simplified negative surface
-        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, F)).
+        ), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, F)).
 
 % - simplify graffiti
 %   Remove unused graffiti nodes.
@@ -497,20 +498,6 @@ implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         ), implies(Q, answer(I))).
 
 % - simplify question surfaces
-%   Given:
-%      (Graffiti) log:onQuestionSurface {
-%          TripleX
-%          () log:onNegativeSurface {
-%               () log:onNegativeSurface {
-%                  TripleY
-%               }
-%          }
-%      }
-%    becomes
-%      (Graffiti) log:onQuestionSurface {
-%          TripleX
-%          TripleY
-%      }
 implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
