@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina lubm.s | tee lubm-answer.s
+../../retina lubm.s | tee lubm-output.s

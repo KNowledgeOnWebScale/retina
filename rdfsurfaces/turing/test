@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina turing.s | tee turing-answer.s
+../../retina turing.s | tee turing-output.s

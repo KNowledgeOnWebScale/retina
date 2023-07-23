@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina socrates.s | tee socrates-answer.s
+../../retina socrates.s | tee socrates-output.s

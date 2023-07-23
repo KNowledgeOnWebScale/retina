@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina edt.s | tee edt-answer.s
+../../retina edt.s | tee edt-output.s

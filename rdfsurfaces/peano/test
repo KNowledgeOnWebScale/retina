@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina peano.s | tee peano-answer.s
+../../retina peano.s | tee peano-output.s

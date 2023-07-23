@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina policy.s | tee policy-answer.s
+../../retina policy.s | tee policy-output.s

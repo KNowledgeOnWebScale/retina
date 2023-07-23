@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina graph.s | tee graph-answer.s
+../../retina graph.s | tee graph-output.s

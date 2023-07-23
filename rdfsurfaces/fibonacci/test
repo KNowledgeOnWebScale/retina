@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina fibonacci.s | tee fibonacci-answer.s
+../../retina fibonacci.s | tee fibonacci-output.s

@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina witch.s | tee witch-answer.s
+../../retina witch.s | tee witch-output.s

@@ -1,8 +1,8 @@
 % Calculate pi using Nilakantha series
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:N', '_:Pi', '_:P', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#nand>'(['_:N', '_:Pi', '_:P', '_:B'],
     (
-        '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:N', '_:Pi'], true)
+        '<http://www.w3.org/2000/10/swap/log#nand>'([],
+            triple(['_:N', '_:Pi'], '<http://eyereasoner.github.io/eye/reasoning#pi>', true)
         ),
         '<http://eyereasoner.github.io/eye/reasoning#pi>'([1, '_:N', 0, '_:P', 1], true),
         '<http://www.w3.org/2000/10/swap/math#product>'([4, '_:P'], '_:B'),
@@ -10,16 +10,18 @@
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:N', '_:P', '_:S'],
-    '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-        '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:N', '_:N', '_:P', '_:P', '_:S'], true)
+'<http://www.w3.org/2000/10/swap/log#nand>'(['_:N', '_:P', '_:S'],
+    (
+        '<http://www.w3.org/2000/10/swap/log#nand>'([],
+            triple(['_:N', '_:N', '_:P', '_:P', '_:S'], '<http://eyereasoner.github.io/eye/reasoning#pi>', true)
+        )
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:K', '_:N', '_:P0', '_:P', '_:S', '_:K1', '_:K2', '_:P1', '_:S1', '_:B2', '_:B3', '_:B4', '_:B5'],
+'<http://www.w3.org/2000/10/swap/log#nand>'(['_:K', '_:N', '_:P0', '_:P', '_:S', '_:K1', '_:K2', '_:P1', '_:S1', '_:B2', '_:B3', '_:B4', '_:B5'],
     (
-        '<http://www.w3.org/2000/10/swap/log#negativeTriple>'([],
-            '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:K', '_:N', '_:P0', '_:P', '_:S'], true)
+        '<http://www.w3.org/2000/10/swap/log#nand>'([],
+            triple(['_:K', '_:N', '_:P0', '_:P', '_:S'], '<http://eyereasoner.github.io/eye/reasoning#pi>', true)
         ),
         '<http://www.w3.org/2000/10/swap/math#notEqualTo>'('_:K', '_:N'),
         '<http://www.w3.org/2000/10/swap/math#sum>'(['_:K', 1], '_:K1'),
@@ -34,7 +36,12 @@
     )
 ).
 
-% query
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:Pi'],
-    '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true)
+% questions
+'<http://www.w3.org/2000/10/swap/log#nand>'(['_:Pi'],
+    (
+        '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true),
+        '<http://www.w3.org/2000/10/swap/log#output>'([],
+            '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true)
+        )
+    )
 ).

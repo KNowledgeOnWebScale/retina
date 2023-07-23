@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina universal.s | tee universal-answer.s
+../../retina universal.s | tee universal-output.s
