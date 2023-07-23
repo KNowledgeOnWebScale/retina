@@ -1,3 +1,5 @@
+:- discontiguous('<http://www.w3.org/2000/10/swap/log#nand>'/2).
+
 % interpreter for Univeral Turing Machine
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:OutTape', '_:Machine', '_:I'],
     (
