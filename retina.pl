@@ -214,7 +214,7 @@ within_recursion(R) :-
 %   Given:
 %       (Graffiti) log:nand {
 %            TripleX
-%       }
+%       }.
 %   If TripleX is true, we can throw an inference fuse
 implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
         list_si(V),
@@ -231,9 +231,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
 
 % - blow inference fuse (negative triple)
 %   Given:
-%       () log:negativeTriple {
-%            TripleX
-%       }
+%       () log:nand <<TripleX>>.
 %   If TripleX is true, we can throw an inference fuse
 implies(('<http://www.w3.org/2000/10/swap/log#nand>'(A, triple(Ts, Tp, To)),
         T =.. [Ts, Tp, To],
