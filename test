@@ -1,10 +1,24 @@
 #!/bin/bash
+OK=0
+FAILED=0
+RED="\033[31m"
+PINK="\033[35m"
+GREEN="\033[32m"
+NORMAL="\033[0;39m"
+
 export prolog="${1:-tpl}"
 export retina=`pwd`/retina.pl
 for dir in rdfsurfaces/*
 do
     pushd "${dir}"
     ./test
+    if [[ $(git status -s . | wc -l) -ne 0 ]]; then
+        let FAILED++
+    else
+        let OK++
+    fi
     popd
     echo ""
 done
+
+echo -e "Tests: ${GREEN}${OK} OK ${RED}${FAILED} FAILED${NORMAL}"
