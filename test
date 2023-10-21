@@ -15,7 +15,8 @@ echo -e ""
 
 export prolog="${1:-tpl}"
 export retina=`pwd`/retina.pl
-for dir in rdfsurfaces/*
+pushd rdfsurfaces > /dev/null
+for dir in */
 do
     pushd "${dir}" > /dev/null
     ./test
@@ -29,6 +30,7 @@ do
     popd > /dev/null
     echo ""
 done
+popd > /dev/null
 
 echo -e "Tests: ${GREEN}${OK} OK${NORMAL} ${RED}${FAILED} FAILED${NORMAL}"
 
