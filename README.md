@@ -7,17 +7,17 @@ Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
 
 ## Installation and test
 
-- Install [Trealla](https://github.com/trealla-prolog/trealla#building) and run
+### Install [Trealla](https://github.com/trealla-prolog/trealla#building) and run
 ```
 ./test tpl
 git diff
 ```
-- Install [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and run
+### Install [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and run
 ```
 ./test scryer-prolog
 git diff
 ```
-- Install [EYE/swipl](https://github.com/eyereasoner/eye/blob/master/INSTALL) and run
+### Install [EYE/swipl](https://github.com/eyereasoner/eye/blob/master/INSTALL) and run
 ```
 ./test swipl
 git diff
