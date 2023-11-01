@@ -35,12 +35,9 @@
     )
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+% query
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
     (
-        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:A', '_:B'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:A', '_:B')
-        )
+        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:A', '_:B')
     )
 ).

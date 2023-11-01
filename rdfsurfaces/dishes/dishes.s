@@ -28,15 +28,10 @@
 ).
 
 % Test that we don't have an open faucet
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'([],
     (
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
             '<urn:example:is>'('<urn:example:Faucet>', '<urn:example:Open>')
-        ),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-                '<urn:example:is>'('<urn:example:Faucet>', '<urn:example:Open>')
-            )
         )
     )
 ).

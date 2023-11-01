@@ -21,8 +21,10 @@
 :- dynamic(recursion/1).
 :- dynamic(skolem/2).
 :- dynamic(uuid/2).
-:- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 
 version_info('retina v5.1.0 (2023-10-19)').
 
@@ -418,8 +420,14 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         makevars(':-'(M, S), C, U)
         ), C).
 
+% - create query
+implies(('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
+        list_si(V),
+        makevars(G, Q, V)
+        ), implies(Q, answer(Q))).
+
 % - create question
-implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
+implies(('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),

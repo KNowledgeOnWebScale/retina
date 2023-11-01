@@ -66,7 +66,7 @@
 ).
 
 % questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C'],
+'<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(['_:A', '_:B', '_:C'],
     (
         '<urn:example:add>'([['<urn:example:s>', 0], ['<urn:example:s>', ['<urn:example:s>', 0]]], '_:A'),
         '<urn:example:multiply>'(['_:A', ['<urn:example:s>', ['<urn:example:s>', 0]]], '_:B'),

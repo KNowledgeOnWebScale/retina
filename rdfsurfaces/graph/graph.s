@@ -33,12 +33,9 @@
     )
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
+% query
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
     (
-        '<urn:example:path>'('_:A', '<urn:example:nantes>'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<urn:example:path>'('_:A', '<urn:example:nantes>')
-        )
+        '<urn:example:path>'('_:A', '<urn:example:nantes>')
     )
 ).

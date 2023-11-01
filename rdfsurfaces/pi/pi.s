@@ -36,12 +36,9 @@
     )
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:Pi'],
+% query
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:Pi'],
     (
-        '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true)
-        )
+        '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true)
     )
 ).

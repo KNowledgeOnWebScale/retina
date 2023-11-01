@@ -35,57 +35,39 @@
     )
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X'],
+% queries
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:X'],
     (
-        '<http://example.org/ns#fibonacci>'(1, '_:X'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#fibonacci>'(1, '_:X')
-        )
+        '<http://example.org/ns#fibonacci>'(1, '_:X')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:X'],
     (
-        '<http://example.org/ns#fibonacci>'(2, '_:X'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#fibonacci>'(2, '_:X')
-        )
+        '<http://example.org/ns#fibonacci>'(2, '_:X')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:X'],
     (
-        '<http://example.org/ns#fibonacci>'(3, '_:X'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#fibonacci>'(3, '_:X')
-        )
+        '<http://example.org/ns#fibonacci>'(3, '_:X')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:X'],
     (
-        '<http://example.org/ns#fibonacci>'(91, '_:X'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#fibonacci>'(91, '_:X')
-        )
+        '<http://example.org/ns#fibonacci>'(91, '_:X')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:X'],
     (
-        '<http://example.org/ns#fibonacci>'(283, '_:X'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#fibonacci>'(283, '_:X')
-        )
+        '<http://example.org/ns#fibonacci>'(283, '_:X')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:X'],
     (
-        '<http://example.org/ns#fibonacci>'(3674, '_:X'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#fibonacci>'(3674, '_:X')
-        )
+        '<http://example.org/ns#fibonacci>'(3674, '_:X')
     )
 ).

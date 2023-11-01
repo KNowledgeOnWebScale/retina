@@ -138,57 +138,39 @@
     )
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+% queries
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
     (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[-1, 0], [0.5, 0]], ['_:A', '_:B']),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[-1, 0], [0.5, 0]], ['_:A', '_:B'])
-        )
+        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[-1, 0], [0.5, 0]], ['_:A', '_:B'])
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
     (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [0, 3.141592653589793]], ['_:A', '_:B']),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [0, 3.141592653589793]], ['_:A', '_:B'])
-        )
+        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [0, 3.141592653589793]], ['_:A', '_:B'])
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
     (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[0, 1], [0, 1]], ['_:A', '_:B']),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[0, 1], [0, 1]], ['_:A', '_:B'])
-        )
+        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[0, 1], [0, 1]], ['_:A', '_:B'])
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
     (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [-1.57079632679, 0]], ['_:A', '_:B']),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [-1.57079632679, 0]], ['_:A', '_:B'])
-        )
+        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [-1.57079632679, 0]], ['_:A', '_:B'])
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
     (
-        '<http://eyereasoner.github.io/eye/complex#asin>'([2, 0], ['_:A', '_:B']),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/complex#asin>'([2, 0], ['_:A', '_:B'])
-        )
+        '<http://eyereasoner.github.io/eye/complex#asin>'([2, 0], ['_:A', '_:B'])
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
     (
-        '<http://eyereasoner.github.io/eye/complex#acos>'([2, 0], ['_:A', '_:B']),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/complex#acos>'([2, 0], ['_:A', '_:B'])
-        )
+        '<http://eyereasoner.github.io/eye/complex#acos>'([2, 0], ['_:A', '_:B'])
     )
 ).

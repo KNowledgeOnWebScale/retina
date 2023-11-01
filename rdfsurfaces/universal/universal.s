@@ -11,7 +11,7 @@
 ).
 
 % questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
+'<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(['_:A'],
     (
         '<http://books.example/loves>'('<http://books.example/bob>','_:A'),
         '<http://books.example/is>'('_:A','<http://books.example/lonely>'),

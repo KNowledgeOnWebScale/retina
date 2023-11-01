@@ -128,39 +128,27 @@
 '<http://example.org/ns#tape>'([1, 1, 0, '<http://example.org/ns#left>'], 1).
 '<http://example.org/ns#tape>'([1, #, 1, '<http://example.org/ns#stop>'], '<http://example.org/ns#halt>').
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
+% queries
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
     (
-        '<http://example.org/ns#compute>'([1, 0, 1, 0, 0, 1], '_:A'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#compute>'([1, 0, 1, 0, 0, 1], '_:A')
-        )
+        '<http://example.org/ns#compute>'([1, 0, 1, 0, 0, 1], '_:A')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
     (
-        '<http://example.org/ns#compute>'([1, 0, 1, 1, 1, 1], '_:A'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#compute>'([1, 0, 1, 1, 1, 1], '_:A')
-        )
+        '<http://example.org/ns#compute>'([1, 0, 1, 1, 1, 1], '_:A')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
     (
-        '<http://example.org/ns#compute>'([1, 1, 1, 1, 1, 1], '_:A'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#compute>'([1, 1, 1, 1, 1, 1], '_:A')
-        )
+        '<http://example.org/ns#compute>'([1, 1, 1, 1, 1, 1], '_:A')
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
     (
-        '<http://example.org/ns#compute>'([], '_:A'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://example.org/ns#compute>'([], '_:A')
-        )
+        '<http://example.org/ns#compute>'([], '_:A')
     )
 ).

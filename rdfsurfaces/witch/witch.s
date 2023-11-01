@@ -51,12 +51,9 @@
     )
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X'],
+% query
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:X'],
     (
-        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:X', '<http://example.org/ns#WITCH>'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:X', '<http://example.org/ns#WITCH>')
-        )
+        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:X', '<http://example.org/ns#WITCH>')
     )
 ).

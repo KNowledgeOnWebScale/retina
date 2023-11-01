@@ -134,7 +134,7 @@
 ).
 
 % questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:N', '_:A', '_:B', '_:M', '_:X', '_:Y', '_:Z', '_:L', '_:S', '_:I'],
+'<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(['_:N', '_:A', '_:B', '_:M', '_:X', '_:Y', '_:Z', '_:L', '_:S', '_:I'],
     (
         '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'('_:N', '_:A'),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'('_:B', '_:M'),

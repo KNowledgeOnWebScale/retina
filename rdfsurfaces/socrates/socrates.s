@@ -18,12 +18,9 @@
     )
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:P', '_:S', '_:O'],
+% query
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:P', '_:S', '_:O'],
     (
-        '_:P'('_:S', '_:O'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'(['_:P', '_:S', '_:O'],
-            '_:P'('_:S', '_:O')
-        )
+        '_:P'('_:S', '_:O')
     )
 ).

@@ -21,12 +21,9 @@
     '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('<http://example.org/ns#Socrates>', '<http://example.org/ns#Mortal>')
 ).
 
-% questions
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:S', '_:C'],
+% query
+'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:S', '_:C'],
     (
-        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:S', '_:C'),
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:S', '_:C')
-        )
+        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:S', '_:C')
     )
 ).
