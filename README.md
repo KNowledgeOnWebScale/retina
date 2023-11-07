@@ -5,23 +5,15 @@ Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
 [Patrick Hochstenbach](https://patrickhochstenbach.net/) and
 [EYE](https://eyereasoner.github.io/eye/).
 
-## Install [Trealla](https://github.com/trealla-prolog/trealla#building) and run
-```
-./test tpl
-git diff
-```
-## Install [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and run
-```
-./test scryer-prolog
-git diff
-```
-## Install [EYE/swipl](https://github.com/eyereasoner/eye/blob/master/INSTALL) and run
-```
-./test swipl
-git diff
-```
+## Installation and test
 
+Install [Trealla](https://github.com/trealla-prolog/trealla#building) and then
 
+```
+$ git clone https://github.com/KNowledgeOnWebScale/retina
+$ cd retina
+$ ./test
+```
 
 ## Background
 

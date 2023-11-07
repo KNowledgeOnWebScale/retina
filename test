@@ -2,19 +2,18 @@
 
 RED="\e[31m"
 GREEN="\e[32m"
-BLUE="\e[94m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
 NORMAL="\e[0;39m"
 
 OK=0
 FAILED=0
 
-echo -e ${BLUE}"-------------------"${NORMAL}
-echo -e ${BLUE}"Running retina/test"${NORMAL}
-echo -e ${BLUE}"-------------------"${NORMAL}
+echo -e ${YELLOW}"-------------------"${NORMAL}
+echo -e ${YELLOW}"Running retina/test"${NORMAL}
+echo -e ${YELLOW}"-------------------"${NORMAL}
 echo -e ""
 
-export prolog="${1:-tpl}"
-export retina=`pwd`/retina.pl
 pushd rdfsurfaces > /dev/null
 for dir in */
 do
