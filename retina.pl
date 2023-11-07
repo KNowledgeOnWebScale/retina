@@ -26,7 +26,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'/2).
 
-version_info('retina v5.1.1 (2023-11-07)').
+version_info('retina v5.2.0 (2023-11-07)').
 
 % run
 run :-
