@@ -1,4 +1,0 @@
-#!/bin/bash
-../../retina contradiction.s | tee contradiction-output.s
-../../retina contradiction5.s | tee contradiction5-output.s
-../../retina contradiction-builtin.s | tee contradiction-builtin-output.s

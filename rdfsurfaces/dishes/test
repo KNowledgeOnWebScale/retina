@@ -1,2 +1,0 @@
-#!/bin/bash
-../../retina dishes.s | tee dishes-output.s

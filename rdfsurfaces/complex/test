@@ -1,2 +1,0 @@
-#!/bin/bash
-../../retina complex.s | tee complex-output.s

@@ -1,2 +1,0 @@
-#!/bin/bash
-../../retina turing.s | tee turing-output.s

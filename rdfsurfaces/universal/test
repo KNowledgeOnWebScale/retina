@@ -1,2 +1,0 @@
-#!/bin/bash
-../../retina universal.s | tee universal-output.s

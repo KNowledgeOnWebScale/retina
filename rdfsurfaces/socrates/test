@@ -1,2 +1,0 @@
-#!/bin/bash
-../../retina socrates.s | tee socrates-output.s

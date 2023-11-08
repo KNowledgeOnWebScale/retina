@@ -3,30 +3,28 @@
 RED="\e[31m"
 GREEN="\e[32m"
 YELLOW="\e[33m"
-BLUE="\e[34m"
 NORMAL="\e[0;39m"
 
 OK=0
 FAILED=0
 
 echo -e "${YELLOW}Running retina/test${NORMAL}"
+echo ""
 
-pushd rdfsurfaces > /dev/null
-for dir in */
+pushd ./examples > /dev/null
+for f in *.pl
 do
-    pushd "${dir}" > /dev/null
-    ./test
-    if [[ $(git status -s . | wc -l) -ne 0 ]]; then
-        echo -e "${RED}${dir} FAILED${NORMAL}"
+    tpl -g run ../retina.pl $f | tee out/$f.out
+    if [[ $(git diff out/$f.out | wc -l) -ne 0 ]]; then
+        echo -e "${RED}${f} FAILED${NORMAL}"
         ((FAILED++))
     else
-        echo -e "${GREEN}${dir} OK${NORMAL}"
+        echo -e "${GREEN}${f} OK${NORMAL}"
         ((OK++))
     fi
-    popd > /dev/null
     echo ""
 done
-popd > /dev/null
+popd  > /dev/null
 
 echo -e "Tests: ${GREEN}${OK} OK${NORMAL} ${RED}${FAILED} FAILED${NORMAL}"
 
