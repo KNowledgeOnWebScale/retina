@@ -19,8 +19,8 @@
 % exhibit an interference effect: an answer is produced from the junction if it
 % occurs in one or the other branch but not both.
 
-'http://josd.github.io/ns#builtin'(dynamic('http://josd.github.io/ns#sdcoding'/2),[]).
-'http://josd.github.io/ns#builtin'(dynamic('http://josd.github.io/ns#sdconot'/2),[]).
+'https://knowledgeonwebscale.github.io/ns#builtin'(dynamic('https://knowledgeonwebscale.github.io/ns#sdcoding'/2),[]).
+'https://knowledgeonwebscale.github.io/ns#builtin'(dynamic('https://knowledgeonwebscale.github.io/ns#sdconot'/2),[]).
 
 % |R) = |0, 0) + |1, 1)
 'http://example.org/ns#r'(false,false).
@@ -75,22 +75,22 @@
 'http://example.org/ns#bob'([X,Y],3) <= 'http://example.org/ns#id'(X,Y).
 
 % superdense coding
-'http://josd.github.io/ns#sdc'(N,M) <=
+'https://knowledgeonwebscale.github.io/ns#sdc'(N,M) <=
     'http://example.org/ns#r'(X,Y),
     'http://example.org/ns#alice'(N,[X,B]),
     'http://example.org/ns#bob'([B,Y],M),
-    'http://josd.github.io/ns#sd'(N,M).
+    'https://knowledgeonwebscale.github.io/ns#sd'(N,M).
 
 % asserting sdcoding an odd number of times
-'http://josd.github.io/ns#sd'(N,M) <=
-    'http://josd.github.io/ns#sdcoding'(N,M),
-    'http://josd.github.io/ns#builtin'(!,[]),
-    'http://josd.github.io/ns#builtin'(retract('http://josd.github.io/ns#sdcoding'(N,M)),[]).
-'http://josd.github.io/ns#sd'(N,M) <=
-    'http://josd.github.io/ns#builtin'(assertz('http://josd.github.io/ns#sdcoding'(N,M)),[]).
+'https://knowledgeonwebscale.github.io/ns#sd'(N,M) <=
+    'https://knowledgeonwebscale.github.io/ns#sdcoding'(N,M),
+    'https://knowledgeonwebscale.github.io/ns#builtin'(!,[]),
+    'https://knowledgeonwebscale.github.io/ns#builtin'(retract('https://knowledgeonwebscale.github.io/ns#sdcoding'(N,M)),[]).
+'https://knowledgeonwebscale.github.io/ns#sd'(N,M) <=
+    'https://knowledgeonwebscale.github.io/ns#builtin'(assertz('https://knowledgeonwebscale.github.io/ns#sdcoding'(N,M)),[]).
 
 % superdense coding appearing an odd number of times
-'http://josd.github.io/ns#sdc'(N,M) => 'http://josd.github.io/ns#sdconot'(N,M).
+'https://knowledgeonwebscale.github.io/ns#sdc'(N,M) => 'https://knowledgeonwebscale.github.io/ns#sdconot'(N,M).
 
 % query
-'http://josd.github.io/ns#sdcoding'(_N,_M) => true.
+'https://knowledgeonwebscale.github.io/ns#sdcoding'(_N,_M) => true.

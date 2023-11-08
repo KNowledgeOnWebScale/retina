@@ -4,7 +4,7 @@ Reasoning engine to infer neutral answers.
 
 ## Architecture and design
 
-[Retina](https://github.com/josd/retina) is processing retina data and is itself implemented as [retina code](https://github.com/josd/retina/blob/master/retina.pl).  
+[Retina](https://github.com/knowledgeonwebscale/retina) is processing retina data and is itself implemented as [retina code](https://github.com/knowledgeonwebscale/retina/blob/master/retina.pl).  
 It produces retina answers supported by lemmas.  
 It uses [Scryer Prolog](https://github.com/mthom/scryer-prolog) which runs on [Rust](https://www.rust-lang.org).  
 
@@ -36,14 +36,14 @@ This forms a dialogue leading to necessary and sufficient answers, supported by 
 
 The builtin triples are:
 
-- `'http://josd.github.io/ns#builtin'(`[`Subject`](https://www.scryer.pl/builtins)`,[])`
+- `'https://knowledgeonwebscale.github.io/ns#builtin'(`[`Subject`](https://www.scryer.pl/builtins)`,[])`
 
 ## Installation and test
 
 Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and then
 
 ```
-$ git clone https://github.com/josd/retina
+$ git clone https://github.com/knowledgeonwebscale/retina
 $ cd retina
 $ ./test
 ```
