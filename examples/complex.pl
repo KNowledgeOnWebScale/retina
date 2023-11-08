@@ -1,176 +1,103 @@
-% exponentiation
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C', '_:D', '_:E', '_:F', '_:R', '_:T', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5', '_:Z6', '_:Z7', '_:Z8', '_:Z9', '_:Z10'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple([['_:A', '_:B'], ['_:C', '_:D']], '<http://eyereasoner.github.io/eye/complex#exponentiation>', ['_:E', '_:F'])
-        ),
-        '<http://eyereasoner.github.io/eye/complex#polar>'(['_:A', '_:B'], ['_:R', '_:T']),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:R', '_:C'], '_:Z1'),
-        '<http://www.w3.org/2000/10/swap/math#negation>'('_:D', '_:Z2'),
-        '<http://www.w3.org/2000/10/swap/math#product>'(['_:Z2', '_:T'], '_:Z3'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'([2.718281828459045, '_:Z3'], '_:Z4'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'([2.718281828459045, '_:Z5'], '_:R'),
-        '<http://www.w3.org/2000/10/swap/math#product>'(['_:D', '_:Z5'], '_:Z6'),
-        '<http://www.w3.org/2000/10/swap/math#product>'(['_:C', '_:T'], '_:Z7'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z6', '_:Z7'], '_:Z8'),
-        '<http://www.w3.org/2000/10/swap/math#cos>'('_:Z8', '_:Z9'),
-        '<http://www.w3.org/2000/10/swap/math#product>'(['_:Z1', '_:Z4', '_:Z9'], '_:E'),
-        '<http://www.w3.org/2000/10/swap/math#sin>'('_:Z8', '_:Z10'),
-        '<http://www.w3.org/2000/10/swap/math#product>'(['_:Z1', '_:Z4', '_:Z10'], '_:F')
-    )
-).
+% See https://en.wikipedia.org/wiki/Complex_number
 
-% asin
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C', '_:D', '_:E', '_:F', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5', '_:Z6', '_:Z7', '_:Z8', '_:Z9', '_:Z10', '_:Z11', '_:Z12', '_:Z13', '_:Z14', '_:Z15'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:A', '_:B'], '<http://eyereasoner.github.io/eye/complex#asin>', ['_:C', '_:D'])
-        ),
-        '<http://www.w3.org/2000/10/swap/math#sum>'([1, '_:A'], '_:Z1'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z1', 2], '_:Z2'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:B', 2], '_:Z3'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z2', '_:Z3'], '_:Z4'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z4', 0.5], '_:Z5'),
-        '<http://www.w3.org/2000/10/swap/math#difference>'([1, '_:A'], '_:Z6'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z6', 2], '_:Z7'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z7', '_:Z3'], '_:Z8'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z8', 0.5], '_:Z9'),
-        '<http://www.w3.org/2000/10/swap/math#difference>'(['_:Z5', '_:Z9'], '_:Z10'),
-        '<http://www.w3.org/2000/10/swap/math#quotient>'(['_:Z10', 2], '_:E'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z5', '_:Z9'], '_:Z11'),
-        '<http://www.w3.org/2000/10/swap/math#quotient>'(['_:Z11', 2], '_:F'),
-        '<http://www.w3.org/2000/10/swap/math#asin>'('_:E', '_:C'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:F', 2], '_:Z12'),
-        '<http://www.w3.org/2000/10/swap/math#difference>'(['_:Z12', 1], '_:Z13'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z13', 0.5], '_:Z14'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:F', '_:Z14'], '_:Z15'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'([2.718281828459045, '_:D'], '_:Z15')
-    )
-).
+'http://josd.github.io/ns#exp'([[A,B],[C,D]],[E,F]) <=
+    'http://josd.github.io/ns#polar'([A,B],[G,H]),
+    'http://josd.github.io/ns#builtin'(E is G^C*exp(-D*H)*cos(D*log(G)+C*H),[]),
+    'http://josd.github.io/ns#builtin'(F is G^C*exp(-D*H)*sin(D*log(G)+C*H),[]).
 
-% acos
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C', '_:D', '_:E', '_:F', '_:U', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5', '_:Z6', '_:Z7', '_:Z8', '_:Z9', '_:Z10', '_:Z11', '_:Z12', '_:Z13', '_:Z14', '_:Z15'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:A', '_:B'], '<http://eyereasoner.github.io/eye/complex#acos>', ['_:C', '_:D'])
-        ),
-        '<http://www.w3.org/2000/10/swap/math#sum>'([1, '_:A'], '_:Z1'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z1', 2], '_:Z2'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:B', 2], '_:Z3'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z2', '_:Z3'], '_:Z4'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z4', 0.5], '_:Z5'),
-        '<http://www.w3.org/2000/10/swap/math#difference>'([1, '_:A'], '_:Z6'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z6', 2], '_:Z7'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z7', '_:Z3'], '_:Z8'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z8', 0.5], '_:Z9'),
-        '<http://www.w3.org/2000/10/swap/math#difference>'(['_:Z5', '_:Z9'], '_:Z10'),
-        '<http://www.w3.org/2000/10/swap/math#quotient>'(['_:Z10', 2], '_:E'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z5', '_:Z9'], '_:Z11'),
-        '<http://www.w3.org/2000/10/swap/math#quotient>'(['_:Z11', 2], '_:F'),
-        '<http://www.w3.org/2000/10/swap/math#acos>'('_:E', '_:C'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:F', 2], '_:Z12'),
-        '<http://www.w3.org/2000/10/swap/math#difference>'(['_:Z12', 1], '_:Z13'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z13', 0.5], '_:Z14'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:F', '_:Z14'], '_:Z15'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'([2.718281828459045, '_:U'], '_:Z15'),
-        '<http://www.w3.org/2000/10/swap/math#negation>'('_:U', '_:D')
-    )
-).
+'http://josd.github.io/ns#log'([[A,B],[C,D]],[E,F]) <=
+    'http://josd.github.io/ns#polar'([A,B],[G,H]),
+    'http://josd.github.io/ns#polar'([C,D],[I,J]),
+    'http://josd.github.io/ns#builtin'(K is log(G),[]),
+    'http://josd.github.io/ns#builtin'(L is log(I),[]),
+    'http://josd.github.io/ns#divide'([[L,J],[K,H]],[E,F]).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:R', '_:T', '_:Tp', '_:Z1', '_:Z2', '_:Z3', '_:Z4', '_:Z5'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/complex#polar>', ['_:R', '_:Tp'])
-        ),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:X', 2], '_:Z1'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Y', 2], '_:Z2'),
-        '<http://www.w3.org/2000/10/swap/math#sum>'(['_:Z1', '_:Z2'], '_:Z3'),
-        '<http://www.w3.org/2000/10/swap/math#exponentiation>'(['_:Z3', 0.5], '_:R'),
-        '<http://www.w3.org/2000/10/swap/math#absoluteValue>'('_:X', '_:Z4'),
-        '<http://www.w3.org/2000/10/swap/math#quotient>'(['_:Z4', '_:R'], '_:Z5'),
-        '<http://www.w3.org/2000/10/swap/math#acos>'('_:Z5', '_:T'),
-        '<http://eyereasoner.github.io/eye/complex#dial>'(['_:X', '_:Y', '_:T'], '_:Tp')
-    )
-).
+'http://josd.github.io/ns#sin'([A,B],[C,D]) <=
+    'http://josd.github.io/ns#builtin'(C is sin(A)*(exp(B)+exp(-B))/2,[]),
+    'http://josd.github.io/ns#builtin'(D is cos(A)*(exp(B)-exp(-B))/2,[]).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y', '_:T'], '<http://eyereasoner.github.io/eye/complex#dial>', '_:Tp')
-        ),
-        '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:X', 0),
-        '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:Y', 0),
-        '<http://www.w3.org/2000/10/swap/math#sum>'([0, '_:T'], '_:Tp')
-    )
-).
+'http://josd.github.io/ns#cos'([A,B],[C,D]) <=
+    'http://josd.github.io/ns#builtin'(C is cos(A)*(exp(B)+exp(-B))/2,[]),
+    'http://josd.github.io/ns#builtin'(D is -sin(A)*(exp(B)-exp(-B))/2,[]).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y', '_:T'], '<http://eyereasoner.github.io/eye/complex#dial>', '_:Tp')
-        ),
-        '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:X', 0),
-        '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:Y', 0),
-        '<http://www.w3.org/2000/10/swap/math#difference>'([3.141592653589793, '_:T'], '_:Tp')
-    )
-).
+'http://josd.github.io/ns#tan'(A,B) <=
+    'http://josd.github.io/ns#sin'(A,C),
+    'http://josd.github.io/ns#cos'(A,D),
+    'http://josd.github.io/ns#divide'([C,D],B).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y', '_:T'], '<http://eyereasoner.github.io/eye/complex#dial>', '_:Tp')
-        ),
-        '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:X', 0),
-        '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:Y', 0),
-        '<http://www.w3.org/2000/10/swap/math#sum>'([3.141592653589793, '_:T'], '_:Tp')
-    )
-).
+'http://josd.github.io/ns#asin'([A,B],[C,D]) <=
+    'http://josd.github.io/ns#builtin'(E is (sqrt((1+A)^2+B^2)-sqrt((1-A)^2+B^2))/2,[]),
+    'http://josd.github.io/ns#builtin'(F is (sqrt((1+A)^2+B^2)+sqrt((1-A)^2+B^2))/2,[]),
+    'http://josd.github.io/ns#builtin'(C is asin(E),[]),
+    'http://josd.github.io/ns#builtin'(D is log(F+sqrt(F^2-1)),[]).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:T', '_:Tp'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y', '_:T'], '<http://eyereasoner.github.io/eye/complex#dial>', '_:Tp')
-        ),
-        '<http://www.w3.org/2000/10/swap/math#notLessThan>'('_:X', 0),
-        '<http://www.w3.org/2000/10/swap/math#lessThan>'('_:Y', 0),
-        '<http://www.w3.org/2000/10/swap/math#product>'([3.141592653589793, 2], '_:Z1'),
-        '<http://www.w3.org/2000/10/swap/math#difference>'(['_:Z1', '_:T'], '_:Tp')
-    )
-).
+'http://josd.github.io/ns#acos'([A,B],[C,D]) <=
+    'http://josd.github.io/ns#builtin'(E is (sqrt((1+A)^2+B^2)-sqrt((1-A)^2+B^2))/2,[]),
+    'http://josd.github.io/ns#builtin'(F is (sqrt((1+A)^2+B^2)+sqrt((1-A)^2+B^2))/2,[]),
+    'http://josd.github.io/ns#builtin'(C is acos(E),[]),
+    'http://josd.github.io/ns#builtin'(D is -log(F+sqrt(F^2-1)),[]).
 
-% queries
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[-1, 0], [0.5, 0]], ['_:A', '_:B'])
-    )
-).
+'http://josd.github.io/ns#atan'(A,B) <=
+    'http://josd.github.io/ns#subtract'([[0,1],A],C),
+    'http://josd.github.io/ns#add'([[0,1],A],D),
+    'http://josd.github.io/ns#divide'([C,D],E),
+    'http://josd.github.io/ns#log'([[e,0],E],F),
+    'http://josd.github.io/ns#divide'([F,[0,2]],B).
 
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [0, 3.141592653589793]], ['_:A', '_:B'])
-    )
-).
+'http://josd.github.io/ns#polar'([A,B],[C,D]) <=
+    'http://josd.github.io/ns#builtin'(C is sqrt(A^2+B^2),[]),
+    'http://josd.github.io/ns#builtin'(E is acos(abs(A)/C),[]),
+    'http://josd.github.io/ns#angular'([A,B,E],D).
 
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[0, 1], [0, 1]], ['_:A', '_:B'])
-    )
-).
+'http://josd.github.io/ns#angular'([A,B,C],D) <=
+    'http://josd.github.io/ns#builtin'(A >= 0,[]),
+    'http://josd.github.io/ns#builtin'(B >= 0,[]),
+    'http://josd.github.io/ns#builtin'(D = C,[]).
+'http://josd.github.io/ns#angular'([A,B,C],D) <=
+    'http://josd.github.io/ns#builtin'(A < 0,[]),
+    'http://josd.github.io/ns#builtin'(B >= 0,[]),
+    'http://josd.github.io/ns#builtin'(D is pi-C,[]).
+'http://josd.github.io/ns#angular'([A,B,C],D) <=
+    'http://josd.github.io/ns#builtin'(A < 0,[]),
+    'http://josd.github.io/ns#builtin'(B < 0,[]),
+    'http://josd.github.io/ns#builtin'(D is C+pi,[]).
+'http://josd.github.io/ns#angular'([A,B,C],D) <=
+    'http://josd.github.io/ns#builtin'(A >= 0,[]),
+    'http://josd.github.io/ns#builtin'(B < 0,[]),
+    'http://josd.github.io/ns#builtin'(D is 2*pi-C,[]).
 
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    (
-        '<http://eyereasoner.github.io/eye/complex#exponentiation>'([[2.718281828459045, 0], [-1.57079632679, 0]], ['_:A', '_:B'])
-    )
-).
+'http://josd.github.io/ns#minus'([A,B],[C,D]) <=
+    'http://josd.github.io/ns#builtin'(C is -A,[]),
+    'http://josd.github.io/ns#builtin'(D is -B,[]).
 
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    (
-        '<http://eyereasoner.github.io/eye/complex#asin>'([2, 0], ['_:A', '_:B'])
-    )
-).
+'http://josd.github.io/ns#subtract'([[A,B],[C,D]],[E,F]) <=
+    'http://josd.github.io/ns#builtin'(E is A-C,[]),
+    'http://josd.github.io/ns#builtin'(F is B-D,[]).
 
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A', '_:B'],
-    (
-        '<http://eyereasoner.github.io/eye/complex#acos>'([2, 0], ['_:A', '_:B'])
-    )
-).
+'http://josd.github.io/ns#add'([[A,B],[C,D]],[E,F]) <=
+    'http://josd.github.io/ns#builtin'(E is A+C,[]),
+    'http://josd.github.io/ns#builtin'(F is B+D,[]).
+
+'http://josd.github.io/ns#multiply'([[A,B],[C,D]],[E,F]) <=
+    'http://josd.github.io/ns#builtin'(E is A*C-B*D,[]),
+    'http://josd.github.io/ns#builtin'(F is A*D+B*C,[]).
+
+'http://josd.github.io/ns#inverse'([A,B],[C,D]) <=
+    'http://josd.github.io/ns#builtin'(C is A/(A^2+B^2),[]),
+    'http://josd.github.io/ns#builtin'(D is -B/(A^2+B^2),[]).
+
+'http://josd.github.io/ns#divide'([A,B],C) <=
+    'http://josd.github.io/ns#inverse'(B,D),
+    'http://josd.github.io/ns#multiply'([A,D],C).
+
+% query
+'http://josd.github.io/ns#exp'([[-1,0],[0.5,0]],_ANSWER) => true.
+'http://josd.github.io/ns#exp'([[e,0],[0,pi]],_ANSWER) => true.
+'http://josd.github.io/ns#log'([[e,0],[-1,0]],_ANSWER) => true.
+'http://josd.github.io/ns#log'([[0,1],[0,1]],_ANSWER) => true.
+'http://josd.github.io/ns#sin'([1.570796326794897,1.316957896924817],_ANSWER) => true.
+'http://josd.github.io/ns#cos'([0,-1.316957896924817],_ANSWER) => true.
+'http://josd.github.io/ns#tan'([1.338972522294493,0.4023594781085251],_ANSWER) => true.
+'http://josd.github.io/ns#asin'([2,0],_ANSWER) => true.
+'http://josd.github.io/ns#acos'([2,0],_ANSWER) => true.
+'http://josd.github.io/ns#atan'([1,2],_ANSWER) => true.

@@ -1,26 +1,10 @@
-:- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
-:- dynamic('<http://www.w3.org/2000/01/rdf-schema#subClassOf>'/2).
+% Socrates is a mortal
 
-% Socrates is a human
-'<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('<http://example.org/ns#Socrates>', '<http://example.org/ns#Human>').
+'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#Socrates','http://example.org/ns#Man').
 
-% humans are mortal
-'<http://www.w3.org/2000/01/rdf-schema#subClassOf>'('<http://example.org/ns#Human>', '<http://example.org/ns#Mortal>').
-
-% rdfs subclass
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:S'],
-    (
-        '<http://www.w3.org/2000/01/rdf-schema#subClassOf>'('_:A', '_:B'),
-        '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:S', '_:A'),
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'('_:S', '_:B')
-        )
-    )
-).
+'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#Mortal') <=
+    'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#Man'),
+    'http://josd.github.io/ns#add_lemma'('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#Man'),'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#Mortal')).
 
 % query
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:P', '_:S', '_:O'],
-    (
-        '_:P'('_:S', '_:O')
-    )
-).
+'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(_WHO,_WHAT) => true.

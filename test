@@ -14,7 +14,7 @@ echo ""
 pushd ./examples > /dev/null
 for f in *.pl
 do
-    tpl -g run ../retina.pl $f | tee out/$f.out
+    scryer-prolog -g run ../retina.pl $f | tee out/$f.out
     if [[ $(git diff out/$f.out | wc -l) -ne 0 ]]; then
         echo -e "${RED}${f} FAILED${NORMAL}"
         ((FAILED++))

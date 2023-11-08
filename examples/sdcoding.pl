@@ -1,162 +1,96 @@
-:- dynamic('<http://eyereasoner.github.io/eye/reasoning/dqc#sdcoding>'/2).
+% Superdense coding using discrete quantum computing
+
+% See https://arxiv.org/pdf/1101.3764.pdf and arxiv.org/pdf/1010.2929.pdf
+
+% Discrete quantum theory is obtained by instantiating the mathematical framework
+% of Hilbert spaces with a finite field instead of the field of complex numbers.
+% This instantiation collapses much the structure of actual quantum mechanics but
+% retains several of its distinguishing characteristics including the notions of
+% superposition, interference, and entanglement. Furthermore, discrete quantum
+% theory excludes local hidden variable models, has a no-cloning theorem, and can
+% express natural counterparts of quantum information protocols such as superdense
+% coding and teleportation.
+
+% Surprisingly discrete quantum computing is identical to conventional logic
+% programming except for a small twist that is responsible for all the
+% "quantum-ness". The twist occurs when merging sets of answers computed by
+% several alternatives: the answers are combined using an exclusive version of
+% logical disjunction. In other words, the two branches of a choice junction
+% exhibit an interference effect: an answer is produced from the junction if it
+% occurs in one or the other branch but not both.
+
+'http://josd.github.io/ns#builtin'(dynamic('http://josd.github.io/ns#sdcoding'/2),[]).
+'http://josd.github.io/ns#builtin'(dynamic('http://josd.github.io/ns#sdconot'/2),[]).
 
 % |R) = |0, 0) + |1, 1)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#r>'(false, false).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#r>'(true, true).
+'http://example.org/ns#r'(false,false).
+'http://example.org/ns#r'(true,true).
 
 % |S) = |0, 1) + |1, 0)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#s>'(false, true).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#s>'(true, false).
+'http://example.org/ns#s'(false,true).
+'http://example.org/ns#s'(true,false).
 
 % |U) = |0, 0) + |1, 0) + |1, 1)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#u>'(false, false).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#u>'(true, false).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#u>'(true, true).
+'http://example.org/ns#u'(false,false).
+'http://example.org/ns#u'(true,false).
+'http://example.org/ns#u'(true,true).
 
 % |V ) = |0, 0) + |0, 1) + |1, 0)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#v>'(false, false).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#v>'(false, true).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#v>'(true, false).
+'http://example.org/ns#v'(false,false).
+'http://example.org/ns#v'(false,true).
+'http://example.org/ns#v'(true,false).
 
-% I |0) = |0)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#id>'(false, false).
-
-% I |1) = |1)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#id>'(true, true).
+% ID |0) = |0)
+'http://example.org/ns#id'(false,false).
+% ID |1) = |1)
+'http://example.org/ns#id'(true,true).
 
 % G |0) = |1)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#g>'(false, true).
-
+'http://example.org/ns#g'(false,true).
 % G |1) = |0)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#g>'(true, false).
+'http://example.org/ns#g'(true,false).
 
 % K |0) = |0)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#k>'(false, false).
-
+'http://example.org/ns#k'(false,false).
 % K |1) = |0) + |1)
-'<http://eyereasoner.github.io/eye/reasoning/dqc#k>'(true, false).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#k>'(true, true).
+'http://example.org/ns#k'(true,false).
+'http://example.org/ns#k'(true,true).
 
 % KG
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:Z'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple('_:X', '<http://eyereasoner.github.io/eye/reasoning/dqc#kg>', '_:Y')
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Z'),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:Z', '_:Y')
-    )
-).
+'http://example.org/ns#kg'(X,Y) <= 'http://example.org/ns#g'(X,Z),'http://example.org/ns#k'(Z,Y).
 
 % GK
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:Z'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple('_:X', '<http://eyereasoner.github.io/eye/reasoning/dqc#gk>', '_:Y')
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Z'),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:Z', '_:Y')
-    )
-).
+'http://example.org/ns#gk'(X,Y) <= 'http://example.org/ns#k'(X,Z),'http://example.org/ns#g'(Z,Y).
 
-% Alice
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(0, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#id>'('_:X', '_:Y')
-    )
-).
+% alice
+'http://example.org/ns#alice'(0,[X,Y]) <= 'http://example.org/ns#id'(X,Y).
+'http://example.org/ns#alice'(1,[X,Y]) <= 'http://example.org/ns#g'(X,Y).
+'http://example.org/ns#alice'(2,[X,Y]) <= 'http://example.org/ns#k'(X,Y).
+'http://example.org/ns#alice'(3,[X,Y]) <= 'http://example.org/ns#kg'(X,Y).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(1, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Y')
-    )
-).
+% bob
+'http://example.org/ns#bob'([X,Y],0) <= 'http://example.org/ns#gk'(X,Y).
+'http://example.org/ns#bob'([X,Y],1) <= 'http://example.org/ns#k'(X,Y).
+'http://example.org/ns#bob'([X,Y],2) <= 'http://example.org/ns#g'(X,Y).
+'http://example.org/ns#bob'([X,Y],3) <= 'http://example.org/ns#id'(X,Y).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(2, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Y')
-    )
-).
+% superdense coding
+'http://josd.github.io/ns#sdc'(N,M) <=
+    'http://example.org/ns#r'(X,Y),
+    'http://example.org/ns#alice'(N,[X,B]),
+    'http://example.org/ns#bob'([B,Y],M),
+    'http://josd.github.io/ns#sd'(N,M).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(3, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#kg>'('_:X', '_:Y')
-    )
-).
+% asserting sdcoding an odd number of times
+'http://josd.github.io/ns#sd'(N,M) <=
+    'http://josd.github.io/ns#sdcoding'(N,M),
+    'http://josd.github.io/ns#builtin'(!,[]),
+    'http://josd.github.io/ns#builtin'(retract('http://josd.github.io/ns#sdcoding'(N,M)),[]).
+'http://josd.github.io/ns#sd'(N,M) <=
+    'http://josd.github.io/ns#builtin'(assertz('http://josd.github.io/ns#sdcoding'(N,M)),[]).
 
-% Bob
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 0)
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#gk>'('_:X', '_:Y')
-    )
-).
+% superdense coding appearing an odd number of times
+'http://josd.github.io/ns#sdc'(N,M) => 'http://josd.github.io/ns#sdconot'(N,M).
 
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 1)
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Y')
-    )
-).
-
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 2)
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Y')
-    )
-).
-
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
-    (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 3)
-        ),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#id>'('_:X', '_:Y')
-    )
-).
-
-% questions
-'<http://www.w3.org/2000/10/swap/log#onQuestionSurface>'(['_:N', '_:A', '_:B', '_:M', '_:X', '_:Y', '_:Z', '_:L', '_:S', '_:I'],
-    (
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'('_:N', '_:A'),
-        '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'('_:B', '_:M'),
-        '<http://www.w3.org/2000/10/swap/log#collectAllIn>'(
-            [
-                1,
-                (
-                    '<http://eyereasoner.github.io/eye/reasoning/dqc#r>'('_:X', '_:Y'),
-                    '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'('_:N',['_:X', '_:Z']),
-                    '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:Z', '_:Y'], '_:M')
-                ),
-                '_:L'
-            ],
-            '_:S'
-        ),
-
-        % remove answers that appear an even number of times
-        '<http://www.w3.org/2000/10/swap/list#length>'('_:L', '_:I'),
-        '<http://www.w3.org/2000/10/swap/math#remainder>'(['_:I',2],1),
-
-        '<http://www.w3.org/2000/10/swap/log#onAnswerSurface>'([],
-            '<http://eyereasoner.github.io/eye/reasoning/dqc#sdcoding>'('_:N', '_:M')
-        )
-    )
-).
+% query
+'http://josd.github.io/ns#sdcoding'(_N,_M) => true.

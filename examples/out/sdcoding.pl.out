@@ -1,4 +1,18 @@
-'<http://eyereasoner.github.io/eye/reasoning/dqc#sdcoding>'(0,0).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#sdcoding>'(1,1).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#sdcoding>'(2,2).
-'<http://eyereasoner.github.io/eye/reasoning/dqc#sdcoding>'(3,3).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(0,1),'http://josd.github.io/ns#sdconot'(0,1)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(0,3),'http://josd.github.io/ns#sdconot'(0,3)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(1,0),'http://josd.github.io/ns#sdconot'(1,0)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(1,1),'http://josd.github.io/ns#sdconot'(1,1)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(1,2),'http://josd.github.io/ns#sdconot'(1,2)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(2,1),'http://josd.github.io/ns#sdconot'(2,1)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(2,3),'http://josd.github.io/ns#sdconot'(2,3)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(3,1),'http://josd.github.io/ns#sdconot'(3,1)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(3,3),'http://josd.github.io/ns#sdconot'(3,3)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(3,0),'http://josd.github.io/ns#sdconot'(3,0)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(3,2),'http://josd.github.io/ns#sdconot'(3,2)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(0,0),'http://josd.github.io/ns#sdconot'(0,0)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(2,0),'http://josd.github.io/ns#sdconot'(2,0)).
+'http://josd.github.io/ns#lemma'('http://josd.github.io/ns#sdc'(2,2),'http://josd.github.io/ns#sdconot'(2,2)).
+'http://josd.github.io/ns#sdcoding'(1,1) => true.
+'http://josd.github.io/ns#sdcoding'(3,3) => true.
+'http://josd.github.io/ns#sdcoding'(0,0) => true.
+'http://josd.github.io/ns#sdcoding'(2,2) => true.

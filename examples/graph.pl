@@ -1,41 +1,20 @@
-:- dynamic('<urn:example:path>'/2).
+% Traversing graph paths
 
-% French roads
-'<urn:example:oneway>'('<urn:example:paris>','<urn:example:orleans>').
-'<urn:example:oneway>'('<urn:example:paris>','<urn:example:chartres>').
-'<urn:example:oneway>'('<urn:example:paris>','<urn:example:amiens>').
-'<urn:example:oneway>'('<urn:example:orleans>','<urn:example:blois>').
-'<urn:example:oneway>'('<urn:example:orleans>','<urn:example:bourges>').
-'<urn:example:oneway>'('<urn:example:blois>','<urn:example:tours>').
-'<urn:example:oneway>'('<urn:example:chartres>','<urn:example:lemans>').
-'<urn:example:oneway>'('<urn:example:lemans>','<urn:example:angers>').
-'<urn:example:oneway>'('<urn:example:lemans>','<urn:example:tours>').
-'<urn:example:oneway>'('<urn:example:angers>','<urn:example:nantes>').
+'http://josd.github.io/ns#builtin'(dynamic('http://josd.github.io/ns#path'/2),[]).
 
-% oneway subproperty of path
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
-    (
-        '<urn:example:oneway>'('_:A', '_:B'),
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            '<urn:example:path>'('_:A', '_:B')
-        )
-    )
-).
+'http://josd.github.io/ns#oneway'('http://example.org/ns#paris','http://example.org/ns#orleans').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#paris','http://example.org/ns#chartres').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#paris','http://example.org/ns#amiens').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#orleans','http://example.org/ns#blois').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#orleans','http://example.org/ns#bourges').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#blois','http://example.org/ns#tours').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#chartres','http://example.org/ns#lemans').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#lemans','http://example.org/ns#angers').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#lemans','http://example.org/ns#tours').
+'http://josd.github.io/ns#oneway'('http://example.org/ns#angers','http://example.org/ns#nantes').
 
-% path transitive property
-'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C'],
-    (
-        '<urn:example:path>'('_:B', '_:C'),
-        '<urn:example:path>'('_:A', '_:B'),
-        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
-            '<urn:example:path>'('_:A', '_:C')
-        )
-    )
-).
+'http://josd.github.io/ns#oneway'(A,B) => 'http://josd.github.io/ns#path'(A,B).
+'http://josd.github.io/ns#path'(A,B),'http://josd.github.io/ns#path'(B,C) => 'http://josd.github.io/ns#path'(A,C).
 
 % query
-'<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(['_:A'],
-    (
-        '<urn:example:path>'('_:A', '<urn:example:nantes>')
-    )
-).
+'http://josd.github.io/ns#path'(_CITY,'http://example.org/ns#nantes') => true.
