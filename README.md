@@ -1,4 +1,5 @@
-== Current development is going on at https://github.com/KNowledgeOnWebScale/retina ==
+> [!NOTE]
+> Current development is going on at https://github.com/KNowledgeOnWebScale/retina
 
 # retina
 
