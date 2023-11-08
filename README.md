@@ -1,7 +1,7 @@
+# retina
+
 > [!NOTE]
 > Current development is going on at https://github.com/KNowledgeOnWebScale/retina
-
-# retina
 
 Integrated [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/) inspired by
 [Pat Hayes](https://en.wikipedia.org/wiki/Pat_Hayes),
