@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina peano.s | tee peano-output.s

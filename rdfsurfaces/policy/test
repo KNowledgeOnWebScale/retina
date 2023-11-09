@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina policy.s | tee policy-output.s

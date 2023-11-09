@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina beetle.s | tee beetle-output.s

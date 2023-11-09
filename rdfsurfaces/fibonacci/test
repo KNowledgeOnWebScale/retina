@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina fibonacci.s | tee fibonacci-output.s

@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina sdcoding.s | tee sdcoding-output.s

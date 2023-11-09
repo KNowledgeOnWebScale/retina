@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina graph.s | tee graph-output.s

@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina edt.s | tee edt-output.s

@@ -3,28 +3,33 @@
 RED="\e[31m"
 GREEN="\e[32m"
 YELLOW="\e[33m"
+BLUE="\e[94m"
 NORMAL="\e[0;39m"
 
 OK=0
 FAILED=0
 
-echo -e "${YELLOW}Running retina/test${NORMAL}"
-echo ""
+echo -e ${YELLOW}"Running retina/test"${NORMAL}
+echo -e ""
 
-pushd ./examples > /dev/null
-for f in *.pl
+export prolog="${1:-tpl}"
+export retina=`pwd`/retina.pl
+pushd rdfsurfaces > /dev/null
+for dir in */
 do
-    scryer-prolog -g run ../retina.pl $f | tee out/$f.out
-    if [[ $(git diff out/$f.out | wc -l) -ne 0 ]]; then
-        echo -e "${RED}${f} FAILED${NORMAL}"
+    pushd "${dir}" > /dev/null
+    ./test
+    if [[ $(git diff . | wc -l) -ne 0 ]]; then
+        echo -e "${RED}${dir} FAILED${NORMAL}"
         ((FAILED++))
     else
-        echo -e "${GREEN}${f} OK${NORMAL}"
+        echo -e "${GREEN}${dir} OK${NORMAL}"
         ((OK++))
     fi
+    popd > /dev/null
     echo ""
 done
-popd  > /dev/null
+popd > /dev/null
 
 echo -e "Tests: ${GREEN}${OK} OK${NORMAL} ${RED}${FAILED} FAILED${NORMAL}"
 

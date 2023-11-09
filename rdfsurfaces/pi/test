@@ -1,0 +1,2 @@
+#!/bin/bash
+../../retina pi.s | tee pi-output.s
