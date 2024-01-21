@@ -3,35 +3,38 @@
 RED="\e[31m"
 GREEN="\e[32m"
 YELLOW="\e[33m"
-BLUE="\e[94m"
 NORMAL="\e[0;39m"
 
 OK=0
 FAILED=0
 
-echo -e ${YELLOW}"Running retina/test"${NORMAL}
-echo -e ""
+echo -e "${YELLOW}-------------------${NORMAL}"
+echo -e "${YELLOW}Running retina/test${NORMAL}"
+echo -e "${YELLOW}-------------------${NORMAL}"
+echo ""
 
 export prolog="${1:-tpl}"
 export retina=`pwd`/retina.pl
+
 pushd rdfsurfaces > /dev/null
 for dir in */
 do
     pushd "${dir}" > /dev/null
-    ./test
-    if [[ $(git diff . | wc -l) -ne 0 ]]; then
-        echo -e "${RED}${dir} FAILED${NORMAL}"
-        ((FAILED++))
-    else
-        echo -e "${GREEN}${dir} OK${NORMAL}"
+    echo -en "${dir} "
+    ./test > /dev/null
+    if [[ $(git diff . | wc -l) -eq 0 ]]; then
+        echo -e "${GREEN}OK${NORMAL}"
         ((OK++))
+    else
+        echo -e "${RED}FAILED${NORMAL}"
+        ((FAILED++))
     fi
-    popd > /dev/null
-    echo ""
+    popd  > /dev/null
 done
+echo ""
 popd > /dev/null
 
-echo -e "Tests: ${GREEN}${OK} OK${NORMAL} ${RED}${FAILED} FAILED${NORMAL}"
+echo -e "${YELLOW}Tests:${NORMAL} ${GREEN}${OK} OK${NORMAL} ${RED}${FAILED} FAILED${NORMAL}"
 
 if [[ ${FAILED} -eq 0 ]]; then
     exit 0
