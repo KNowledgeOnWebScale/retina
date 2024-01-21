@@ -15,12 +15,6 @@ git diff
 ./test scryer-prolog
 git diff
 ```
-## Install [EYE/swipl](https://github.com/eyereasoner/eye/blob/master/INSTALL) and run
-```
-./test swipl
-git diff
-```
-
 
 
 ## Background
