@@ -16,12 +16,22 @@ echo ""
 export prolog="${1:-tpl}"
 export retina=`pwd`/retina.pl
 
+pad () {
+    [ "$#" -gt 1 ]
+    [ -n "$2" ]
+    printf "%$2.${2#-}s" "$1"
+}
+
+begin=$(($(date +%s)))
 pushd rdfsurfaces > /dev/null
 for dir in */
 do
     pushd "${dir}" > /dev/null
-    echo -en "${dir} "
+    echo -en "$(pad "${dir}" -24)"
+    start=$(($(date +%s%N)/1000000))
     ./test > /dev/null
+    end=$(($(date +%s%N)/1000000))
+    echo -en "${YELLOW}$(pad "`expr $end - $start` msec" 12)${NORMAL} "
     if [[ $(git diff . | wc -l) -eq 0 ]]; then
         echo -e "${GREEN}OK${NORMAL}"
         ((OK++))
@@ -31,11 +41,11 @@ do
     fi
     popd  > /dev/null
 done
-echo ""
 popd > /dev/null
+end=$(($(date +%s)))
+echo ""
 
-echo -e "${YELLOW}Tests:${NORMAL} ${GREEN}${OK} OK${NORMAL} ${RED}${FAILED} FAILED${NORMAL}"
-
+echo -e "${YELLOW}`expr $end - $begin` sec${NORMAL} ${GREEN}${OK} OK${NORMAL} ${RED}${FAILED} FAILED${NORMAL}"
 if [[ ${FAILED} -eq 0 ]]; then
     exit 0
 else
