@@ -24,7 +24,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#nand>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#nans>'/2).
 
-version_info('retina v5.2.0 (2024-03-30)').
+version_info('retina v5.3.0 (2024-03-30)').
 
 % run
 run :-
