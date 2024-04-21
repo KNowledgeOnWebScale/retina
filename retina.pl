@@ -22,9 +22,10 @@
 :- dynamic(skolem/2).
 :- dynamic(uuid/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#nand>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#nano>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#nans>'/2).
 
-version_info('retina v5.3.0 (2024-03-30)').
+version_info('retina v5.4.0 (2024-04-21)').
 
 % run
 run :-
@@ -58,9 +59,9 @@ run :-
 
 % relabel_graffiti
 %   Replace all graffiti in negative surfaces with a new generated variables.
-%   E.g. (_:A) log:onNegativeSurface { .. _:A .. }
+%   E.g. (_:A) log:nand { .. _:A .. }
 %   becomes
-%   (_A_1) log:onNegativeSurface { .. _A_1 .. }
+%   (_A_1) log:nand { .. _A_1 .. }
 relabel_graffiti :-
     P = '<http://www.w3.org/2000/10/swap/log#nand>',
     A =.. [P, _, _],
@@ -212,7 +213,7 @@ within_recursion(R) :-
 
 % - blow inference fuse (negative surface)
 %   Given:
-%       (Graffiti) log:onNegativeSurface {
+%       (Graffiti) log:nand {
 %            TripleX
 %       }.
 %   If TripleX is true, we can throw an inference fuse
@@ -231,22 +232,23 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
 
 % - blow inference fuse (negative triple)
 %   Given:
-%       () log:onNegativeSurface <<TripleX>>.
+%       () log:nano {
+%           TripleX
+%       }..
 %   If TripleX is true, we can throw an inference fuse
-implies(('<http://www.w3.org/2000/10/swap/log#nand>'(A, triple(Ts, Tp, To)),
-        T =.. [Ts, Tp, To],
+implies(('<http://www.w3.org/2000/10/swap/log#nano>'(A, T),
         % test if the predicate is true (exists in the database)
         catch(call(T), _, false)
-        ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#nand>'(A, triple(Ts, Tp, To)), T))).
+        ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#nano>'(A, T), T))).
 
 % - simplify graffiti
 %   Remove unused graffiti nodes.
 %   Given:
-%      (_:A _:B) log:onNegativeSurface {
+%      (_:A _:B) log:nand {
 %          _:A a :X .
 %      }
 %   create a
-%      (_:A) log:onNegativeSurface {
+%      (_:A) log:nand {
 %          _:A a :X .
 %      }
 implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
@@ -263,16 +265,16 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
 
 % - simplify negative surfaces
 %   Given:
-%      (Graffiti) log:onNegativeSurface {
+%      (Graffiti) log:nand {
 %          TripleX
-%          () log:onNegativeSurface {
-%               () log:onNegativeSurface {
+%          () log:nand {
+%               () log:nand {
 %                  TripleY
 %               }
 %          }
 %      }
 %    becomes
-%      (Graffiti) log:onNegativeSurface {
+%      (Graffiti) log:nand {
 %          TripleX
 %          TripleY
 %      }
@@ -281,7 +283,6 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
         conj_list(G, L),
         list_to_set(L, B),
         select('<http://www.w3.org/2000/10/swap/log#nand>'(Z, H), B, K),
-        H \= triple(_, _, _),
         conj_list(H, M),
         list_to_set(M, T),
         select('<http://www.w3.org/2000/10/swap/log#nand>'(W, O), T, N),
@@ -302,7 +303,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        \+member('<http://www.w3.org/2000/10/swap/log#nand>'(_, triple(_, _, _)), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#nano>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#nans>'(_, _), B),
         findall(1,
             (   member('<http://www.w3.org/2000/10/swap/log#nand>'(_, _), B)
             ),
@@ -315,7 +317,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
         list_si(W),
         conj_list(F, K),
         list_to_set(K, N),
-        \+member('<http://www.w3.org/2000/10/swap/log#nand>'(_, triple(_, _, _)), N),
+        \+member('<http://www.w3.org/2000/10/swap/log#nano>'(_, _), N),
+        \+member('<http://www.w3.org/2000/10/swap/log#nans>'(_, _), N),
         length(N, 2),
         makevars(N, J, W),
         select('<http://www.w3.org/2000/10/swap/log#nand>'(U, C), J, [P]),
@@ -340,9 +343,10 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
+        \+member('<http://www.w3.org/2000/10/swap/log#nano>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#nans>'(_, _), B),
         select('<http://www.w3.org/2000/10/swap/log#nand>'(Z, H), B, K),
         list_si(Z),
-        H \= triple(_, _, _),
         conj_list(R, K),
         find_graffiti(K, D),
         append(V, D, U),
@@ -357,6 +361,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
         conj_list(G, L),
         list_to_set(L, B),
         \+member('<http://www.w3.org/2000/10/swap/log#nand>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#nano>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#nans>'(_, _), B),
         \+member(exopred(_, _, _), B),
         (   length(B, O),
@@ -385,9 +390,8 @@ implies(('<http://www.w3.org/2000/10/swap/log#nand>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        select('<http://www.w3.org/2000/10/swap/log#nand>'(Z, triple(Hs, Hp, Ho)), B, K),
+        select('<http://www.w3.org/2000/10/swap/log#nano>'(Z, T), B, K),
         list_si(Z),
-        T =.. [Hp, Hs, Ho],
         conj_list(R, K),
         conjify(R, S),
         find_graffiti([R], D),

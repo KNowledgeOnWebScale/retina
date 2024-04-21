@@ -40,8 +40,8 @@
 % KG
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y', '_:Z'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple('_:X', '<http://eyereasoner.github.io/eye/reasoning/dqc#kg>', '_:Y')
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#kg>'('_:X', '_:Y')
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Z'),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:Z', '_:Y')
@@ -51,8 +51,8 @@
 % GK
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y', '_:Z'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple('_:X', '<http://eyereasoner.github.io/eye/reasoning/dqc#gk>', '_:Y')
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#gk>'('_:X', '_:Y')
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Z'),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:Z', '_:Y')
@@ -62,8 +62,8 @@
 % Alice
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(0, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(0, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#id>'('_:X', '_:Y')
     )
@@ -71,8 +71,8 @@
 
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(1, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(1, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Y')
     )
@@ -80,8 +80,8 @@
 
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(2, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(2, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Y')
     )
@@ -89,8 +89,8 @@
 
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(3, '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>', ['_:X', '_:Y'])
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(3, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#kg>'('_:X', '_:Y')
     )
@@ -99,8 +99,8 @@
 % Bob
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 0)
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 0)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#gk>'('_:X', '_:Y')
     )
@@ -108,8 +108,8 @@
 
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 1)
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 1)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Y')
     )
@@ -117,8 +117,8 @@
 
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 2)
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 2)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Y')
     )
@@ -126,8 +126,8 @@
 
 '<http://www.w3.org/2000/10/swap/log#nand>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
-            triple(['_:X', '_:Y'], '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>', 3)
+        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+            '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 3)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#id>'('_:X', '_:Y')
     )
