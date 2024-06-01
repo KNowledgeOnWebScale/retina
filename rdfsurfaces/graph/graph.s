@@ -13,31 +13,31 @@
 '<urn:example:oneway>'('<urn:example:angers>','<urn:example:nantes>').
 
 % oneway subproperty of path
-'<http://www.w3.org/2000/10/swap/log#nand>'(['_:A', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B'],
     (
         '<urn:example:oneway>'('_:A', '_:B'),
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
             '<urn:example:path>'('_:A', '_:B')
         )
     )
 ).
 
 % path transitive property
-'<http://www.w3.org/2000/10/swap/log#nand>'(['_:A', '_:B', '_:C'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A', '_:B', '_:C'],
     (
         '<urn:example:path>'('_:B', '_:C'),
         '<urn:example:path>'('_:A', '_:B'),
-        '<http://www.w3.org/2000/10/swap/log#nand>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],
             '<urn:example:path>'('_:A', '_:C')
         )
     )
 ).
 
 % questions
-'<http://www.w3.org/2000/10/swap/log#nand>'(['_:A'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:A'],
     (
         '<urn:example:path>'('_:A', '<urn:example:nantes>'),
-        '<http://www.w3.org/2000/10/swap/log#nans>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'([],
             '<urn:example:path>'('_:A', '<urn:example:nantes>')
         )
     )

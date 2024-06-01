@@ -1,7 +1,7 @@
 % Calculate pi using Nilakantha series
-'<http://www.w3.org/2000/10/swap/log#nand>'(['_:N', '_:Pi', '_:P', '_:B'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:N', '_:Pi', '_:P', '_:B'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:N', '_:Pi'], true)
         ),
         '<http://eyereasoner.github.io/eye/reasoning#pi>'([1, '_:N', 0, '_:P', 1], true),
@@ -10,17 +10,17 @@
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#nand>'(['_:N', '_:P', '_:S'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:N', '_:P', '_:S'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:N', '_:N', '_:P', '_:P', '_:S'], true)
         )
     )
 ).
 
-'<http://www.w3.org/2000/10/swap/log#nand>'(['_:K', '_:N', '_:P0', '_:P', '_:S', '_:K1', '_:K2', '_:P1', '_:S1', '_:B2', '_:B3', '_:B4', '_:B5'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:K', '_:N', '_:P0', '_:P', '_:S', '_:K1', '_:K2', '_:P1', '_:S1', '_:B2', '_:B3', '_:B4', '_:B5'],
     (
-        '<http://www.w3.org/2000/10/swap/log#nano>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning#pi>'(['_:K', '_:N', '_:P0', '_:P', '_:S'], true)
         ),
         '<http://www.w3.org/2000/10/swap/math#notEqualTo>'('_:K', '_:N'),
@@ -37,10 +37,10 @@
 ).
 
 % questions
-'<http://www.w3.org/2000/10/swap/log#nand>'(['_:Pi'],
+'<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:Pi'],
     (
         '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true),
-        '<http://www.w3.org/2000/10/swap/log#nans>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning#pi>'([1000, '_:Pi'], true)
         )
     )
