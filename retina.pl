@@ -25,7 +25,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 
-version_info('retina v5.5.0 (2024-06-01)').
+version_info('retina v5.5.1 (2024-06-16)').
 
 % run
 run :-
@@ -390,8 +390,17 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        select('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(Z, T), B, K),
-        list_si(Z),
+        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([], T), B, K)
+        ;   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], T), B, K),
+            conj_list(T, [T]),
+            \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), K),
+            \+member('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(_, _), K),
+            \+member('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, _), K),
+            findvars(T, Tv),
+            findvars(K, Kv),
+            member(Tm, Tv),
+            \+member(Tm, Kv)
+        ),
         conj_list(R, K),
         conjify(R, S),
         find_graffiti([R], D),
@@ -995,7 +1004,9 @@ findvars(A, B) :-
     atomic(A),
     !,
     (   atom(A),
-        sub_atom(A, 0, 2, _, '_:')
+        (   sub_atom(A, 0, 2, _, '_:')
+        ;   sub_atom(A, _, 19, _, '/.well-known/genid/')
+        )
     ->  B = [A]
     ;   B = []
     ).

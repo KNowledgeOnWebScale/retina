@@ -1,0 +1,5 @@
+#!/bin/bash
+for f in *.s
+do
+    ../../retina $f | tee ${f%.s}-output.s
+done
