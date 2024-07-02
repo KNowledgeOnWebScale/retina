@@ -1,0 +1,32 @@
+#!/bin/bash
+export prolog=${prolog:=tpl}
+export retina=$(dirname "$(readlink -f "$0")")/retina.pl
+
+if [ "$1" == "" ]; then
+    echo "usage: $0 file"
+    exit 1
+fi
+
+TMPDIR=$(mktemp -d)
+
+eye --nope --quiet --pass --no-bnode-relabeling --ignore-inference-fuse --n3p-output $1 2>/dev/null > ${TMPDIR}/program.n3p 
+
+$prolog -g run $retina ${TMPDIR}/program.n3p > ${TMPDIR}/result.pl
+
+eye --nope --quiet --pass --n3p ${TMPDIR}/result.pl 2> /dev/null
+
+CONTRADICTION=$(cat ${TMPDIR}/result.pl | grep "contradicton detected")
+
+if [ "${CONTRADICTION}" == "" ]; then
+    CODE=0
+else
+    CODE=2
+fi
+
+cat ${TMPDIR}/result.pl
+
+rm ${TMPDIR}/program.n3p
+rm ${TMPDIR}/result.pl
+rmdir ${TMPDIR}
+
+exit ${CODE}

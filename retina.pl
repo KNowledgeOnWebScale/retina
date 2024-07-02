@@ -21,11 +21,12 @@
 :- dynamic(recursion/1).
 :- dynamic(skolem/2).
 :- dynamic(uuid/2).
+:- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 
-version_info('retina v5.5.1 (2024-06-16)').
+version_info('retina v5.5.2 (2024-07-02)').
 
 % run
 run :-
