@@ -9,7 +9,7 @@ fi
 
 TMPDIR=$(mktemp -d)
 
-eye --nope --quiet --pass --no-bnode-relabeling --ignore-inference-fuse --n3p-output $1 2>/dev/null > ${TMPDIR}/program.n3p 
+eye --nope --quiet --pass --no-bnode-relabeling --ignore-inference-fuse $1 --intermediate ${TMPDIR}/program.n3p
 
 $prolog -g run $retina ${TMPDIR}/program.n3p > ${TMPDIR}/result.pl
 
