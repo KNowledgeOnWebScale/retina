@@ -13,8 +13,8 @@ echo -e "${YELLOW}Running retina/test${NORMAL}"
 echo -e "${YELLOW}-------------------${NORMAL}"
 echo ""
 
-export prolog="${1:-tpl}"
-export retina=`pwd`/retina.pl
+export PROLOG="${1:-tpl}"
+export RETINA=`pwd`/retina.pl
 
 pad () {
     [ "$#" -gt 1 ]

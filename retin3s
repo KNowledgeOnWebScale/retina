@@ -1,6 +1,6 @@
 #!/bin/bash
-export prolog=${prolog:=tpl}
-export retina=$(dirname "$(readlink -f "$0")")/retina.pl
+export PROLOG=${PROLOG:=tpl}
+export RETINA=$(dirname "$(readlink -f "$0")")/retina.pl
 
 if [ "$1" == "" ]; then
     echo "usage: $0 file"
@@ -11,7 +11,7 @@ TMPDIR=$(mktemp -d)
 
 eye --nope --quiet --no-bnode-relabeling --ignore-inference-fuse $1 --intermediate ${TMPDIR}/program.n3p
 
-$prolog -g run $retina ${TMPDIR}/program.n3p > ${TMPDIR}/result.pl
+${PROLOG} -g run ${RETINA} ${TMPDIR}/program.n3p > ${TMPDIR}/result.pl
 
 eye --nope --quiet --pass --n3p ${TMPDIR}/result.pl 2> /dev/null
 
