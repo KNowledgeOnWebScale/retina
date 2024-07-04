@@ -16,6 +16,7 @@
 
 :- dynamic(answer/1).
 :- dynamic(brake/0).
+:- dynamic(exopred/3).
 :- dynamic(implies/2).
 :- dynamic(label/1).
 :- dynamic(recursion/1).
@@ -25,7 +26,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 
-version_info('retina v5.5.3 (2024-07-03)').
+version_info('retina v5.5.4 (2024-07-04)').
 
 % run
 run :-
@@ -160,6 +161,13 @@ astep((A, B)) :-
     !,
     astep(A),
     astep(B).
+astep(exopred(A, B, C)) :-
+    !,
+    D =.. [A, B, C],
+    (   \+D
+    ->  assertz(D)
+    ;   true
+    ).
 astep(A) :-
     (   (   A = ':-'(C, P)
         ->  \+clause(C, P)
