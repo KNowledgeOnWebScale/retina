@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v5.5.7 (2024-07-15)').
+version_info('retina v5.5.8 (2024-07-16)').
 
 % run
 run :-
@@ -580,6 +580,10 @@ implies((
     catch(findall(A, B, E), _, E = []),
     E = C.
 
+'<http://www.w3.org/2000/10/swap/log#conjunction>'(A, B) :-
+    nonvar(A),
+    conjoin(A, B).
+
 '<http://www.w3.org/2000/10/swap/log#equalTo>'(X, Y) :-
     X = Y.
 
@@ -960,6 +964,13 @@ conj_list(A, [A]) :-
 conj_list((A, B), [A|C]) :-
     conj_list(B, C).
 
+conj_append(A, true, A) :-
+    !.
+conj_append((A, B), C, (A, D)) :-
+    conj_append(B, C, D),
+    !.
+conj_append(A, B, (A, B)).
+
 % exopred(?Predicate,?Subject,?Object)
 %    True when an ?Predicate exists that matches ?Preficate(?Subject,?Object)
 %    E.g. exopred(X,'<http://example.org/ns#Alice>', '<http://example.org/ns#Person>').
@@ -992,7 +1003,6 @@ conjify(A, A).
 %      Y = 'exopred(_A,42,_B)'
 makevars(A, B, C) :-
     list_to_set(C, D),
-    findvars(D, G),
     findall([X, _],
         (   member(X, D)
         ),
@@ -1188,6 +1198,22 @@ intersect([A|B], C, D) :-
     ->  D = [A|E],
         intersect(B, C, E)
     ;   intersect(B, C, D)
+    ).
+
+% conjoin(+List, -Conj)
+conjoin([X], X) :-
+    !.
+conjoin([true|Y], Z) :-
+    conjoin(Y, Z),
+    !.
+conjoin([X|Y], Z) :-
+    conjoin(Y, U),
+    conj_append(X, U, V),
+    (   ground(V)
+    ->  conj_list(V, A),
+        list_to_set(A, B),
+        conj_list(Z, B)
+    ;   Z = V
     ).
 
 %%%
