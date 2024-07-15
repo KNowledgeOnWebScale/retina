@@ -23,10 +23,10 @@
 :- dynamic(skolem/2).
 :- dynamic(uuid/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
-:- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'/2).
+:- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 
-version_info('retina v5.5.4 (2024-07-04)').
+version_info('retina v5.5.5 (2024-07-15)').
 
 % run
 run :-
@@ -244,10 +244,10 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
 %           TripleX
 %       }..
 %   If TripleX is true, we can throw an inference fuse
-implies(('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(A, T),
+implies(('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(A, T),
         % test if the predicate is true (exists in the database)
         catch(call(T), _, false)
-        ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(A, T), T))).
+        ), throw(inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(A, T), T))).
 
 % - simplify graffiti
 %   Remove unused graffiti nodes.
@@ -311,7 +311,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, _), B),
         findall(1,
             (   member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B)
@@ -325,7 +325,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(W),
         conj_list(F, K),
         list_to_set(K, N),
-        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(_, _), N),
+        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), N),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, _), N),
         length(N, 2),
         makevars(N, J, W),
@@ -351,7 +351,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, _), B),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H), B, K),
         list_si(Z),
@@ -369,7 +369,7 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         conj_list(G, L),
         list_to_set(L, B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B),
-        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(_, _), B),
+        \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, _), B),
         \+member(exopred(_, _, _), B),
         (   length(B, O),
@@ -398,11 +398,11 @@ implies(('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         list_si(V),
         conj_list(G, L),
         list_to_set(L, B),
-        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([], T), B, K)
+        (   select('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([], T), B, K)
         ;   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], T), B, K),
             conj_list(T, [T]),
             \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), K),
-            \+member('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(_, _), K),
+            \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), K),
             \+member('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, _), K),
             findvars(T, Tv),
             findvars(K, Kv),

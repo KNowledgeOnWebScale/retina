@@ -40,7 +40,7 @@
 % KG
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:Z'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#kg>'('_:X', '_:Y')
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Z'),
@@ -51,7 +51,7 @@
 % GK
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y', '_:Z'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#gk>'('_:X', '_:Y')
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Z'),
@@ -62,7 +62,7 @@
 % Alice
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(0, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#id>'('_:X', '_:Y')
@@ -71,7 +71,7 @@
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(1, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Y')
@@ -80,7 +80,7 @@
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(2, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Y')
@@ -89,7 +89,7 @@
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#alice>'(3, ['_:X', '_:Y'])
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#kg>'('_:X', '_:Y')
@@ -99,7 +99,7 @@
 % Bob
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 0)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#gk>'('_:X', '_:Y')
@@ -108,7 +108,7 @@
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 1)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#k>'('_:X', '_:Y')
@@ -117,7 +117,7 @@
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 2)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#g>'('_:X', '_:Y')
@@ -126,7 +126,7 @@
 
 '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(['_:X', '_:Y'],
     (
-        '<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'([],
+        '<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([],
             '<http://eyereasoner.github.io/eye/reasoning/dqc#bob>'(['_:X', '_:Y'], 3)
         ),
         '<http://eyereasoner.github.io/eye/reasoning/dqc#id>'('_:X', '_:Y')
