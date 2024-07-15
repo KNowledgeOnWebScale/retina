@@ -22,12 +22,14 @@
 :- dynamic(recursion/1).
 :- dynamic(skolem/2).
 :- dynamic(uuid/2).
+:- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
+:- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#value>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v5.5.6 (2024-07-15)').
+version_info('retina v5.5.7 (2024-07-15)').
 
 % run
 run :-
@@ -113,6 +115,10 @@ forward(Recursion) :-
         implies(Prem, Conc),
         % match the premise Prem against the database
         Prem,
+        (   Conc = false
+        ->  throw(inference_fuse(Prem, false))
+        ;   true
+        ),
         % check if the conclusion Conc is not already defined
         (   Conc = ':-'(C, P)
         ->  \+clause(C, P)
@@ -228,18 +234,12 @@ implies((
 % simplify negative surfaces
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, L),
         list_to_set(L, B),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H), B, K),
-        list_si(Z),
-        is_graph(H),
         conj_list(H, M),
         list_to_set(M, T),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, O), T, N),
-        list_si(W),
-        is_graph(O),
         (   conj_list(O, D),
             append(K, D, E),
             conj_list(C, E)
@@ -259,8 +259,6 @@ implies((
 % simplify flat negative surfaces
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, Gl),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), Gl),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), Gl),
@@ -276,20 +274,17 @@ implies((
 % simplify disjunctive negative surfaces
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        is_graph(G),
         conj_list(G, Gl),
         Gl = ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, H), _|_],
         forall(
             member(M, Gl),
             M = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, _)
         ),
-        is_graph(H),
         conj_list(H, Hl),
         member(Hm, Hl),
         forall(
             member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, J), Gl),
-            (   is_graph(J),
-                conj_list(J, Jl),
+            (   conj_list(J, Jl),
                 member(Hm, Jl)
             )
         )), '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, Hm))).
@@ -297,8 +292,6 @@ implies((
 % resolve negative surfaces
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, L),
         list_to_set(L, B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), B),
@@ -315,8 +308,6 @@ implies((
             D < 4
         ),
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(W, F),
-        list_si(W),
-        is_graph(F),
         conj_list(F, K),
         list_to_set(K, N),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), N),
@@ -324,8 +315,6 @@ implies((
         length(N, 2),
         makevars(N, J, W),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C), J, [P]),
-        list_si(U),
-        is_graph(C),
         (   select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, Q), B, A),
             M = ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(U, C)|A],
             conj_list(Q, R),
@@ -343,8 +332,6 @@ implies((
 % convert negative surfaces to forward rules
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, L),
         list_to_set(L, B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), B),
@@ -364,8 +351,6 @@ implies((
 % convert negative surfaces to forward contrapositive rules
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, L),
         list_to_set(L, B),
         \+member('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, _), B),
@@ -397,8 +382,6 @@ implies((
 % convert negative surfaces to backward rules
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, L),
         list_to_set(L, B),
         (   select('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'([], T), B, K)
@@ -422,12 +405,10 @@ implies((
 % convert negative surfaces to universal statements
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
         V \= [],
-        is_graph(G),
         conj_list(G, [G]),
         (   G = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, H)
-        ->  list_si(Z)
+        ->  true
         ;   Z = [],
             H = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([], G)
         ),
@@ -448,8 +429,6 @@ implies((
 % convert negative surfaces to answer rules
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, L),
         list_to_set(L, B),
         select('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, H), B, K),
@@ -462,8 +441,6 @@ implies((
 % convert query surface
 implies((
         '<http://www.w3.org/2000/10/swap/log#onQuerySurface>'(V, G),
-        list_si(V),
-        is_graph(G),
         conj_list(G, L),
         append(L, ['<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'([], G)], M),
         conj_list(H, M)
@@ -473,8 +450,6 @@ implies((
 implies((
         '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G),
         call((
-            list_si(V),
-            is_graph(G),
             conj_list(G, L),
             \+member('<http://www.w3.org/2000/10/swap/log#onNegativeQuestionSurface>'(_, _), L),
             makevars(G, H, V),
@@ -625,8 +600,25 @@ implies((
     nonvar(C),
     if_then_else(A, B, C).
 
+'<http://www.w3.org/2000/10/swap/log#includes>'(X, Y) :-
+    within_recursion(X),
+    nonvar(Y),
+    call(Y).
+
 '<http://www.w3.org/2000/10/swap/log#notEqualTo>'(X, Y) :-
+    ground([X, Y]),
+    (   \+atomic(X),
+        \+atomic(Y)
+    ->  findvars([X, Y], Z),
+        Z = []
+    ;   true
+    ),
     X \= Y.
+
+'<http://www.w3.org/2000/10/swap/log#notIncludes>'(X, Y) :-
+    within_recursion(X),
+    nonvar(Y),
+    \+call(Y).
 
 '<http://www.w3.org/2000/10/swap/log#rawType>'(A, B) :-
     raw_type(A, C),
@@ -638,9 +630,6 @@ implies((
     between(0, C, B).
 
 '<http://www.w3.org/2000/10/swap/log#skolem>'(A, B) :-
-    (   ground(A)
-    ;   nonvar(B)
-    ),
     (   skolem(A, B)
     ->  true
     ;   var(B),
@@ -1004,10 +993,6 @@ conjify(A, A).
 makevars(A, B, C) :-
     list_to_set(C, D),
     findvars(D, G),
-    (   D \= G
-    ->  throw(invalid_graffiti(D, in(A)))
-    ;   true
-    ),
     findall([X, _],
         (   member(X, D)
         ),
@@ -1194,20 +1179,6 @@ getnumber(literal(A, _), B) :-
     ground(A),
     atom_chars(A, C),
     catch(number_chars(B, C), _, fail).
-
-% is_graph(+Term)
-is_graph(true).
-is_graph(A) :-
-    nonvar(A),
-    \+list_si(A),
-    (   A = (_, _),
-        !
-    ;   A =.. [F, _, _],
-        F \= literal,
-        F \= rdiv,
-        !
-    ;   A = exopred(_, _, _)
-    ).
 
 % intersect(+Set1, +Set2, -Set3)
 intersect([], _, []) :-
