@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v5.5.9 (2024-07-17)').
+version_info('retina v5.5.10 (2024-07-17)').
 
 % run
 run :-
@@ -160,8 +160,44 @@ labelvars(Term) :-
     ->  true
     ;   Current = 0
     ),
-    numbervars(Term, Current, Next),
+    labelvars(Term, Current, Next, some),
     assertz(label(Next)).
+
+labelvars(A, B, C, D) :-
+    var(A),
+    !,
+    number_chars(B, E),
+    atom_chars(F, E),
+    atomic_list_concat([D, F], A),
+    C is B+1.
+labelvars(A, B, B, _) :-
+    atomic(A),
+    !.
+labelvars(implies(A, B), C, C, D) :-
+    D \= avar,
+    nonvar(A),
+    nonvar(B),
+    !.
+labelvars((A, B), C, D, Q) :-
+    !,
+    labelvars(A, C, E, Q),
+    labelvars(B, E, D, Q).
+labelvars([A|B], C, D, Q) :-
+    !,
+    labelvars(A, C, E, Q),
+    labelvars(B, E, D, Q).
+labelvars(A, B, C, Q) :-
+    nonvar(A),
+    functor(A, _, D),
+    labelvars(0, D, A, B, C, Q).
+
+labelvars(A, A, _, B, B, _) :-
+    !.
+labelvars(A, B, C, D, E, Q) :-
+    F is A+1,
+    arg(F, C, G),
+    labelvars(G, D, H, Q),
+    labelvars(F, B, C, H, E, Q).
 
 % astep(+Term)
 %   Assert +Term or write to the stdout if the Term = answer(Answer)
@@ -1071,6 +1107,7 @@ findvars(A, B) :-
     (   atom(A),
         (   sub_atom(A, 0, 2, _, '_:')
         ;   sub_atom(A, _, 19, _, '/.well-known/genid/')
+        ;   sub_atom(A, 0, _, _, some)
         )
     ->  B = [A]
     ;   B = []
@@ -1105,11 +1142,12 @@ find_graffiti([A|B], C) :-
     append(D, E, C).
 find_graffiti(A, B) :-
     A =.. [C, D, E],
-    C = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>',
-    list_si(D),
+    atom_concat('<http://www.w3.org/2000/10/swap/log#onNegative', _, C),
     !,
     find_graffiti(E, F),
-    append(D, F, B).
+    findvars(E, G),
+    intersect(D, G, H),
+    append(H, F, B).
 find_graffiti(A, B) :-
     A =.. C,
     find_graffiti(C, B).
