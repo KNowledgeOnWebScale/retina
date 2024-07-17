@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v5.5.8 (2024-07-16)').
+version_info('retina v5.5.9 (2024-07-17)').
 
 % run
 run :-
@@ -37,6 +37,7 @@ run :-
     bb_put(fm, 0),
     uuidv4_string(Genid),
     bb_put(genid, Genid),
+    bb_put(scope, Genid),
     relabel_graffiti,
     catch(forward(0), Exc,
         (   writeq(Exc),
@@ -203,21 +204,22 @@ wt(A) :-
     write('.'),
     nl.
 
-% check recursion
-within_recursion(R) :-
-    (   var(R)
-    ->  R = 1
+% check scope
+within_scope([A, B]) :-
+    (   var(B)
+    ->  B = 1
     ;   true
     ),
-    (   R = 0
+    (   B = 0
     ->  brake
-    ;   bb_get(limit, L),
-        (   L < R
-        ->  bb_put(limit, R)
+    ;   bb_get(limit, C),
+        (   C < B
+        ->  bb_put(limit, B)
         ;   true
         ),
-        recursion(R)
-    ).
+        recursion(B)
+    ),
+    bb_get(scope, A).
 
 %%%
 % rules
@@ -575,7 +577,7 @@ implies((
     ).
 
 '<http://www.w3.org/2000/10/swap/log#collectAllIn>'([A, B, C], D) :-
-    within_recursion(D),
+    within_scope(D),
     nonvar(B),
     catch(findall(A, B, E), _, E = []),
     E = C.
@@ -588,7 +590,7 @@ implies((
     X = Y.
 
 '<http://www.w3.org/2000/10/swap/log#forAllIn>'([A, B], C) :-
-    within_recursion(C),
+    within_scope(C),
     nonvar(A),
     nonvar(B),
     forall(A, B).
@@ -598,16 +600,30 @@ implies((
     term_variables(A, B).
 
 '<http://www.w3.org/2000/10/swap/log#ifThenElseIn>'([A, B, C], D) :-
-    within_recursion(D),
+    within_scope(D),
     nonvar(A),
     nonvar(B),
     nonvar(C),
     if_then_else(A, B, C).
 
 '<http://www.w3.org/2000/10/swap/log#includes>'(X, Y) :-
-    within_recursion(X),
+    within_scope(X),
+    !,
     nonvar(Y),
     call(Y).
+'<http://www.w3.org/2000/10/swap/log#includes>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
+    X \= [_, _],
+    conj_list(X, A),
+    conj_list(Y, B),
+    includes(A, B).
+
+'<http://www.w3.org/2000/10/swap/log#isomorphic>'(A, B) :-
+    findvars([A, B], Z),
+    makevars([A, B], [C, D], Z),
+    \+ \+ C = B,
+    \+ \+ A = D.
 
 '<http://www.w3.org/2000/10/swap/log#notEqualTo>'(X, Y) :-
     ground([X, Y]),
@@ -620,9 +636,17 @@ implies((
     X \= Y.
 
 '<http://www.w3.org/2000/10/swap/log#notIncludes>'(X, Y) :-
-    within_recursion(X),
+    within_scope(X),
+    !,
     nonvar(Y),
     \+call(Y).
+'<http://www.w3.org/2000/10/swap/log#notIncludes>'(X, Y) :-
+    nonvar(X),
+    nonvar(Y),
+    X \= [_, _],
+    conj_list(X, A),
+    conj_list(Y, B),
+    \+includes(A, B).
 
 '<http://www.w3.org/2000/10/swap/log#rawType>'(A, B) :-
     raw_type(A, C),
