@@ -29,7 +29,7 @@
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'/2).
 :- dynamic('<http://www.w3.org/2000/10/swap/log#onQuerySurface>'/2).
 
-version_info('retina v5.5.10 (2024-07-17)').
+version_info('retina v5.5.11 (2024-07-18)').
 
 % run
 run :-
@@ -662,14 +662,7 @@ implies((
     \+ \+ A = D.
 
 '<http://www.w3.org/2000/10/swap/log#notEqualTo>'(X, Y) :-
-    ground([X, Y]),
-    (   \+atomic(X),
-        \+atomic(Y)
-    ->  findvars([X, Y], Z),
-        Z = []
-    ;   true
-    ),
-    X \= Y.
+    X \== Y.
 
 '<http://www.w3.org/2000/10/swap/log#notIncludes>'(X, Y) :-
     within_scope(X),
