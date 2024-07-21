@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina socrates.s | tee socrates-output.s
+../../retina socrates.s | tee socrates-output-${PROLOG}.s

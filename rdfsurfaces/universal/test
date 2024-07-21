@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina universal.s | tee universal-output.s
+../../retina universal.s | tee universal-output-${PROLOG}.s

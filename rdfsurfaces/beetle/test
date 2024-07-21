@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina beetle.s | tee beetle-output.s
+../../retina beetle.s | tee beetle-output-${PROLOG}.s

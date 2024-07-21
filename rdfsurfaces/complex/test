@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina complex.s | tee complex-output.s
+../../retina complex.s | tee complex-output-${PROLOG}.s

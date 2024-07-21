@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina dishes.s | tee dishes-output.s
+../../retina dishes.s | tee dishes-output-${PROLOG}.s

@@ -1,0 +1,1 @@
+inference_fuse('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'([],'<http://example.org/ns#is>'('<http://example.org/ns#test>',true)),'<http://example.org/ns#is>'('<http://example.org/ns#test>',true)).

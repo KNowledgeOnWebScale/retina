@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina policy.s | tee policy-output.s
+../../retina policy.s | tee policy-output-${PROLOG}.s

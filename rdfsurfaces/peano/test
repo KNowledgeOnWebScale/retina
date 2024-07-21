@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina peano.s | tee peano-output.s
+../../retina peano.s | tee peano-output-${PROLOG}.s

@@ -1,2 +1,2 @@
 #!/bin/bash
-../../retina sdcoding.s | tee sdcoding-output.s
+../../retina sdcoding.s | tee sdcoding-output-${PROLOG}.s
