@@ -168,7 +168,7 @@ labelvars(A, B, C, D) :-
     !,
     number_chars(B, E),
     atom_chars(F, E),
-    atomic_list_concat([D, F], A),
+    atom_concat(D, F, A),
     C is B+1.
 labelvars(A, B, B, _) :-
     atomic(A),

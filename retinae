@@ -1,5 +1,5 @@
 #!/bin/bash
-export PROLOG=${PROLOG:=tpl}
+export PROLOG=${PROLOG:=scryer-prolog}
 export RETINA=$(dirname "$(readlink -f "$0")")/retina.pl
 
 if [ "$1" == "" ]; then
