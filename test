@@ -1,9 +1,9 @@
 #!/bin/bash
 
-RED="\e[31m"
-GREEN="\e[32m"
-YELLOW="\e[33m"
-NORMAL="\e[0;39m"
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+NORMAL="\033[0;39m"
 
 OK=0
 FAILED=0
